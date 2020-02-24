@@ -10,16 +10,16 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import RNPlaylist from 'react-native-playlist';
+import Playlist from 'react-native-playlist';
 
 export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>RNPlaylist example☆</Text>
+        <Text style={styles.welcome}>Playlist example☆</Text>
         <Text style={styles.instructions}>STATUS: loaded</Text>
-        <Text style={styles.welcome}>☆☆☆</Text>
-        <RNPlaylist />
+        <Text style={styles.welcome}></Text>
+        <Playlist />
       </View>
     );
   }

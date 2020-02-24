@@ -7,9 +7,9 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 
-public class RnPlaylistManager extends SimpleViewManager<View> {
+public class PlaylistManager extends SimpleViewManager<View> {
 
-    public static final String REACT_CLASS = "RnPlaylist";
+    public static final String REACT_CLASS = "Playlist";
 
     @Override
     public String getName() {

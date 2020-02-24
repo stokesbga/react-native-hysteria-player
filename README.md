@@ -10,8 +10,8 @@
 
 ## Usage
 ```javascript
-import RnPlaylist from 'react-native-playlist';
+import Playlist from 'react-native-playlist';
 
 // TODO: What to do with the module?
-RnPlaylist;
+Playlist;
 ```

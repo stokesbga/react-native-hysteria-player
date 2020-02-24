@@ -8,8 +8,8 @@
     "start": "react-native start",
     "build": "rm -rf node_modules && yarn cache clean && yarn",
     "test": "jest",
-    "lint": "eslint .",
-    "postinstall": "node ../scripts/examples_postinstall.js"
+    "lint": "eslint",
+    "DISABLED_postinstall": "node ../scripts/examples_postinstall.js"
   },
   "dependencies": {
     "react": "16.9.0",

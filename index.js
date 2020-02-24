@@ -1,5 +1,5 @@
 import { requireNativeComponent } from 'react-native';
 
-const RNPlaylist = requireNativeComponent('PlayerControls', null);
+const Playlist = requireNativeComponent('Playlist', null);
 
-export default RNPlaylist;
+export default Playlist;
