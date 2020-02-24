@@ -1,13 +1,19 @@
+#import "RnPlaylist.h"
 
-#import "RNPlaylist.h"
+@implementation RnPlaylist
 
-@implementation RNPlaylist
-
-- (dispatch_queue_t)methodQueue
-{
-    return dispatch_get_main_queue();
-}
 RCT_EXPORT_MODULE()
 
+- (UIView *)view
+{
+    // TODO: Implement some actually useful functionality
+    UILabel * label = [[UILabel alloc] init];
+    [label setTextColor:[UIColor redColor]];
+    [label setText: @"*****"];
+    [label sizeToFit];
+    UIView * wrapper = [[UIView alloc] init];
+    [wrapper addSubview:label];
+    return wrapper;
+}
+
 @end
-  
