@@ -12,14 +12,14 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/stokesbga/react-native-playlist"
   s.license      = "MIT"
   s.authors      = { "Alex Yosef" => "alex@quadio.com" }
-  s.platforms    = { :ios => "11.0" }
+  s.platforms    = { :ios => "10.0" }
   s.source       = { :git => "https://github.com/stokesbga/react-native-playlist.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,swift}"
   s.requires_arc = true
+  s.frameworks   = 'CoreMedia', 'AudioToolbox', 'AVFoundation'
+  s.swift_versions = "5"
 
   s.dependency "React"
-  s.dependency 'HysteriaPlayer'
-
 end
 

@@ -6,15 +6,14 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "build": "rm -rf node_modules && yarn cache clean && yarn",
+    "nuke": "rm -rf node_modules && yarn cache clean && yarn",
     "test": "jest",
     "lint": "eslint",
     "DISABLED_postinstall": "node ../scripts/examples_postinstall.js"
   },
   "dependencies": {
     "react": "16.9.0",
-    "react-native": "0.61.5",
-    "react-native-playlist": "file:../"
+    "react-native": "0.61.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

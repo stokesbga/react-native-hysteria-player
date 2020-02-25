@@ -12,7 +12,7 @@
 #import <React/RCTBridgeModule.h>
 
 // Classes
-@interface RCT_EXTERN_MODULE(AudioPlayer, NSObject)
+@interface RCT_EXTERN_MODULE(RNPlaylist, NSObject)
    RCT_EXTERN_METHOD(playSound:(NSString *)url)
 @end
 
