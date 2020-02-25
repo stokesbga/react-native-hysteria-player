@@ -1,5 +1,13 @@
-#import <React/RCTViewManager.h>
+//
+//  Playlist.h
+//  Playlist
+//
+//  Created by Alex Stokes on 2/25/20.
+//  Copyright © 2020 Facebook. All rights reserved.
+//
 
-@interface Playlist : RCTViewManager
+#ifndef Playlist_h
+#define Playlist_h
 
-@end
+
+#endif /* Playlist_h */
