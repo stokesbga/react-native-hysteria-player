@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2963BB2E2407019B006D23AB /* PlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB292407019B006D23AB /* PlaylistModel.swift */; };
+		2963BB2F2407019B006D23AB /* SwiftPlayerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB2A2407019B006D23AB /* SwiftPlayerQueue.swift */; };
+		2963BB302407019B006D23AB /* SwiftPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB2B2407019B006D23AB /* SwiftPlayer.swift */; };
+		2963BB312407019B006D23AB /* SwiftPlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB2C2407019B006D23AB /* SwiftPlayerModel.swift */; };
+		2963BB322407019B006D23AB /* HysteriaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB2D2407019B006D23AB /* HysteriaManager.swift */; };
 		29E7DEEF240484D80038D65F /* RNPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DEEB240484D80038D65F /* RNPlaylist.swift */; };
 		29E7DEF0240484D80038D65F /* PlayerControlsViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DEEC240484D80038D65F /* PlayerControlsViewManager.swift */; };
 		29E7DEF5240496010038D65F /* HysteriaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DEF4240496010038D65F /* HysteriaPlayer.m */; };
@@ -55,6 +60,11 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libPlaylist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlaylist.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2963BB292407019B006D23AB /* PlaylistModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistModel.swift; sourceTree = "<group>"; };
+		2963BB2A2407019B006D23AB /* SwiftPlayerQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPlayerQueue.swift; sourceTree = "<group>"; };
+		2963BB2B2407019B006D23AB /* SwiftPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPlayer.swift; sourceTree = "<group>"; };
+		2963BB2C2407019B006D23AB /* SwiftPlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPlayerModel.swift; sourceTree = "<group>"; };
+		2963BB2D2407019B006D23AB /* HysteriaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HysteriaManager.swift; sourceTree = "<group>"; };
 		29E7DEE9240484D80038D65F /* Playlist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Playlist-Bridging-Header.h"; sourceTree = "<group>"; };
 		29E7DEEB240484D80038D65F /* RNPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNPlaylist.swift; sourceTree = "<group>"; };
 		29E7DEEC240484D80038D65F /* PlayerControlsViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerControlsViewManager.swift; sourceTree = "<group>"; };
@@ -103,6 +113,35 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2963BB2724070075006D23AB /* RNPlaylist */ = {
+			isa = PBXGroup;
+			children = (
+				2963BB2824070161006D23AB /* SwiftPlayer */,
+				29E7DEF2240496010038D65F /* HysteriaPlayer */,
+				29E7DF1E2404B2DD0038D65F /* Track.swift */,
+				29E7DF1C2404B2710038D65F /* MediaURL.swift */,
+				29E7DEEC240484D80038D65F /* PlayerControlsViewManager.swift */,
+				29E7DF0024049E130038D65F /* PlayerControlsView.swift */,
+				29E7DEEB240484D80038D65F /* RNPlaylist.swift */,
+				29E7DF202404E17F0038D65F /* Playlist.h */,
+				B3E7B5891CC2AC0600A0062D /* Playlist.m */,
+				29E7DEE9240484D80038D65F /* Playlist-Bridging-Header.h */,
+			);
+			path = RNPlaylist;
+			sourceTree = "<group>";
+		};
+		2963BB2824070161006D23AB /* SwiftPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				2963BB2D2407019B006D23AB /* HysteriaManager.swift */,
+				2963BB292407019B006D23AB /* PlaylistModel.swift */,
+				2963BB2B2407019B006D23AB /* SwiftPlayer.swift */,
+				2963BB2C2407019B006D23AB /* SwiftPlayerModel.swift */,
+				2963BB2A2407019B006D23AB /* SwiftPlayerQueue.swift */,
+			);
+			path = SwiftPlayer;
+			sourceTree = "<group>";
+		};
 		29E7DEF2240496010038D65F /* HysteriaPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,15 +182,7 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				29E7DEF2240496010038D65F /* HysteriaPlayer */,
-				29E7DF1E2404B2DD0038D65F /* Track.swift */,
-				29E7DF1C2404B2710038D65F /* MediaURL.swift */,
-				29E7DEEC240484D80038D65F /* PlayerControlsViewManager.swift */,
-				29E7DF0024049E130038D65F /* PlayerControlsView.swift */,
-				29E7DEEB240484D80038D65F /* RNPlaylist.swift */,
-				29E7DF202404E17F0038D65F /* Playlist.h */,
-				B3E7B5891CC2AC0600A0062D /* Playlist.m */,
-				29E7DEE9240484D80038D65F /* Playlist-Bridging-Header.h */,
+				2963BB2724070075006D23AB /* RNPlaylist */,
 				134814211AA4EA7D00B7C361 /* Products */,
 				29E7DF032404A3530038D65F /* Resources */,
 				29E7DEF624049A140038D65F /* Frameworks */,
@@ -216,10 +247,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2963BB302407019B006D23AB /* SwiftPlayer.swift in Sources */,
+				2963BB312407019B006D23AB /* SwiftPlayerModel.swift in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* Playlist.m in Sources */,
+				2963BB2E2407019B006D23AB /* PlaylistModel.swift in Sources */,
 				29E7DEEF240484D80038D65F /* RNPlaylist.swift in Sources */,
 				29E7DEF0240484D80038D65F /* PlayerControlsViewManager.swift in Sources */,
 				29E7DF1D2404B2710038D65F /* MediaURL.swift in Sources */,
+				2963BB2F2407019B006D23AB /* SwiftPlayerQueue.swift in Sources */,
+				2963BB322407019B006D23AB /* HysteriaManager.swift in Sources */,
 				29E7DF1F2404B2DD0038D65F /* Track.swift in Sources */,
 				29E7DEF5240496010038D65F /* HysteriaPlayer.m in Sources */,
 				29E7DF0124049E130038D65F /* PlayerControlsView.swift in Sources */,

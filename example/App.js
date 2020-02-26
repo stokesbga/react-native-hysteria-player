@@ -16,9 +16,6 @@ export default class App extends Component<{}> {
 
   async componentDidMount() {
     await Playlist.setupPlayer()
-    setTimeout(() => {
-      Playlist.play()
-    }, 2000)
   }
 
   render() {
@@ -26,7 +23,6 @@ export default class App extends Component<{}> {
       <View style={styles.container}>
         <Text style={styles.welcome}>Playlist example☆</Text>
         <Text style={styles.instructions}>STATUS: loaded</Text>
-        <Text style={styles.welcome}></Text>
       </View>
     );
   }

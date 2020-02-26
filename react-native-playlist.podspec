@@ -21,5 +21,7 @@ Pod::Spec.new do |s|
   s.swift_versions = "5"
 
   s.dependency "React"
+  s.dependency "ObjectMapper", "~> 3.5.0"
+  s.dependency "AlamofireImage", "~> 4.0.0"
 end
 
