@@ -1,5 +1,5 @@
-import { requireNativeComponent } from 'react-native';
+import { Platform, AppRegistry, DeviceEventEmitter, NativeEventEmitter, NativeModules, requireNativeComponent } from 'react-native';
 
-const Playlist = requireNativeComponent('Playlist', null);
+const { RNPlaylist: Playlist } = NativeModules
 
 export default Playlist;

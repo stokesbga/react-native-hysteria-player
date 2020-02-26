@@ -13,13 +13,20 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import Playlist from 'react-native-playlist';
 
 export default class App extends Component<{}> {
+
+  async componentDidMount() {
+    await Playlist.setupPlayer()
+    setTimeout(() => {
+      Playlist.play()
+    }, 2000)
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Playlist example☆</Text>
         <Text style={styles.instructions}>STATUS: loaded</Text>
         <Text style={styles.welcome}></Text>
-        <Playlist />
       </View>
     );
   }

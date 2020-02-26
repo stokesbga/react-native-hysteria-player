@@ -6,8 +6,7 @@
 //  Copyright © 2020 Facebook. All rights reserved.
 //
 
-#ifndef Playlist_h
-#define Playlist_h
+#import <Foundation/Foundation.h>
 
-
-#endif /* Playlist_h */
+@interface PlaylistBridge: NSObject
+@end

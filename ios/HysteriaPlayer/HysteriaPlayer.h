@@ -135,7 +135,7 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerShuffleMode) {
 - (void)setItemsCount:(NSInteger)count DEPRECATED_MSG_ATTRIBUTE("use HysteriaPlayerDataSource instead.");
 
 /**
- *   This method is necessary if you implement hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer: delegate method, 
+ *   This method is necessary if you implement hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer: delegate method,
      provide source URL to HysteriaPlayer.
      Should not use this method outside of hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer: scope.
  *
@@ -201,4 +201,3 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerShuffleMode) {
 - (void)deprecatePlayer;
 
 @end
-

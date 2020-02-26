@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		29E7DEEF240484D80038D65F /* RNPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DEEB240484D80038D65F /* RNPlaylist.swift */; };
 		29E7DEF0240484D80038D65F /* PlayerControlsViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DEEC240484D80038D65F /* PlayerControlsViewManager.swift */; };
-		29E7DEF1240484D80038D65F /* RNPlaylistBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DEEE240484D80038D65F /* RNPlaylistBridge.m */; };
 		29E7DEF5240496010038D65F /* HysteriaPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DEF4240496010038D65F /* HysteriaPlayer.m */; };
 		29E7DEF824049A140038D65F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29E7DEF724049A140038D65F /* AVFoundation.framework */; };
 		29E7DEFA24049A1C0038D65F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29E7DEF924049A1C0038D65F /* AudioToolbox.framework */; };
@@ -26,7 +25,8 @@
 		29E7DF172404A4540038D65F /* point1sec.mp3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29E7DF092404A43F0038D65F /* point1sec.mp3 */; };
 		29E7DF182404A4540038D65F /* PreviousButton.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29E7DF062404A43F0038D65F /* PreviousButton.png */; };
 		29E7DF192404A4540038D65F /* PreviousButton@2x.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = 29E7DF0D2404A43F0038D65F /* PreviousButton@2x.png */; };
-		29E7DF1B2404A52E0038D65F /* PlayerConvertedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DF1A2404A52E0038D65F /* PlayerConvertedView.swift */; };
+		29E7DF1D2404B2710038D65F /* MediaURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DF1C2404B2710038D65F /* MediaURL.swift */; };
+		29E7DF1F2404B2DD0038D65F /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DF1E2404B2DD0038D65F /* Track.swift */; };
 		B3E7B58A1CC2AC0600A0062D /* Playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Playlist.m */; };
 /* End PBXBuildFile section */
 
@@ -58,8 +58,6 @@
 		29E7DEE9240484D80038D65F /* Playlist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Playlist-Bridging-Header.h"; sourceTree = "<group>"; };
 		29E7DEEB240484D80038D65F /* RNPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNPlaylist.swift; sourceTree = "<group>"; };
 		29E7DEEC240484D80038D65F /* PlayerControlsViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerControlsViewManager.swift; sourceTree = "<group>"; };
-		29E7DEED240484D80038D65F /* RNPlaylistBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNPlaylistBridge.h; sourceTree = "<group>"; };
-		29E7DEEE240484D80038D65F /* RNPlaylistBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNPlaylistBridge.m; sourceTree = "<group>"; };
 		29E7DEF3240496010038D65F /* HysteriaPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HysteriaPlayer.h; sourceTree = "<group>"; };
 		29E7DEF4240496010038D65F /* HysteriaPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HysteriaPlayer.m; sourceTree = "<group>"; };
 		29E7DEF724049A140038D65F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -77,8 +75,9 @@
 		29E7DF0C2404A43F0038D65F /* pauseButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pauseButton.png; sourceTree = "<group>"; };
 		29E7DF0D2404A43F0038D65F /* PreviousButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PreviousButton@2x.png"; sourceTree = "<group>"; };
 		29E7DF0E2404A43F0038D65F /* new_noise.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = new_noise.mp3; sourceTree = "<group>"; };
-		29E7DF1A2404A52E0038D65F /* PlayerConvertedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerConvertedView.swift; sourceTree = "<group>"; };
-		B3E7B5881CC2AC0600A0062D /* Playlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Playlist.h; sourceTree = "<group>"; };
+		29E7DF1C2404B2710038D65F /* MediaURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaURL.swift; sourceTree = "<group>"; };
+		29E7DF1E2404B2DD0038D65F /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		29E7DF202404E17F0038D65F /* Playlist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Playlist.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* Playlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Playlist.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,13 +144,12 @@
 			isa = PBXGroup;
 			children = (
 				29E7DEF2240496010038D65F /* HysteriaPlayer */,
+				29E7DF1E2404B2DD0038D65F /* Track.swift */,
+				29E7DF1C2404B2710038D65F /* MediaURL.swift */,
 				29E7DEEC240484D80038D65F /* PlayerControlsViewManager.swift */,
 				29E7DF0024049E130038D65F /* PlayerControlsView.swift */,
-				29E7DF1A2404A52E0038D65F /* PlayerConvertedView.swift */,
 				29E7DEEB240484D80038D65F /* RNPlaylist.swift */,
-				29E7DEED240484D80038D65F /* RNPlaylistBridge.h */,
-				29E7DEEE240484D80038D65F /* RNPlaylistBridge.m */,
-				B3E7B5881CC2AC0600A0062D /* Playlist.h */,
+				29E7DF202404E17F0038D65F /* Playlist.h */,
 				B3E7B5891CC2AC0600A0062D /* Playlist.m */,
 				29E7DEE9240484D80038D65F /* Playlist-Bridging-Header.h */,
 				134814211AA4EA7D00B7C361 /* Products */,
@@ -218,13 +216,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29E7DEF1240484D80038D65F /* RNPlaylistBridge.m in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* Playlist.m in Sources */,
 				29E7DEEF240484D80038D65F /* RNPlaylist.swift in Sources */,
 				29E7DEF0240484D80038D65F /* PlayerControlsViewManager.swift in Sources */,
+				29E7DF1D2404B2710038D65F /* MediaURL.swift in Sources */,
+				29E7DF1F2404B2DD0038D65F /* Track.swift in Sources */,
 				29E7DEF5240496010038D65F /* HysteriaPlayer.m in Sources */,
 				29E7DF0124049E130038D65F /* PlayerControlsView.swift in Sources */,
-				29E7DF1B2404A52E0038D65F /* PlayerConvertedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

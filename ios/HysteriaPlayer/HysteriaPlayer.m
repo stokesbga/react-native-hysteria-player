@@ -9,8 +9,8 @@
 #import <objc/runtime.h>
 
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#import <AudioToolbox/AudioSession.h>
+    #import <UIKit/UIKit.h>
+    #import <AudioToolbox/AudioSession.h>
 #endif
 
 static const void *Hysteriatag = &Hysteriatag;
@@ -30,10 +30,10 @@ typedef NS_ENUM(NSInteger, PauseReason) {
     
     NSInteger prepareingItemHash;
     
-#if TARGET_OS_IPHONE
+    #if TARGET_OS_IPHONE
     UIBackgroundTaskIdentifier bgTaskId;
     UIBackgroundTaskIdentifier removedId;
-#endif
+    #endif
     
     dispatch_queue_t HBGQueue;
 }
@@ -75,14 +75,14 @@ static dispatch_once_t onceToken;
 
 + (void)showAlertWithError:(NSError *)error
 {
-#if TARGET_OS_IPHONE
+     #if TARGET_OS_IPHONE
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Player errors"
                                                     message:[error localizedDescription]
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil, nil];
     [alert show];
-#endif
+     #endif
 }
 
 - (id)init {
@@ -132,10 +132,11 @@ static dispatch_once_t onceToken;
             self.audioPlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObject:playerItem]];
         }
     }
-    
-    if ([self.audioPlayer respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
-        self.audioPlayer.automaticallyWaitsToMinimizeStalling = NO;
-    }
+     
+    // 2.2.0
+    // if ([self.audioPlayer respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
+    //     self.audioPlayer.automaticallyWaitsToMinimizeStalling = NO;
+    // }
 }
 
 - (void)backgroundPlayable
@@ -263,7 +264,7 @@ static dispatch_once_t onceToken;
     }
     self.lastItemIndex = index;
     [self.playedItems addObject:@(index)];
-    
+
     if ([self.delegate respondsToSelector:@selector(hysteriaPlayerWillChangedAtIndex:)]) {
         [self.delegate hysteriaPlayerWillChangedAtIndex:self.lastItemIndex];
     }
@@ -302,7 +303,12 @@ static dispatch_once_t onceToken;
     } else if ([self.datasource respondsToSelector:@selector(hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer:)]) {
         [self.datasource hysteriaPlayerAsyncSetUrlForItemAtIndex:index preBuffer:preBuffer];
     } else {
+        // 2.2.0
         NSLog(@"No HysteriaPlayer datasource detected at %li index", (unsigned long) index);
+        
+        // 2.1.0
+        // NSException *exception = [[NSException alloc] initWithName:@"HysteriaPlayer Error" reason:[NSString stringWithFormat:@"Cannot find item URL at index %li", (unsigned long)index] userInfo:nil];
+        // @throw exception;
     }
 }
 
@@ -345,7 +351,7 @@ static dispatch_once_t onceToken;
     if (_shuffleMode == HysteriaPlayerShuffleModeOn || _repeatMode == HysteriaPlayerRepeatModeOnce) {
         return;
     }
-    
+
     NSInteger nowIndex = self.lastItemIndex;
     BOOL findInPlayerItems = NO;
     NSInteger itemsCount = [self hysteriaPlayerItemsCount];
@@ -542,6 +548,7 @@ static dispatch_once_t onceToken;
         if (_repeatMode == HysteriaPlayerRepeatModeOn) {
             [self fetchAndPlayPlayerItem:[self hysteriaPlayerItemsCount] - 1];
         } else {
+            // [self.audioPlayer.currentItem seekToTime:kCMTimeZero];
             [self pause];
             [self.audioPlayer.currentItem seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
                 [self play];
@@ -837,7 +844,7 @@ static dispatch_once_t onceToken;
     if (![item isEqual:self.audioPlayer.currentItem]) {
         return;
     }
-    
+
     NSNumber *currentItemIndex = [self getHysteriaIndex:self.audioPlayer.currentItem];
     if (currentItemIndex) {
         if (_repeatMode == HysteriaPlayerRepeatModeOnce) {
@@ -848,7 +855,7 @@ static dispatch_once_t onceToken;
             if (nextIndex != NSNotFound) {
                 [self fetchAndPlayPlayerItem:[self randomIndex]];
             } else {
-                [self pause];
+                _pauseReason = PauseReasonForced;
                 if ([self.delegate respondsToSelector:@selector(hysteriaPlayerDidReachEnd)]) {
                     [self.delegate hysteriaPlayerDidReachEnd];
                 }
@@ -860,7 +867,7 @@ static dispatch_once_t onceToken;
                     [self playNext];
                 } else {
                     if (_repeatMode == HysteriaPlayerRepeatModeOff) {
-                        [self pause];
+                        _pauseReason = PauseReasonForced;
                         if ([self.delegate respondsToSelector:@selector(hysteriaPlayerDidReachEnd)]) {
                             [self.delegate hysteriaPlayerDidReachEnd];
                         }
@@ -904,7 +911,7 @@ static dispatch_once_t onceToken;
             return NSNotFound;
         }
     }
-    
+
     NSInteger index;
     do {
         index = arc4random() % itemsCount;
@@ -919,16 +926,11 @@ static dispatch_once_t onceToken;
 
 - (void)deprecatePlayer
 {
+    NSError *error;
     tookAudioFocus = NO;
 #if TARGET_OS_IPHONE
-    NSError *error;
     [[AVAudioSession sharedInstance] setActive:NO error:&error];
     [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
-    if (error) {
-        if (!self.disableLogs) {
-            NSLog(@"HysteriaPlayer: set category error:%@", [error localizedDescription]);
-        }
-    }
 #endif
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
