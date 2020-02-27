@@ -7,6 +7,3 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface PlaylistBridge: NSObject
-@end

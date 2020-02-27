@@ -10,12 +10,25 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import Playlist from 'react-native-playlist';
+import Playlist, { Playbar } from 'react-native-playlist';
 
 export default class App extends Component<{}> {
+  state = {
+    color: undefined
+  }
 
   async componentDidMount() {
-    await Playlist.setupPlayer()
+
+    setTimeout(() => {
+      Playlist.setupPlayer()
+      setTimeout(() => {
+        Playlist.play()
+      }, 2000)
+    }, 3000)
+
+    // setTimeout(() => {
+    //   // Playlist.skipToNext()
+    // }, 2000)
   }
 
   render() {
@@ -23,6 +36,16 @@ export default class App extends Component<{}> {
       <View style={styles.container}>
         <Text style={styles.welcome}>Playlist example☆</Text>
         <Text style={styles.instructions}>STATUS: loaded</Text>
+        <Playbar 
+          style={{
+            width: "100%",
+            backgroundColor: '#f0f0f0',
+            height: 100
+          }}
+          theme={{
+            trackPlayedColor: 'deepskyblue',
+            trackRemainingColor: this.state.color
+          }} />
       </View>
     );
   }

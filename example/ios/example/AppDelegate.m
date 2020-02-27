@@ -7,6 +7,10 @@
 
 #import "AppDelegate.h"
 
+// Allow Background Audio
+#import <AVFoundation/AVFoundation.h>
+
+// React
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
@@ -27,6 +31,11 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  // AVFoundation
+  [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: nil];
+  
+  
   return YES;
 }
 

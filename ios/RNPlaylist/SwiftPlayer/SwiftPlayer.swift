@@ -94,7 +94,7 @@ open class SwiftPlayer {
   }
   
   /// 🔀 Enable the player shuffle
-  public static func enableShufle() {
+  public static func enableShuffle() {
     HysteriaManager.sharedInstance.enableShuffle()
   }
   
