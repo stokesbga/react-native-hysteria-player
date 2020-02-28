@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import Playlist, { Playbar } from 'react-native-playlist';
+import Playlist, { Playbar, PlayPause, SkipButtons } from 'react-native-playlist';
 
 export default class App extends Component<{}> {
   state = {
@@ -18,17 +18,9 @@ export default class App extends Component<{}> {
   }
 
   async componentDidMount() {
-
     setTimeout(() => {
       Playlist.setupPlayer()
-      setTimeout(() => {
-        Playlist.play()
-      }, 2000)
-    }, 3000)
-
-    // setTimeout(() => {
-    //   // Playlist.skipToNext()
-    // }, 2000)
+    }, 1500)
   }
 
   render() {
@@ -46,6 +38,8 @@ export default class App extends Component<{}> {
             trackPlayedColor: 'deepskyblue',
             trackRemainingColor: this.state.color
           }} />
+          <PlayPause />
+          <SkipButtons />
       </View>
     );
   }

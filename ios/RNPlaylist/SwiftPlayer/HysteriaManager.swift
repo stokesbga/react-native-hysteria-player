@@ -44,7 +44,6 @@ class HysteriaManager: NSObject {
   var logs = true
   var queue = PlayerQueue()
   var delegate: SwiftPlayerDelegate?
-  var controller: UIViewController?
   var queueDelegate: SwiftPlayerQueueDelegate?
 
   fileprivate let commandCenter = MPRemoteCommandCenter.shared()
@@ -378,7 +377,7 @@ extension HysteriaManager: HysteriaPlayerDataSource {
       lastIndexClicked = -1
       return
     }
-
+    
     if shuffleStatus() == true {
       if lastIndexShuffle != -1 {
         queue.removeNextAtIndex(lastIndexShuffle)
@@ -386,13 +385,13 @@ extension HysteriaManager: HysteriaPlayerDataSource {
         lastIndexShuffle = -1
       }
 
-      if let indexShufle = queue.indexForShuffle() {
-        lastIndexShuffle = indexShufle
-        hysteriaPlayer?.setupPlayerItem(with: URL(string: queue.trackAtIndex(indexShufle).url)!, index: indexShufle)
+      if let indexShuffle = queue.indexForShuffle() {
+        lastIndexShuffle = indexShuffle
+        hysteriaPlayer?.setupPlayerItem(with: URL(string: queue.trackAtIndex(indexShuffle).url)!, index: indexShuffle)
         return
       }
     }
-
+    
     guard let track = queue.queueAtIndex(index) else {
       hysteriaPlayer?.removeItem(at: index - 1)
       fetchAndPlayAtIndex(index - 1)

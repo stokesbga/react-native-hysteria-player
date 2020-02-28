@@ -1,5 +1,5 @@
 //
-//  PlaybarControlManager.swift
+//  RNPlaybarSlider.swift
 //  Playlist
 //
 //  Created by Alex Stokes on 2/26/20.
@@ -8,16 +8,9 @@
 
 import Foundation
 
-@objc(RNPlaybarViewManager)
-class RNPlaybarViewManager : RCTViewManager {
+@objc(RNPlaybarSlider)
+class RNPlaybarSlider : RCTViewManager {
   override func view() -> UIView! {
-    
-//    let label = UILabel()
-//    label.text = "Swift + Quadio"
-//    label.textColor = .black
-//    label.backgroundColor = .red
-//    label.textAlignment = .center
-//    return label
      return RNPlaybarSliderView()
   }
   
@@ -37,7 +30,6 @@ class PlaybarSlider: UISlider {
   }
 }
 
-@objc(RNPlaybarSliderView)
 class RNPlaybarSliderView: PlaybarSlider {
 
   @objc var theme: NSDictionary = [

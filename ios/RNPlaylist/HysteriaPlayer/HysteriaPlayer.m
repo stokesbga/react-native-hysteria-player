@@ -132,23 +132,16 @@ static dispatch_once_t onceToken;
             self.audioPlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObject:playerItem]];
         }
     }
-     
-    // 2.2.0
-    // if ([self.audioPlayer respondsToSelector:@selector(automaticallyWaitsToMinimizeStalling)]) {
-    //     self.audioPlayer.automaticallyWaitsToMinimizeStalling = NO;
-    // }
 }
 
 - (void)backgroundPlayable
 {
 #if TARGET_OS_IPHONE
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     if (audioSession.category != AVAudioSessionCategoryPlayback) {
         UIDevice *device = [UIDevice currentDevice];
         if ([device respondsToSelector:@selector(isMultitaskingSupported)]) {
             if (device.multitaskingSupported) {
-                
                 NSError *aError = nil;
                 [audioSession setCategory:AVAudioSessionCategoryPlayback error:&aError];
                 if (aError) {
@@ -165,7 +158,7 @@ static dispatch_once_t onceToken;
                 }
             }
         }
-    }else {
+    } else {
         if (!self.disableLogs) {
             NSLog(@"HysteriaPlayer: unable to register background playback");
         }
@@ -186,7 +179,6 @@ static dispatch_once_t onceToken;
         [[UIApplication sharedApplication] endBackgroundTask:removedId];
         bgTaskId = UIBackgroundTaskInvalid;
     }];
-    
     if (bgTaskId != UIBackgroundTaskInvalid && removedId == 0 ? YES : (removedId != UIBackgroundTaskInvalid)) {
         [[UIApplication sharedApplication] endBackgroundTask: removedId];
     }
@@ -264,7 +256,6 @@ static dispatch_once_t onceToken;
     }
     self.lastItemIndex = index;
     [self.playedItems addObject:@(index)];
-
     if ([self.delegate respondsToSelector:@selector(hysteriaPlayerWillChangedAtIndex:)]) {
         [self.delegate hysteriaPlayerWillChangedAtIndex:self.lastItemIndex];
     }

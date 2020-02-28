@@ -1,17 +1,19 @@
+//
+//  Playlist.m
+//  Playlist
+//
+//  Created by Alex Stokes on 2/25/20.
+//  Copyright © 2020 Facebook. All rights reserved.
+//
+
 #import "Playlist.h"
 #import <React/RCTBridgeModule.h>
 #import <React/RCTViewManager.h>
 #import <React/RCTEventEmitter.h>
 
-// Classes
 
-@interface RCT_EXTERN_REMAP_MODULE(RNPlaylist, RNPlaylistManager, RCTEventEmitter)
-    - (dispatch_queue_t)methodQueue
-    {
-      return dispatch_get_main_queue();
-    }
-
-
+// Controller
+@interface RCT_EXTERN_MODULE(RNPlaylistDispatcher, NSObject)
     RCT_EXTERN_METHOD(setupPlayer:
                       (RCTPromiseResolveBlock)resolve
                       rejecter:(RCTPromiseRejectBlock)reject);
@@ -36,7 +38,22 @@
 @end
 
 
-// Views
-@interface RCT_EXTERN_REMAP_MODULE(RNPlaybar, RNPlaybarViewManager, RCTViewManager)
+
+// Components
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPlayPauseButton, RNPlayPauseButton, RCTViewManager)
+    RCT_EXPORT_VIEW_PROPERTY(playButtonImage, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(pauseButtonImage, NSString);
+@end
+
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistNextPreviousButton, RNNextPreviousButton, RCTViewManager)
+@end
+
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPlaybarSlider, RNPlaybarSlider, RCTViewManager)
     RCT_EXPORT_VIEW_PROPERTY(theme, NSDictionary);
+@end
+
+
+
+// Event Emitter
+@interface RCT_EXTERN_MODULE(RNPlaylistEventEmitter, RCTEventEmitter)
 @end

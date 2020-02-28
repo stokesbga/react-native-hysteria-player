@@ -48,16 +48,6 @@ open class SwiftPlayer {
     HysteriaManager.sharedInstance.delegate = delegate
   }
   
-  /// Set ViewController
-  public static func controller(_ controller: UIViewController?) {
-    HysteriaManager.sharedInstance.controller = controller
-  }
-  
-  // Get ViewController
-  public static func playerController() -> UIViewController? {
-    return HysteriaManager.sharedInstance.controller
-  }
-  
   /// ▶️ Play music
   public static func play() {
     HysteriaManager.sharedInstance.play()

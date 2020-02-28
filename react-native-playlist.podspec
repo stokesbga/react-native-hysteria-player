@@ -16,8 +16,10 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/stokesbga/react-native-playlist.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,swift}"
+  s.resource_bundles = {
+    'Resources' => ['./ios/**/*']
+  }
   s.requires_arc = true
-  s.frameworks   = "CoreMedia", "AudioToolbox", "AVFoundation"
   s.swift_versions = "5"
 
   s.dependency "React"

@@ -6,7 +6,6 @@
 //  Copyright © 2020 Facebook. All rights reserved.
 //
 
-
 import Foundation
 import AVFoundation
 import UIKit
@@ -20,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let jsCodeLocation: URL
     
     jsCodeLocation = RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index", fallbackResource:nil)
+    
+    // Listen for remote media (Unneccessary after iOS 7.1)
+    application.beginReceivingRemoteControlEvents()
+    
     let rootView = RCTRootView(bundleURL: jsCodeLocation, moduleName: "example", initialProperties: nil, launchOptions: launchOptions)
     let rootViewController = UIViewController()
     rootViewController.view = rootView
@@ -27,9 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     self.window = UIWindow(frame: UIScreen.main.bounds)
     self.window?.rootViewController = rootViewController
     self.window?.makeKeyAndVisible()
-    
-    try? AVAudioSession.sharedInstance().setCategory(.playback)
-    try? AVAudioSession.sharedInstance().setActive(true)
 
     return true
   }
