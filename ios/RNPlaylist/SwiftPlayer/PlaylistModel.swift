@@ -13,7 +13,9 @@ import ObjectMapper
 struct TrackModel {
   static func localSampleData(withSize size: Int = 15) -> [PlayerTrack] {
     var tracks = [PlayerTrack]()
-    let url = Bundle.main.url(forResource: "hiphop_playlist_full", withExtension: "json")
+    
+    let bundle = RNPlaylistGlobal.getResourceBundle()
+    let url = bundle.url(forResource: "hiphop_playlist_full", withExtension: "json")
     let data = try? Data(contentsOf: url!)
     
     do {

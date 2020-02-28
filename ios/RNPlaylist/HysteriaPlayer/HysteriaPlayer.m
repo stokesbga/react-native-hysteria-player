@@ -5,6 +5,7 @@
 //
 //
 
+
 #import "HysteriaPlayer.h"
 #import <objc/runtime.h>
 
@@ -124,7 +125,9 @@ static dispatch_once_t onceToken;
         self.audioPlayer = [[AVQueuePlayer alloc] init];
     } else {
         //play .1 sec empty sound
-        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSBundle *baseBundle = [NSBundle bundleForClass:self.class];
+        NSBundle *bundleURL = [baseBundle URLForResource:@"RNPlaylistBundle" withExtension:@"bundle"];
+        NSBundle *bundle = [NSBundle bundleWithURL:bundleURL];
         NSString *filepath = [bundle pathForResource:@"point1sec" ofType:@"mp3"];
         if ([[NSFileManager defaultManager]fileExistsAtPath:filepath]) {
             self.emptySoundPlaying = YES;

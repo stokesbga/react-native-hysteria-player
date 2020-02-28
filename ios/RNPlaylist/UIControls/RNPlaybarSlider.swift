@@ -49,7 +49,22 @@ class RNPlaybarSliderView: PlaybarSlider {
     self.maximumValue = 100
     self.isContinuous = true
     // self.addTarget(self, action // blah blah)
-
+    
+    NotificationCenter.default.addObserver(self,
+        selector: #selector(onTrackPositionChange),
+        name: .onTrackPositionChange,
+        object: nil
+    )
+  }
+  
+  // isPlaying Observer
+  @objc private func onTrackPositionChange(_ notification: Notification) {
+    guard let seconds = notification.object as? Float else {
+      return
+    }
+    let minValue = self.minimumValue
+    let maxValue = self.maximumValue
+    self.setValue(((maxValue - minValue) * seconds / SwiftPlayer.trackDurationTime() + minValue), animated: true)
   }
 
   required init?(coder aDecoder: NSCoder) {

@@ -26,6 +26,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+
+
 #import <AvailabilityMacros.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -38,6 +40,7 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerFailed) {
     HysteriaPlayerFailedPlayer = 4000,
     HysteriaPlayerFailedCurrentItem = 4001,
 };
+
 
 /**
  *  HysteriaPlayerDelegate, all delegate method is optional.
@@ -123,6 +126,7 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerShuffleMode) {
 @property (nonatomic, readonly) BOOL emptySoundPlaying;
 @property (nonatomic) BOOL skipEmptySoundPlaying;
 @property (nonatomic) BOOL popAlertWhenError;
+
 
 + (HysteriaPlayer *)sharedInstance;
 

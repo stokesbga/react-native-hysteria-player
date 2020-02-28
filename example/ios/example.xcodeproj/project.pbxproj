@@ -10,15 +10,10 @@
 		00E356F31AD99517003FC87E /* exampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* exampleTests.m */; };
 		09EEDA89DFEA18D2BA94920A /* libPods-example-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 479589D982D2E9CF99E5F9A3 /* libPods-example-tvOSTests.a */; };
 		126EF84A45236F529204D5CB /* libPods-example-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F11A9C51B181AE259761266 /* libPods-example-tvOS.a */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2915D5EA24085C0700E2FA0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2915D5E924085C0700E2FA0B /* AppDelegate.swift */; };
-		2958D0832408C2EF00FEECC7 /* point1sec.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2958D0822408C2EF00FEECC7 /* point1sec.mp3 */; };
-		2965194524074E7D00DBD838 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2965194024074E7D00DBD838 /* Main.storyboard */; };
-		2965194624074E7D00DBD838 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2965194224074E7D00DBD838 /* Images.xcassets */; };
-		2965194724074E7D00DBD838 /* hiphop_playlist_full.json in Resources */ = {isa = PBXBuildFile; fileRef = 2965194324074E7D00DBD838 /* hiphop_playlist_full.json */; };
+		2958D1322408CABB00FEECC7 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2958D1312408CABB00FEECC7 /* AppIcon.xcassets */; };
+		2958D1332408CB3100FEECC7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		29E7DEFF24049BF60038D65F /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DEFE24049BF60038D65F /* Example.swift */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2DCD954D1E0B4F2C00145EB5 /* exampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* exampleTests.m */; };
 		9A6BBBAD82F9E8CED7BCD75C /* libPods-exampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F8011DAFBC0DBF2AFF6B07 /* libPods-exampleTests.a */; };
 		F157F3B9073A73CFD06F6779 /* libPods-example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 874C0C601235462576856E63 /* libPods-example.a */; };
@@ -48,13 +43,9 @@
 		00E356F21AD99517003FC87E /* exampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = exampleTests.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = example/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = example/Info.plist; sourceTree = "<group>"; };
 		2915D5E924085C0700E2FA0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2958D0822408C2EF00FEECC7 /* point1sec.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = point1sec.mp3; sourceTree = "<group>"; };
-		2965194124074E7D00DBD838 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2965194224074E7D00DBD838 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		2965194324074E7D00DBD838 /* hiphop_playlist_full.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = hiphop_playlist_full.json; sourceTree = "<group>"; };
+		2958D1312408CABB00FEECC7 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = AppIcon.xcassets; path = example/AppIcon.xcassets; sourceTree = "<group>"; };
 		29E7DEFD24049BF60038D65F /* example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "example-Bridging-Header.h"; sourceTree = "<group>"; };
 		29E7DEFE24049BF60038D65F /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* example-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,27 +122,15 @@
 		13B07FAE1A68108700A75B9A /* example */ = {
 			isa = PBXGroup;
 			children = (
-				2965193D24074E7D00DBD838 /* assets */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				29E7DEFE24049BF60038D65F /* Example.swift */,
 				29E7DEFD24049BF60038D65F /* example-Bridging-Header.h */,
 				2915D5E924085C0700E2FA0B /* AppDelegate.swift */,
+				2958D1312408CABB00FEECC7 /* AppIcon.xcassets */,
 			);
 			name = example;
-			sourceTree = "<group>";
-		};
-		2965193D24074E7D00DBD838 /* assets */ = {
-			isa = PBXGroup;
-			children = (
-				2958D0822408C2EF00FEECC7 /* point1sec.mp3 */,
-				2965194024074E7D00DBD838 /* Main.storyboard */,
-				2965194224074E7D00DBD838 /* Images.xcassets */,
-				2965194324074E7D00DBD838 /* hiphop_playlist_full.json */,
-			);
-			path = assets;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -247,7 +226,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				4A9A71529DDF9FAEAB8B4615 /* [CP] Copy Pods Resources */,
+				178CD021B4602DF461459DAD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -361,12 +340,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				2965194624074E7D00DBD838 /* Images.xcassets in Resources */,
-				2965194724074E7D00DBD838 /* hiphop_playlist_full.json in Resources */,
-				2958D0832408C2EF00FEECC7 /* point1sec.mp3 in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				2965194524074E7D00DBD838 /* Main.storyboard in Resources */,
+				2958D1332408CB3100FEECC7 /* LaunchScreen.xib in Resources */,
+				2958D1322408CABB00FEECC7 /* AppIcon.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,7 +349,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,7 +374,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		178CD021B4602DF461459DAD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-example/Pods-example-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/react-native-playlist/RNPlaylistBundle.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RNPlaylistBundle.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-example/Pods-example-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -436,24 +428,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4A9A71529DDF9FAEAB8B4615 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-example/Pods-example-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/react-native-playlist/Resources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Resources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-example/Pods-example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		68631AFD1D4A1D0A0CEA5756 /* [CP] Check Pods Manifest.lock */ = {
@@ -618,14 +592,6 @@
 			);
 			name = LaunchScreen.xib;
 			path = example;
-			sourceTree = "<group>";
-		};
-		2965194024074E7D00DBD838 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2965194124074E7D00DBD838 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -17,8 +17,9 @@ Pod::Spec.new do |s|
 
   s.source_files = "ios/**/*.{h,m,swift}"
   s.resource_bundles = {
-    'Resources' => ['./ios/**/*']
+    'RNPlaylistBundle' => ['ios/Resources/**/*.{xcassets,json,mp3}']
   }
+  
   s.requires_arc = true
   s.swift_versions = "5"
 

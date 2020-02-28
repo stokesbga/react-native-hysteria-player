@@ -21,34 +21,44 @@ class RNPlayPauseButton : RCTViewManager {
 
 
 class RNPlayPauseButtonView: UIButton {
-    
-  var isPlaying: Bool = false
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.frame = frame
-    self.setTitle("▶️", for: .normal)
-    self.setTitle("⏸", for: .selected)
+       
+    self.setImage(UIImage(named: "play.png", in: RNPlaylistGlobal.getResourceBundle(), compatibleWith: nil), for: .normal)
+    self.setImage(UIImage(named: "pause.png", in: RNPlaylistGlobal.getResourceBundle(), compatibleWith: nil), for: .selected)
+    
     self.addTarget(self, action: #selector(self.onPress), for: .touchUpInside)
-    // self.frame = CGRect(x: 100, y: 400, width: 100, height: 50)
-  }
-
-  @objc(onPress:)
-  func onPress(sender: UIButton!) {
-    print("On Press Play")
-    isPlaying = !isPlaying
-    if(isPlaying) {
-      SwiftPlayer.pause()
-    } else {
-      SwiftPlayer.play()
-    }
-    self.isSelected = isPlaying ? true : false
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+    
+    
+    
+    NotificationCenter.default.addObserver(self,
+        selector: #selector(onPlayerStateChange),
+        name: .onPlayerStateChange,
+        object: nil
+    )
   }
   
+  // isPlaying Observer
+  @objc private func onPlayerStateChange(_ notification: Notification) {
+    guard let isPlaying = notification.object as? Bool else {
+      print("isPlaying is no good")
+      return
+    }
+    print("isPlaying", isPlaying)
+    self.isSelected = isPlaying ? true : false
+  }
+  
+
+  // On Press Handler
+  @objc(onPress:)
+  func onPress(sender: UIButton!) {
+    SwiftPlayer.playToggle()
+  }
+
+
+  // Props
   @objc var playButtonImage: String = "play" {
     didSet {
       self.setImage(UIImage(named: playButtonImage), for: .normal)
@@ -59,5 +69,10 @@ class RNPlayPauseButtonView: UIButton {
     didSet {
       self.setImage(UIImage(named: pauseButtonImage), for: .selected)
     }
+  }
+  
+  // Etc
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 }

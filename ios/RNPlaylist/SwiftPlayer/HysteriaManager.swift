@@ -43,8 +43,8 @@ class HysteriaManager: NSObject {
 
   var logs = true
   var queue = PlayerQueue()
-  var delegate: SwiftPlayerDelegate?
-  var queueDelegate: SwiftPlayerQueueDelegate?
+  
+  let playlistService = PlaylistService()
 
   fileprivate let commandCenter = MPRemoteCommandCenter.shared()
   fileprivate var isClicked = false
@@ -62,7 +62,6 @@ class HysteriaManager: NSObject {
     hysteriaPlayer?.datasource = self;
     hysteriaPlayer?.enableMemoryCached(false)
     enableCommandCenter()
-
   }
 }
 
@@ -73,16 +72,16 @@ extension HysteriaManager {
     hysteriaPlayer?.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 100, timescale: 1000), queue: nil, using: {
       time in
       let totalSeconds = CMTimeGetSeconds(time)
-      self.delegate?.playerCurrentTimeChanged(Float(totalSeconds))
+        self.playlistService.dispatchTrackPositionChange(Float(totalSeconds))
     })
   }
 
-  fileprivate func updateCurrentItem() {
-    infoCenterWithTrack(currentItem())
+    fileprivate func updateCurrentItem() -> [String: AnyObject]? {
+    return infoCenterWithTrack(currentItem())
 
     let duration = hysteriaPlayer?.getPlayingItemDurationTime()
     if duration > 0 {
-      delegate?.playerDurationTime(duration!)
+        self.playlistService.dispatchTrackDurationChange(duration!)
     }
   }
 
@@ -98,8 +97,8 @@ extension HysteriaManager {
     }
   }
 
-  fileprivate func infoCenterWithTrack(_ track: PlayerTrack?) {
-    guard let track = track else { return }
+    fileprivate func infoCenterWithTrack(_ track: PlayerTrack?) -> [String: AnyObject]? {
+    guard let track = track else { return nil }
 
     var dictionary: [String : AnyObject] = [
       MPMediaItemPropertyAlbumTitle: "" as AnyObject,
@@ -122,6 +121,7 @@ extension HysteriaManager {
     }
 
     MPNowPlayingInfoCenter.default().nowPlayingInfo = dictionary
+    return dictionary
   }
 
   fileprivate func imageFromString(_ imagePath: String) -> UIImage? {
@@ -408,34 +408,40 @@ extension HysteriaManager: HysteriaPlayerDelegate {
 
   func hysteriaPlayerWillChanged(at index: Int) {
     if logs {print("• player will changed :atindex >> \(index)")}
+    playlistService.dispatchTrackWillChange(index)
   }
 
   func hysteriaPlayerCurrentItemChanged(_ item: AVPlayerItem!) {
     if logs {print("• current item changed :item >> \(item)")}
-    delegate?.playerCurrentTrackChanged(currentItem())
-    queueDelegate?.queueUpdated()
+//    guard let curTrack = currentItem() else {}
+//    playlistService.dispatchTrackChange(curTrack)
     updateCurrentItem()
   }
 
   func hysteriaPlayerRateChanged(_ isPlaying: Bool) {
     if logs {print("• player rate changed :isplaying >> \(isPlaying)")}
-    delegate?.playerRateChanged(isPlaying)
+    playlistService.dispatchPlayerStateChange(isPlaying)
   }
 
   func hysteriaPlayerDidReachEnd() {
     if logs {print("• player did reach end")}
+    playlistService.dispatchPlayerReachedEnd()
   }
 
   func hysteriaPlayerCurrentItemPreloaded(_ time: CMTime) {
     if logs {print("• current item preloaded :time >> \(CMTimeGetSeconds(time))")}
+    playlistService.dispatchTrackPreloaded(time)
   }
 
   func hysteriaPlayerDidFailed(_ identifier: HysteriaPlayerFailed, error: NSError!) {
     if logs {print("• player did failed :error >> \(error.description)")}
     switch identifier {
-    case .currentItem: next()
+    case .currentItem:
+      playlistService.dispatchTrackLoadFailed(error)
+      next()
       break
     case .player:
+        playlistService.dispatchPlayerFailed(error)
       break
     }
   }
@@ -443,19 +449,25 @@ extension HysteriaManager: HysteriaPlayerDelegate {
   func hysteriaPlayerReady(_ identifier: HysteriaPlayerReadyToPlay) {
     if logs {print("• player ready to play")}
     switch identifier {
-    case .currentItem: updateCurrentItem()
+    case .currentItem:
+        playlistService.dispatchTrackPlayReady()
+      updateCurrentItem()
       break
-    case .player: currentTime()
+    case .player:
+      playlistService.dispatchPlayerReady()
+      currentTime()
       break
     }
   }
 
   func hysteriaPlayerItemFailed(toPlayEndTime item: AVPlayerItem!, error: NSError!) {
     if logs {print("• item failed to play end time :error >> \(error.description)")}
+    playlistService.dispatchTrackLoadFailed(error)
   }
 
   func hysteriaPlayerItemPlaybackStall(_ item: AVPlayerItem!) {
     if logs {print("• item playback stall :item >> \(item)")}
+    playlistService.dispatchPlayerStall()
   }
 
 }

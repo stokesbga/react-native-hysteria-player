@@ -3,7 +3,7 @@ import { Platform, AppRegistry, DeviceEventEmitter, NativeEventEmitter, NativeMo
 import PropTypes from 'prop-types'
 
 const { 
-  RNPlaylistDispatcher: Playlist, 
+  RNPlaylist: Playlist, 
   RNPlaylistEventEmitter
 } = NativeModules
 
@@ -16,7 +16,8 @@ PlaylistEventEmitter.addListener(
   res => console.log("Playback state change: ", res)
 )
 
-const RNNextPrevious = requireNativeComponent("RNPlaylistNextPreviousButton", SkipButtons)
+const RNPrev = requireNativeComponent("RNPlaylistPrevButton", SkipPrev)
+const RNNext = requireNativeComponent("RNPlaylistNextButton", SkipNext)
 const RNPlayPause = requireNativeComponent("RNPlaylistPlayPauseButton", PlayPause)
 const RNPlaybar = requireNativeComponent("RNPlaylistPlaybarSlider", Playbar)
 
@@ -37,15 +38,36 @@ export class Playbar extends React.Component {
 export class PlayPause extends React.Component {
   render() {
     return (
-      <RNPlayPause style={{ backgroundColor: 'coral', width: 100, height: 100 }} {...this.props} />
+      <RNPlayPause 
+        style={{ 
+          backgroundColor: 'lightgreen',
+          width: 100,
+          height: 80 
+        }}
+        {...this.props} />
     )
   }
 }
 
-export class SkipButtons extends React.Component {
+export class SkipPrev extends React.Component {
   render() {
     return (
-      <RNNextPrevious 
+      <RNPrev 
+        style={{ 
+          backgroundColor: 'lightgreen',
+          width: 100,
+          height: 80 
+        }}
+        {...this.props}
+      />
+    )
+  }
+}
+
+export class SkipNext extends React.Component {
+  render() {
+    return (
+      <RNNext 
         style={{ 
           backgroundColor: 'lightgreen',
           width: 100,

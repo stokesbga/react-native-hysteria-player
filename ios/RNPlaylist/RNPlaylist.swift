@@ -1,5 +1,5 @@
 //
-//  RNPlaylistDispatcher.swift
+//  RNPlaylist.swift
 //  Playlist
 //
 //  Created by Alex Stokes on 2/26/20.
@@ -10,8 +10,8 @@ import Foundation
 import AlamofireImage
 import AVFoundation
 
-@objc(RNPlaylistDispatcher)
-class RNPlaylistDispatcher : NSObject {
+@objc(RNPlaylist)
+class RNPlaylist : NSObject {
 
   var skub: Skuby!
   var labelDuration: UILabel!
@@ -30,8 +30,6 @@ class RNPlaylistDispatcher : NSObject {
   override init() {
     super.init()
     
-    // SwiftPlayer.newPlaylist(playlist).playAll()
-    
   }
 
 //  deinit {
@@ -45,7 +43,7 @@ class RNPlaylistDispatcher : NSObject {
 
 
 //MARK: - Adjust initial UI
-extension RNPlaylistDispatcher {
+extension RNPlaylist {
   func prepareUI() {
     skub.setThumbImage(UIImage(named: "skubidu")!, for: UIControl.State())
     buttonShuffle.isSelected = SwiftPlayer.isShuffle() ? true : false
@@ -93,7 +91,7 @@ extension RNPlaylistDispatcher {
 
 
 //MARK: - Actions
-extension RNPlaylistDispatcher {
+extension RNPlaylist {
 
   // private
   func seekSkuby(_ sender: UISlider) {
@@ -110,7 +108,6 @@ extension RNPlaylistDispatcher {
 
   @objc(setupPlayer:rejecter:)
   public func setupPlayer(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-//    SwiftPlayer.isPlaying() ? SwiftPlayer.pause() : SwiftPlayer.play()
     SwiftPlayer.newPlaylist(playlist).playAll()
     resolve(true)
   }

@@ -11,16 +11,12 @@ import AlamofireImage
 import AVFoundation
 
 @objc(RNPlaylistEventEmitter)
-class RNPlaylistEventEmitter: RCTEventEmitter, SwiftPlayerDelegate, SwiftPlayerQueueDelegate {
-
+class RNPlaylistEventEmitter: RCTEventEmitter {
+  
   fileprivate let logs = true
   
   override init() {
     super.init()
-    
-    SwiftPlayer.logs(true)
-//    SwiftPlayer.delegate(self)
-//    SwiftPlayer.queueDelegate(self)
     
   }
 
@@ -50,59 +46,7 @@ class RNPlaylistEventEmitter: RCTEventEmitter, SwiftPlayerDelegate, SwiftPlayerQ
       "playback-track-changed"
     ]
   }
-  
-  
-  // Player Delegate Events
- // Update View Info with track
-  func playerCurrentTrackChanged(_ track: PlayerTrack?) {
-    guard let track = track else { return }
-    if logs {print("••• 📻 New Track 📻")}
-    if logs {print("    Song - \(track.name)")}
-    if logs {print("    Artist - \(track.artist?.name)")}
-    if logs {print("    Album - \(track.album?.name)")}
-//    syncLabelsInfoWithTrack(track)
-//    if let image = track.image {
-//      updateAlbumCoverWithURL(image)
-//    }
-  }
-  
-  // Update button play
-  func playerRateChanged(_ isPlaying: Bool) {
-    let status = isPlaying ? "⏸" : "▶️"
-    if logs {print("••• \(status) Status Button \(status)")}
-//    syncPlayButton(isPlaying)
-  }
-  
-  // Update duration time
-  func playerDurationTime(_ time: Float) {
-    if logs {print("••• ⌛️ \(time.toTimerString())")}
-//    syncDurationTime(time)
-  }
-  
-  // Update current time
-  func playerCurrentTimeChanged(_ time: Float) {
-    if logs {print("••• ⏱ \(time.toTimerString())")}
-//    syncSkubyWithTime(time)
-//    syncCurrentTime(time)
-  }
-  
-  // Queue Delegate Events
-  func queueUpdated() {
-      print("Queue delegate updated")
-    }
-    
 }
 
-
-//extension RNPlaylistEventEmitter: SwiftPlayerDelegate {
-//
-//
-//}
-//
-//extension RNPlaylistEventEmitter: SwiftPlayerQueueDelegate {
-//  func queueUpdated() {
-//     print("Queue delegate updated")
-//   }
-//}
 
 

@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import Playlist, { Playbar, PlayPause, SkipButtons } from 'react-native-playlist';
+import Playlist, { Playbar, PlayPause, SkipNext, SkipPrev } from 'react-native-playlist';
 
 export default class App extends Component<{}> {
   state = {
@@ -18,9 +18,9 @@ export default class App extends Component<{}> {
   }
 
   async componentDidMount() {
-    setTimeout(() => {
-      Playlist.setupPlayer()
-    }, 1500)
+    Playlist.setupPlayer()
+    
+    // Playlist.setupPlayer()
   }
 
   render() {
@@ -32,14 +32,17 @@ export default class App extends Component<{}> {
           style={{
             width: "100%",
             backgroundColor: '#f0f0f0',
-            height: 100
+            height: 80
           }}
           theme={{
             trackPlayedColor: 'deepskyblue',
             trackRemainingColor: this.state.color
           }} />
-          <PlayPause />
-          <SkipButtons />
+          <View style={{ flexDirection: 'row'}}>
+            <SkipPrev />
+            <PlayPause />
+            <SkipNext />
+          </View>
       </View>
     );
   }

@@ -9,31 +9,6 @@
 import Foundation
 import MediaPlayer
 
-// MARK: - SwiftPlayer Delegate -
-public protocol SwiftPlayerDelegate: class {
-  func playerDurationTime(_ time: Float)
-  func playerCurrentTimeChanged(_ time: Float)
-  func playerRateChanged(_ isPlaying: Bool)
-  func playerCurrentTrackChanged(_ track: PlayerTrack?)
-}
-
-extension SwiftPlayerDelegate {
-  func playerDurationTime(_ time: Float) {}
-  func playerCurrentTimeChanged(_ time: Float) {}
-  func playerRateChanged(_ isPlaying: Bool) {}
-  func playerCurrentTrackChanged(_ track: PlayerTrack?) {}
-}
-
-// MARK: - SwiftPlayer Queue Delegate -
-public protocol SwiftPlayerQueueDelegate: class {
-  func queueUpdated()
-}
-
-extension SwiftPlayerQueueDelegate {
-  func queueUpdated() {}
-}
-
-
 // MARK: - SwiftPlayer Struct -
 /// Struct to access player actions 🎵
 open class SwiftPlayer {
@@ -41,11 +16,6 @@ open class SwiftPlayer {
   /// Set logs
   public static func logs(_ active: Bool) {
     HysteriaManager.sharedInstance.logs = active
-  }
-  
-  /// Set delegate
-  public static func delegate(_ delegate: SwiftPlayerDelegate) {
-    HysteriaManager.sharedInstance.delegate = delegate
   }
   
   /// ▶️ Play music
@@ -61,6 +31,10 @@ open class SwiftPlayer {
   /// ▶️0️⃣ Play all tracks starting by 0
   public static func playAll() {
     HysteriaManager.sharedInstance.playAllTracks()
+  }
+  
+  public static func playToggle() {
+    self.isPlaying() ? HysteriaManager.sharedInstance.pause() : HysteriaManager.sharedInstance.play()
   }
   
   /// ⏸ Pause music if music is playing
@@ -146,11 +120,6 @@ open class SwiftPlayer {
   public static func newPlaylist(_ playlist: [PlayerTrack]) -> SwiftPlayer.Type {
     HysteriaManager.sharedInstance.setPlaylist(playlist)
     return self
-  }
-  
-  /// Set queue delegate
-  public static func queueDelegate(_ delegate: SwiftPlayerQueueDelegate) {
-    HysteriaManager.sharedInstance.queueDelegate = delegate
   }
   
   /// Add new track in next queue

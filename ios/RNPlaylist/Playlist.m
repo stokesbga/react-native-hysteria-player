@@ -13,7 +13,7 @@
 
 
 // Controller
-@interface RCT_EXTERN_MODULE(RNPlaylistDispatcher, NSObject)
+@interface RCT_EXTERN_MODULE(RNPlaylist, NSObject)
     RCT_EXTERN_METHOD(setupPlayer:
                       (RCTPromiseResolveBlock)resolve
                       rejecter:(RCTPromiseRejectBlock)reject);
@@ -45,7 +45,10 @@
     RCT_EXPORT_VIEW_PROPERTY(pauseButtonImage, NSString);
 @end
 
-@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistNextPreviousButton, RNNextPreviousButton, RCTViewManager)
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistNextButton, RNSkipNextButton, RCTViewManager)
+@end
+
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPrevButton, RNSkipPrevButton, RCTViewManager)
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPlaybarSlider, RNPlaybarSlider, RCTViewManager)
