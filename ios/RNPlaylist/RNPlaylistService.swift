@@ -42,16 +42,16 @@ class PlaylistService: NSObject {
   
   // Track
   func dispatchTrackPreloaded(_ time: CMTime?) {
-    onTrackPreloaded?(time)
+//    onTrackPreloaded?(time)
   }
   func dispatchTrackWillChange(_ index: Int?) {
-    onTrackWillChange?(index)
+    NotificationCenter.default.post(name: .onTrackWillChange, object: index)
   }
   func dispatchTrackChange(_ track:  [String: AnyObject]?) {
     NotificationCenter.default.post(name: .onTrackChange, object: track)
   }
   func dispatchTrackPlayReady() {
-    onTrackPlayReady?()
+//    onTrackPlayReady?()
   }
   func dispatchTrackPositionChange(_ seconds: Float?) {
     NotificationCenter.default.post(name: .onTrackPositionChange, object: seconds)
@@ -65,21 +65,21 @@ class PlaylistService: NSObject {
     NotificationCenter.default.post(name: .onPlayerStateChange, object: isPlaying)
   }
   func dispatchPlayerReachedEnd() {
-    onPlayerReachedEnd?()
+//    onPlayerReachedEnd?()
   }
   func dispatchPlayerReady() {
-    onPlayerReady?()
+//    onPlayerReady?()
   }
   func dispatchPlayerStall() {
-    onPlayerStall?()
+//    onPlayerStall?()
   }
   
   // Error
   func dispatchTrackLoadFailed(_ error: NSError?) {
-    onTrackLoadFailed?(error)
+//    onTrackLoadFailed?(error)
   }
   func dispatchPlayerFailed(_ error: NSError?) {
-    onPlayerFailed?(error)
+//    onPlayerFailed?(error)
   }
 }
 
@@ -89,6 +89,8 @@ extension Notification.Name {
   static let onTrackPositionChange = Notification.Name("onTrackPositionChange")
   static let onTrackDurationChange = Notification.Name("onTrackDurationChange")
   static let onTrackChange = Notification.Name("onTrackChange")
+  static let onTrackWillChange = Notification.Name("onTrackWillChange")
+  
 //  static let didCompleteTask = Notification.Name("didCompleteTask")
 //  static let didCompleteTask = Notification.Name("didCompleteTask")
   

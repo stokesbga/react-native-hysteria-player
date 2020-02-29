@@ -33,6 +33,7 @@ class RNSkipPrevButtonView: UIButton {
 
   // On Press
   @objc private func onPress(sender: UIButton!) {
+    print("On Press Prev")
     SwiftPlayer.previous()
   }
 

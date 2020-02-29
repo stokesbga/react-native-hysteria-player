@@ -72,7 +72,7 @@ extension HysteriaManager {
     hysteriaPlayer?.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 100, timescale: 1000), queue: nil, using: {
       time in
       let totalSeconds = CMTimeGetSeconds(time)
-        self.playlistService.dispatchTrackPositionChange(Float(totalSeconds))
+      self.playlistService.dispatchTrackPositionChange(Float(totalSeconds))
     })
   }
 
@@ -80,7 +80,7 @@ extension HysteriaManager {
     let trackMeta = infoCenterWithTrack(currentItem())
     let duration = hysteriaPlayer?.getPlayingItemDurationTime()
     if duration > 0 {
-        self.playlistService.dispatchTrackDurationChange(Float(duration!))
+      self.playlistService.dispatchTrackDurationChange(Float(duration!))
     }
         
     return trackMeta
@@ -266,6 +266,11 @@ extension HysteriaManager {
       hysteriaPlayer?.seek(toTime: Double(time))
     }
   }
+  
+  func seekToS(_ seconds: Double) {
+    hysteriaPlayer?.seek(toTime: Double(seconds))
+  }
+  
 }
 
 
@@ -432,7 +437,7 @@ extension HysteriaManager: HysteriaPlayerDelegate {
 
   func hysteriaPlayerCurrentItemPreloaded(_ time: CMTime) {
     if logs {print("• current item preloaded :time >> \(CMTimeGetSeconds(time))")}
-    playlistService.dispatchTrackPreloaded(time)
+//    playlistService.dispatchTrackPreloaded(time)
   }
 
   func hysteriaPlayerDidFailed(_ identifier: HysteriaPlayerFailed, error: NSError!) {
@@ -443,7 +448,7 @@ extension HysteriaManager: HysteriaPlayerDelegate {
       next()
       break
     case .player:
-        playlistService.dispatchPlayerFailed(error)
+      playlistService.dispatchPlayerFailed(error)
       break
     }
   }
@@ -452,7 +457,7 @@ extension HysteriaManager: HysteriaPlayerDelegate {
     if logs {print("• player ready to play")}
     switch identifier {
     case .currentItem:
-        playlistService.dispatchTrackPlayReady()
+      playlistService.dispatchTrackPlayReady()
       updateCurrentItem()
       break
     case .player:

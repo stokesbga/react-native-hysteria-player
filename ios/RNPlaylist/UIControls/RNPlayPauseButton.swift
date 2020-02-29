@@ -21,32 +21,38 @@ class RNPlayPauseButton : RCTViewManager {
 
 
 class RNPlayPauseButtonView: UIButton {
-  @objc var playButtonImage: String = "play" { didSet {
-    self.setImage(UIImage(named: playButtonImage), for: .normal)
-  }}
+  private var playButtonImage: UIImage = UIImage()
+  private var pauseButtonImage: UIImage = UIImage()
   
-  @objc var pauseButtonImage: String = "pause" { didSet {
-    self.setImage(UIImage(named: pauseButtonImage), for: .selected)
-  }}
+  private lazy var playButtonImageFallback: UIImage = {
+    let img = UIImage(named: "play.png", in: RNPlaylistGlobal.getResourceBundle(), compatibleWith: nil)
+    self.setImage(img, for: .normal)
+    return img ?? UIImage()
+  }()
+  
+  private lazy var pauseButtonImageFallback: UIImage = {
+    let img = UIImage(named: "pause.png", in: RNPlaylistGlobal.getResourceBundle(), compatibleWith: nil)
+    self.setImage(img, for: .selected)
+    return img ?? UIImage()
+  }()
   
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.frame = frame
     
-    // Image Defaults
-    self.setImage(UIImage(named: "play.png", in: RNPlaylistGlobal.getResourceBundle(), compatibleWith: nil), for: .normal)
-    self.setImage(UIImage(named: "pause.png", in: RNPlaylistGlobal.getResourceBundle(), compatibleWith: nil), for: .selected)
+    self.playButtonImage = playButtonImageFallback
+    self.pauseButtonImage = pauseButtonImageFallback
     
     // On Press Listener
     self.addTarget(self, action: #selector(self.onPress), for: .touchUpInside)
     
     // Notification Subscriber
-    NotificationCenter.default.addObserver(self,
-      selector: #selector(onPlayerStateChange),
-      name: .onPlayerStateChange,
-      object: nil
-    )
+   NotificationCenter.default.addObserver(self,
+     selector: #selector(onPlayerStateChange),
+     name: .onPlayerStateChange,
+     object: nil
+   )
   }
   
   // isPlaying Observer
@@ -74,4 +80,17 @@ class RNPlayPauseButtonView: UIButton {
 **************/
 extension RNPlayPauseButtonView {
   
+  @objc public func setPlayButtonImage(_ val: NSString) {
+    guard let assetStr = val as? String else { return }
+    let img = UIImage(named: assetStr, in: Bundle.main, compatibleWith: nil)
+    self.setImage(img, for: .normal)
+    self.playButtonImage = img ?? self.playButtonImageFallback
+  }
+  
+  @objc public func setPauseButtonImage(_ val: NSString) {
+    guard let assetStr = val as? String else { return }
+    let img = UIImage(named: assetStr, in: Bundle.main, compatibleWith: nil)
+    self.setImage(img, for: .selected)
+    self.pauseButtonImage = img ?? self.pauseButtonImageFallback
+  }
 }

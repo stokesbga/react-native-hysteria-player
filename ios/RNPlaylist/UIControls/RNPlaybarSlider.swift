@@ -30,6 +30,7 @@ class RNPlaybarSliderView: UISlider {
   private var trackPlayedColor: UIColor = .blue
   private var trackRemainingColor: UIColor = .lightGray
     
+  private var isSeeking: Bool = false
   private lazy var thumbViewEnabled: UIView = {
     let thumb = UIView()
     thumb.backgroundColor = .white
@@ -43,14 +44,14 @@ class RNPlaybarSliderView: UISlider {
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.frame = frame
-    self.minimumValue = 0
-    self.maximumValue = 100
+    self.minimumValue = 100
+    self.maximumValue = 200
     self.isContinuous = true
     
-    // Custom thumb image
+    // Custom Thumb Image
     self.updateThumbImg(hasControl)
     
-    // Listener onSeek
+    // On Seek Listener
     self.addTarget(self, action: #selector(self.onSeek), for: .valueChanged)
     
     // Notification Subscriber
@@ -59,18 +60,48 @@ class RNPlaybarSliderView: UISlider {
       name: .onTrackPositionChange,
       object: nil
     )
+    
+//    NotificationCenter.default.addObserver(self,
+//      selector: #selector(onTrackWillChange),
+//      name: .onTrackWillChange,
+//      object: nil
+//    )
   }
+  
   
   // Track Position Observer
   @objc private func onTrackPositionChange(_ notification: Notification) {
+    guard self.isSeeking == false else { return }
     guard let seconds = notification.object as? Float else { return }
     let minValue = self.minimumValue
     let maxValue = self.maximumValue
-    self.setValue(((maxValue - minValue) * seconds / SwiftPlayer.trackDurationTime() + minValue), animated: true)
+    let val = ((maxValue - minValue) * seconds / SwiftPlayer.trackDurationTime() + minValue)
+    
+    self.setValue(val, animated: minValue/val < 0.98 && val/maxValue < 0.98)
   }
   
+  @objc private func onTrackWillChange(_ notification: Notification) {
+  }
+
+  
   // On Seek
-  @objc public func onSeek(_ source: UISlider) -> Void {}
+  @objc public func onSeek(_ source: UISlider, event: UIEvent ) -> Void {
+    if let touchEvent = event.allTouches?.first {
+      switch touchEvent.phase {
+      case .began:
+        SwiftPlayer.pause()
+        self.isSeeking = true
+        break
+      case .ended:
+        SwiftPlayer.seekToWithSlider(source)
+        SwiftPlayer.play()
+        self.isSeeking = false
+        break
+      default:
+          break
+      }
+    }
+  }
   
   
   // UISlider Customization
@@ -91,7 +122,7 @@ class RNPlaybarSliderView: UISlider {
   // Update Thumb Img on hasControl prop change
   private func updateThumbImg(_ hasControl: Bool) -> Void {
     if(hasControl) {
-      let thumb = thumbImage(radius: thumbRadius)
+      let thumb = thumbImage(radius: self.thumbRadius)
       self.setThumbImage(thumb, for: .normal)
     } else {
       self.setThumbImage(thumbViewDisabled, for: .normal)
@@ -119,6 +150,7 @@ extension RNPlaybarSliderView {
     
   @objc public func setThumbRadius(_ val: NSNumber) {
     self.thumbRadius = CGFloat(val)
+    self.updateThumbImg(self.hasControl)
   }
   
   @objc public func setTrackHeightEnabled(_ val: NSNumber) {

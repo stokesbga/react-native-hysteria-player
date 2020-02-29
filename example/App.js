@@ -12,6 +12,8 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 import Playlist, { PlaylistComponent } from 'react-native-playlist';
 
+const tracklistJSON = require('./data/hiphop_playlist_full.json')
+
 const {
   PlaybarSlider,
   PlayPause,
@@ -26,20 +28,20 @@ const {
 
 export default class App extends Component<{}> {
   state = {
-    switch: false,
-    color1: '#111111',
-    color2: '#888888'
+    switch: true,
+    color1: 'coral',
+    color2: '#ccc'
   }
 
   async componentDidMount() {
     Playlist.setupPlayer()
 
     setTimeout(() => {
-      this.setState({ 
-        switch: false,
-        // color1: 'violet',
-        // color2: 'orange'
-      })
+      // this.setState({ 
+      //   // switch: false,
+      //   // color1: 'violet',
+      //   // color2: 'orange'
+      // })
     }, 2000)
   }
 
@@ -50,16 +52,16 @@ export default class App extends Component<{}> {
           <View style={{ flex: 1, backgroundColor: '#e0e0e0' }} />
           <View style={{ flex: 1 }}>
             <PlaybarSlider 
-              hasControl={this.state.switch}
-              thumbRadius={20}
-              trackHeightEnabled={20}
-              trackHeightDisabled={10}
-              trackPlayedColor={"#444444"}
-              // trackRemainingColor={this.state.color2}
+              hasControl={true}
+              thumbRadius={22}
+              trackHeightEnabled={10}
+              trackHeightDisabled={3}
+              trackPlayedColor={this.state.color1}
+              trackRemainingColor={this.state.color2}
               style={{
                 backgroundColor: '#f0f0f0',
               }} />
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', marginTop: 100 }}>
               <TrackProgress style={{ flex: 1, marginLeft: 40, marginRight: -40 }} />
               <SkipPrev style={{ flex: 1}} />
               <PlayPause />
