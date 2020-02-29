@@ -47,8 +47,8 @@ class PlaylistService: NSObject {
   func dispatchTrackWillChange(_ index: Int?) {
     onTrackWillChange?(index)
   }
-  func dispatchTrackChange(_ track: PlayerTrack?) {
-    onTrackChange?(track)
+  func dispatchTrackChange(_ track:  [String: AnyObject]?) {
+    NotificationCenter.default.post(name: .onTrackChange, object: track)
   }
   func dispatchTrackPlayReady() {
     onTrackPlayReady?()
@@ -57,7 +57,7 @@ class PlaylistService: NSObject {
     NotificationCenter.default.post(name: .onTrackPositionChange, object: seconds)
   }
   func dispatchTrackDurationChange(_ seconds: Float?) {
-    onTrackDurationChange?(seconds)
+    NotificationCenter.default.post(name: .onTrackDurationChange, object: seconds)
   }
   
   // Player
@@ -87,8 +87,8 @@ class PlaylistService: NSObject {
 extension Notification.Name {
   static let onPlayerStateChange = Notification.Name("onPlayerStateChange")
   static let onTrackPositionChange = Notification.Name("onTrackPositionChange")
-//  static let didCompleteTask = Notification.Name("didCompleteTask")
-//  static let didCompleteTask = Notification.Name("didCompleteTask")
+  static let onTrackDurationChange = Notification.Name("onTrackDurationChange")
+  static let onTrackChange = Notification.Name("onTrackChange")
 //  static let didCompleteTask = Notification.Name("didCompleteTask")
 //  static let didCompleteTask = Notification.Name("didCompleteTask")
   

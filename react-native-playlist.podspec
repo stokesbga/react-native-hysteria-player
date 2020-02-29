@@ -11,7 +11,9 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = "https://github.com/stokesbga/react-native-playlist"
   s.license      = "MIT"
-  s.authors      = { "Alex Yosef" => "alex@quadio.com" }
+  s.authors      = {  'Alex Yosef' => 'alex@quadio.com'
+                      'Stan Tsai' => 'feocms@gmail.com',
+                      'iTSangar' => 'itsangardev@gmail.com' }
   s.platforms    = { :ios => "10.0" }
   s.source       = { :git => "https://github.com/stokesbga/react-native-playlist.git", :tag => "#{s.version}" }
 

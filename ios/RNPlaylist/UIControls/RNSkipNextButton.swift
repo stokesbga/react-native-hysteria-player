@@ -22,6 +22,7 @@ class RNSkipNextButton : RCTViewManager {
 
 
 class RNSkipNextButtonView: UIButton {
+  let isDisabled: Bool = false
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -30,14 +31,22 @@ class RNSkipNextButtonView: UIButton {
     self.addTarget(self, action: #selector(self.onPress), for: .touchUpInside)
   }
 
-  @objc(onPress:)
-  func onPress(sender: UIButton!) {
+  // On Press
+  @objc private func onPress(sender: UIButton!) {
     print("On Press Next")
     SwiftPlayer.next()
   }
 
+  // Required
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+}
 
+
+/**************
+*  React Props  *
+**************/
+extension RNSkipNextButtonView {
+    
 }

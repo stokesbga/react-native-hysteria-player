@@ -76,13 +76,14 @@ extension HysteriaManager {
     })
   }
 
-    fileprivate func updateCurrentItem() -> [String: AnyObject]? {
-    return infoCenterWithTrack(currentItem())
-
+  fileprivate func updateCurrentItem() -> [String: AnyObject]? {
+    let trackMeta = infoCenterWithTrack(currentItem())
     let duration = hysteriaPlayer?.getPlayingItemDurationTime()
     if duration > 0 {
-        self.playlistService.dispatchTrackDurationChange(duration!)
+        self.playlistService.dispatchTrackDurationChange(Float(duration!))
     }
+        
+    return trackMeta
   }
 
 }
@@ -97,7 +98,7 @@ extension HysteriaManager {
     }
   }
 
-    fileprivate func infoCenterWithTrack(_ track: PlayerTrack?) -> [String: AnyObject]? {
+  fileprivate func infoCenterWithTrack(_ track: PlayerTrack?) -> [String: AnyObject]? {
     guard let track = track else { return nil }
 
     var dictionary: [String : AnyObject] = [
@@ -118,6 +119,8 @@ extension HysteriaManager {
     if let image = track.image,
       let loaded = imageFromString(image) {
         dictionary[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: loaded)
+        dictionary["albumArtUIImage"] = loaded
+        dictionary["albumArtURL"] = track.image as AnyObject?
     }
 
     MPNowPlayingInfoCenter.default().nowPlayingInfo = dictionary
@@ -413,9 +416,8 @@ extension HysteriaManager: HysteriaPlayerDelegate {
 
   func hysteriaPlayerCurrentItemChanged(_ item: AVPlayerItem!) {
     if logs {print("• current item changed :item >> \(item)")}
-//    guard let curTrack = currentItem() else {}
-//    playlistService.dispatchTrackChange(curTrack)
-    updateCurrentItem()
+    var currentTrack = (updateCurrentItem() as? [String: AnyObject])
+    playlistService.dispatchTrackChange(currentTrack)
   }
 
   func hysteriaPlayerRateChanged(_ isPlaying: Bool) {

@@ -10,39 +10,64 @@
 
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import Playlist, { Playbar, PlayPause, SkipNext, SkipPrev } from 'react-native-playlist';
+import Playlist, { PlaylistComponent } from 'react-native-playlist';
+
+const {
+  PlaybarSlider,
+  PlayPause,
+  SkipNext,
+  SkipPrev,
+  TrackProgress,
+  TrackDuration,
+  TrackAlbumArt,
+  TrackArtist,
+  TrackTitle
+} = PlaylistComponent
 
 export default class App extends Component<{}> {
   state = {
-    color: undefined
+    switch: false,
+    color1: '#111111',
+    color2: '#888888'
   }
 
   async componentDidMount() {
     Playlist.setupPlayer()
-    
-    // Playlist.setupPlayer()
+
+    setTimeout(() => {
+      this.setState({ 
+        switch: false,
+        // color1: 'violet',
+        // color2: 'orange'
+      })
+    }, 2000)
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Playlist example☆</Text>
-        <Text style={styles.instructions}>STATUS: loaded</Text>
-        <Playbar 
-          style={{
-            width: "100%",
-            backgroundColor: '#f0f0f0',
-            height: 80
-          }}
-          theme={{
-            trackPlayedColor: 'deepskyblue',
-            trackRemainingColor: this.state.color
-          }} />
-          <View style={{ flexDirection: 'row'}}>
-            <SkipPrev />
-            <PlayPause />
-            <SkipNext />
+        <View style={{ flex: 1, width: '100%' }}>
+          <View style={{ flex: 1, backgroundColor: '#e0e0e0' }} />
+          <View style={{ flex: 1 }}>
+            <PlaybarSlider 
+              hasControl={this.state.switch}
+              thumbRadius={20}
+              trackHeightEnabled={20}
+              trackHeightDisabled={10}
+              trackPlayedColor={"#444444"}
+              // trackRemainingColor={this.state.color2}
+              style={{
+                backgroundColor: '#f0f0f0',
+              }} />
+            <View style={{ flexDirection: 'row' }}>
+              <TrackProgress style={{ flex: 1, marginLeft: 40, marginRight: -40 }} />
+              <SkipPrev style={{ flex: 1}} />
+              <PlayPause />
+              <SkipNext style={{ flex: 1}}/>
+              <TrackDuration style={{ flex: 1 }} />
+            </View>
           </View>
+        </View>
       </View>
     );
   }
@@ -52,8 +77,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    alignItems: 'center'
   },
   welcome: {
     fontSize: 20,

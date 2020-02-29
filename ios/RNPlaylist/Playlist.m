@@ -40,6 +40,15 @@
 
 
 // Components
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPlaybarSlider, RNPlaybarSlider, RCTViewManager)
+    RCT_EXPORT_VIEW_PROPERTY(hasControl, BOOL);
+    RCT_EXPORT_VIEW_PROPERTY(thumbRadius, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(trackHeightEnabled, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(trackHeightDisabled, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(trackPlayedColor, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(trackRemainingColor, NSNumber);
+@end
+
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPlayPauseButton, RNPlayPauseButton, RCTViewManager)
     RCT_EXPORT_VIEW_PROPERTY(playButtonImage, NSString);
     RCT_EXPORT_VIEW_PROPERTY(pauseButtonImage, NSString);
@@ -51,9 +60,20 @@
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPrevButton, RNSkipPrevButton, RCTViewManager)
 @end
 
-@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPlaybarSlider, RNPlaybarSlider, RCTViewManager)
-    RCT_EXPORT_VIEW_PROPERTY(theme, NSDictionary);
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTimerDuration, RNTimerDuration, RCTViewManager)
 @end
+
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTimerProgress, RNTimerProgress, RCTViewManager)
+@end
+
+//@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistAlbumArt, RNTrackAlbumArt, RCTViewManager)
+//@end
+
+//@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTrackArtist, RNTrackArtist, RCTViewManager)
+//@end
+//
+//@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTrackTitle, RNTrackTitle, RCTViewManager)
+//@end
 
 
 
