@@ -11,9 +11,7 @@ import Foundation
 class RNPlaylistGlobal: NSObject {
   
   static private var bundle: Bundle!
-  
   static func getResourceBundle() -> Bundle {
-    
     if(bundle != nil) {
       return bundle
     }
@@ -29,4 +27,20 @@ class RNPlaylistGlobal: NSObject {
     bundle = resourceBundle
     return bundle
   }
+  
+  
+  // Fallback Icons + Resources
+  static private var icons: [String: UIImage]! = [String: UIImage]()
+  static func getFallbackResource(_ assetStr: String) -> UIImage {
+    if (icons != nil && icons[assetStr] != nil) {
+      return icons[assetStr] ?? addResourceToDict(assetStr)
+    }
+    return addResourceToDict(assetStr)
+  }
+  private static func addResourceToDict(_ assetStr: String) -> UIImage {
+    let img = UIImage(named: assetStr, in: getResourceBundle(), compatibleWith: nil) ?? UIImage()
+    icons[assetStr] = img
+    return img
+  }
+  
 }

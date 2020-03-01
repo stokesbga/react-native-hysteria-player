@@ -43,7 +43,17 @@ class RNPlaylistEventEmitter: RCTEventEmitter {
     return [
       "playback-state",
       "playback-error",
-      "playback-track-changed"
+      "playback-track-changed",
+      
+      "remote-play",
+      "remote-pause",
+      "remote-stop",
+      "remote-next",
+      "remote-previous",
+      "remote-jump-forward",
+      "remote-jump-backward",
+      "remote-seek",
+      "remote-duck"
     ]
   }
 }

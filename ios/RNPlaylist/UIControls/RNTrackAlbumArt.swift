@@ -22,14 +22,18 @@ class RNTrackAlbumArt : RCTViewManager {
 
 
 class RNTrackAlbumArtView: UIView {
-  let placeholderImage: UIImage? = UIImage(named: "placeholder.png", in: RNPlaylistGlobal.getResourceBundle(), compatibleWith: nil)
-	lazy var imageView: UIImageView = UIImageView(image: placeholderImage)
+  private lazy var imageView: UIImageView = {
+    let image = RNPlaylistGlobal.getFallbackResource("placeholder.png")
+    let imgView = UIImageView(image: image)
+    imgView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    imgView.contentMode = .scaleAspectFit
+    return imgView
+  }()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.frame = frame
 		
-		self.addSubview(imageView)
+    addSubview(imageView)
     
     // Notification Subscriber
     NotificationCenter.default.addObserver(self,

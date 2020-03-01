@@ -19,6 +19,7 @@ public struct PlayerTrack {
   public let image: String?
   public let album: Album?
   public let artist: Artist?
+  public let custom: NSDictionary?
   
   public var modelObjectSupport: AnyObject?
   
@@ -45,11 +46,12 @@ public struct PlayerTrack {
     }
   }
   
-  public init(url: String, name: String? = nil, image: String? = nil, album: String? = nil, artist: String? = nil) {
+  public init(url: String, name: String? = nil, image: String? = nil, album: String? = nil, artist: String? = nil, custom: NSDictionary?) {
     self.url = url
     self.name = name
     self.image = image
     self.album = Album(name: album)
     self.artist = Artist(name: artist)
+    self.custom = custom as? NSDictionary
   }
 }

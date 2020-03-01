@@ -14,9 +14,13 @@
 
 // Controller
 @interface RCT_EXTERN_MODULE(RNPlaylist, NSObject)
-    RCT_EXTERN_METHOD(setupPlayer:
-                      (RCTPromiseResolveBlock)resolve
-                      rejecter:(RCTPromiseRejectBlock)reject);
+    RCT_EXTERN_METHOD(setup:(RCTPromiseResolveBlock)resolve
+                     rejecter:(RCTPromiseRejectBlock)reject);
+
+    RCT_EXTERN_METHOD(reset:(RCTPromiseResolveBlock)resolve
+                     rejecter:(RCTPromiseRejectBlock)reject);
+    
+    RCT_EXTERN_METHOD(addTracks:(NSArray)tracks);
 
     RCT_EXTERN_METHOD(play:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject);
@@ -25,7 +29,7 @@
                      rejecter:(RCTPromiseRejectBlock)reject);
 
     RCT_EXTERN_METHOD(togglePlay:(RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject);
+                     rejecter:(RCTPromiseRejectBlock)reject);
 
     RCT_EXTERN_METHOD(skipToNext:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject);
@@ -33,7 +37,9 @@
     RCT_EXTERN_METHOD(skipToPrevious:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject);
 
-    RCT_EXTERN_METHOD(reset:(RCTPromiseResolveBlock)resolve
+    RCT_EXTERN_METHOD(seekTo:(NSNumber)seconds);
+    
+    RCT_EXTERN_METHOD(toggleShuffle:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject);
 @end
 
@@ -50,8 +56,8 @@
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPlayPauseButton, RNPlayPauseButton, RCTViewManager)
-    RCT_EXPORT_VIEW_PROPERTY(playButtonImage, NSString);
-    RCT_EXPORT_VIEW_PROPERTY(pauseButtonImage, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(playButtonAssetName, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(pauseButtonAssetName, NSString);
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistNextButton, RNSkipNextButton, RCTViewManager)
@@ -66,14 +72,14 @@
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTimerProgress, RNTimerProgress, RCTViewManager)
 @end
 
-//@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistAlbumArt, RNTrackAlbumArt, RCTViewManager)
-//@end
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistAlbumArt, RNTrackAlbumArt, RCTViewManager)
+@end
 
-//@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTrackArtist, RNTrackArtist, RCTViewManager)
-//@end
-//
-//@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTrackTitle, RNTrackTitle, RCTViewManager)
-//@end
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTrackArtist, RNTrackArtist, RCTViewManager)
+@end
+
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTrackTitle, RNTrackTitle, RCTViewManager)
+@end
 
 
 

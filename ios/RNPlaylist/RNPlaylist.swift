@@ -13,112 +13,55 @@ import AVFoundation
 @objc(RNPlaylist)
 class RNPlaylist : NSObject {
 
-  var skub: Skuby!
-  var labelDuration: UILabel!
-  var labelCurrent: UILabel!
-  var labelOtherInfo: UILabel!
-  var labelTrack: UILabel!
-  var buttonPlay: UIButton!
-  var buttonShuffle: UIButton!
-  var coverAlbum: UIImageView!
-  var coverBackground: UIImageView!
-
-  fileprivate let logs = true
-
-  let playlist = TrackModel.localSampleData()
-
   override init() {
     super.init()
-    
   }
 
-//  deinit {
-//      reset(resolve: { _ in }, reject: { _, _, _  in })
-//  }
+  deinit {}
     
   @objc static func requiresMainQueueSetup() -> Bool {
-      return false
+    return false
   }
 }
 
 
 //MARK: - Adjust initial UI
 extension RNPlaylist {
-  func prepareUI() {
-    skub.setThumbImage(UIImage(named: "skubidu")!, for: UIControl.State())
-    buttonShuffle.isSelected = SwiftPlayer.isShuffle() ? true : false
-    buttonShuffle.alpha = SwiftPlayer.isShuffle() ? 1.0 : 0.33
-  }
 
-  func syncSkubyWithTime(_ time: Float) {
-    let minValue = skub.minimumValue
-    let maxValue = skub.maximumValue
-    skub.setValue(((maxValue - minValue) * time / SwiftPlayer.trackDurationTime() + minValue), animated: true)
-  }
-
-  func syncDurationTime(_ time: Float) {
-    labelDuration.text = time.toTimerString()
-  }
-
-  func syncCurrentTime(_ time: Float) {
-    labelCurrent.text = time.toTimerString()
-  }
-
-  func syncPlayButton(_ isPlaying: Bool) {
-    buttonPlay.isSelected = isPlaying ? true : false
-  }
-
-  func syncLabelsInfoWithTrack(_ track: PlayerTrack) {
-    if let name = track.name {
-      labelTrack.text = name
-    }
-
-    if let artistName = track.artist?.name {
-      if let albumName = track.album?.name {
-        labelOtherInfo.text = artistName + " — " + albumName
-        return
-      }
-      labelOtherInfo.text = artistName
-    }
-  }
-
-  func updateAlbumCoverWithURL(_ url: String) {
-        coverAlbum.af.setImage(withURL: (URL(string: url)! as URL))
-        coverBackground.af.setImage(withURL: (URL(string: url)! as URL))
-  }
-
-}
-
-
-//MARK: - Actions
-extension RNPlaylist {
-
-  // private
-  func seekSkuby(_ sender: UISlider) {
-    SwiftPlayer.seekToWithSlider(sender)
-  }
-
-  func beginScrubbing() {
-    SwiftPlayer.pause()
-  }
-
-  func endScrubbing() {
-    SwiftPlayer.play()
-  }
-
-  @objc(setupPlayer:rejecter:)
-  public func setupPlayer(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-    SwiftPlayer.newPlaylist(playlist).playAll()
-    resolve(true)
+  @objc(setup:rejecter:)
+  public func setup(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+//    SwiftPlayer.newPlaylist(playlist).playAll()
+    resolve(NSNull())
   }
 
   @objc(reset:rejecter:)
   public func reset(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-
+    SwiftPlayer.pause()
+    SwiftPlayer.setPlaylist([PlayerTrack]())
+  }
+    
+  @objc(addTracks:)
+  public func addTracks(_ tracks: [[String: Any]]) {
+    SwiftPlayer.pause()
+    
+    var queue = [PlayerTrack]()
+    for track in tracks {
+      let trackUrl = track["url"] as? String ?? ""
+      guard let trackTitle = track["title"] as? String else { return }
+      guard let trackArtwork = track["artwork"] as? String else { return }
+      guard let trackAlbum = track["album"] as? String else { return }
+      guard let trackArtist = track["artist"] as? String else { return }
+      guard let trackCustom = track["custom"] as? NSDictionary else { return }
+        
+      let playerTrack = PlayerTrack(url: trackUrl, name: trackTitle, image: trackArtwork, album: trackAlbum, artist: trackArtist, custom: trackCustom)
+      queue.append(playerTrack)
+    }
+    
+    SwiftPlayer.setPlaylist(queue).playAll()
   }
 
   @objc(togglePlay:rejecter:)
-  public func playPause(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+  public func togglePlay(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
     SwiftPlayer.isPlaying() ? SwiftPlayer.pause() : SwiftPlayer.play()
   }
 
@@ -131,40 +74,25 @@ extension RNPlaylist {
   public func pause(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
     SwiftPlayer.pause()
   }
-
-  //  @objc(seekTo:value)
-  //  public func seekTo(_ val: Float) {
-  //     SwiftPlayer.seekTo(val)
-  //  }
+  
+  @objc(seekTo:)
+  public func seekTo(_ seconds: NSNumber) {
+    SwiftPlayer.seekToS(RCTConvert.double(seconds))
+  }
 
   @objc(skipToNext:rejecter:)
-  public func nextTrack(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+  public func skipToNext(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
     SwiftPlayer.next()
   }
 
   @objc(skipToPrevious:rejecter:)
-  public func previousTrack(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+  public func skipToPrevious(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
     SwiftPlayer.previous()
   }
 
   @objc(toggleShuffle:rejecter:)
-  public func shuffle(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+  public func toggleShuffle(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
     SwiftPlayer.isShuffle() ? SwiftPlayer.disableShuffle() : SwiftPlayer.enableShuffle()
-//    buttonShuffle.isSelected = SwiftPlayer.isShuffle() ? true : false
-//    buttonShuffle.alpha = SwiftPlayer.isShuffle() ? 1.0 : 0.33
-  }
-
-}
-
-
-class Skuby: UISlider {
-  override func trackRect(forBounds bounds: CGRect) -> CGRect {
-    var result = super.trackRect(forBounds: bounds)
-    result.origin.x = -1
-    result.size.height = 3
-    result.size.width = bounds.size.width + 2
-    return result
   }
 }
-
 

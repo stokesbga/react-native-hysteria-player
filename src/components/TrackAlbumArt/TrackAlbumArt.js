@@ -2,20 +2,18 @@
 import React from 'react'
 import { Platform, processColor, requireNativeComponent } from 'react-native';
 import PropTypes from 'prop-types'
+import styles from '../styles'
 
-// const RNTrackAlbumArt = requireNativeComponent("RNPlaylistAlbumArt", TrackAlbumArt)
+const RNTrackAlbumArt = requireNativeComponent("RNPlaylistAlbumArt", TrackAlbumArt)
 
 
 export default class TrackAlbumArt extends React.Component {
   render() {
-    return null;
-      // <RNTrackAlbumArt 
-      //   {...this.props}
-      //   style={[
-      //     {
-      //       flex: 1,
-      //     }, this.props.style
-      //   ]} />
-    // )
+    const { style, ...props } = this.props
+    return (
+      <RNTrackAlbumArt 
+        style={[styles.wrapperNoFlex, style]}
+        {...props} />
+    )
   }
 }

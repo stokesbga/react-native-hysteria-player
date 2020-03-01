@@ -44,8 +44,8 @@ class RNPlaybarSliderView: UISlider {
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.frame = frame
-    self.minimumValue = 100
-    self.maximumValue = 200
+    self.minimumValue = 0
+    self.maximumValue = 1
     self.isContinuous = true
     
     // Custom Thumb Image
@@ -60,12 +60,6 @@ class RNPlaybarSliderView: UISlider {
       name: .onTrackPositionChange,
       object: nil
     )
-    
-//    NotificationCenter.default.addObserver(self,
-//      selector: #selector(onTrackWillChange),
-//      name: .onTrackWillChange,
-//      object: nil
-//    )
   }
   
   
@@ -79,10 +73,6 @@ class RNPlaybarSliderView: UISlider {
     
     self.setValue(val, animated: minValue/val < 0.98 && val/maxValue < 0.98)
   }
-  
-  @objc private func onTrackWillChange(_ notification: Notification) {
-  }
-
   
   // On Seek
   @objc public func onSeek(_ source: UISlider, event: UIEvent ) -> Void {

@@ -181,6 +181,9 @@ extension HysteriaManager {
   func play() {
     if !(hysteriaPlayer?.isPlaying())! {
       hysteriaPlayer?.play()
+      
+      MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = hysteriaPlayer?.getPlayingItemCurrentTime()
+      MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 1
     }
   }
 
@@ -195,6 +198,9 @@ extension HysteriaManager {
   func pause() {
     if (hysteriaPlayer?.isPlaying())! {
       hysteriaPlayer?.pause()
+      
+      MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = hysteriaPlayer?.getPlayingItemCurrentTime()
+      MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 0
     }
   }
 

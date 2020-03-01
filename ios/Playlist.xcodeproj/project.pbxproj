@@ -15,10 +15,9 @@
 		2923F6A5240A1BF100AED8AD /* RNTrackAlbumArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2923F6A2240A1BF100AED8AD /* RNTrackAlbumArt.swift */; };
 		2923F6A6240A1BF100AED8AD /* RNTrackTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2923F6A3240A1BF100AED8AD /* RNTrackTitle.swift */; };
 		2923F6A7240A1BF100AED8AD /* RNTrackArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2923F6A4240A1BF100AED8AD /* RNTrackArtist.swift */; };
-		2963BB2E2407019B006D23AB /* PlaylistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB292407019B006D23AB /* PlaylistModel.swift */; };
-		2963BB2F2407019B006D23AB /* PlayerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB2A2407019B006D23AB /* PlayerQueue.swift */; };
+		2963BB2F2407019B006D23AB /* PlayerQueueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB2A2407019B006D23AB /* PlayerQueueModel.swift */; };
 		2963BB302407019B006D23AB /* SwiftPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB2B2407019B006D23AB /* SwiftPlayer.swift */; };
-		2963BB312407019B006D23AB /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB2C2407019B006D23AB /* PlayerModel.swift */; };
+		2963BB312407019B006D23AB /* PlayerTrackModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB2C2407019B006D23AB /* PlayerTrackModel.swift */; };
 		2963BB322407019B006D23AB /* HysteriaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB2D2407019B006D23AB /* HysteriaManager.swift */; };
 		2963BB5F24071805006D23AB /* RNPlaybarSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2963BB5E24071805006D23AB /* RNPlaybarSlider.swift */; };
 		296519382407420800DBD838 /* RNPlaylistEventEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296519372407420800DBD838 /* RNPlaylistEventEmitter.swift */; };
@@ -54,11 +53,10 @@
 		2915D5FB24088CEE00E2FA0B /* Float+toTimerString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+toTimerString.swift"; sourceTree = "<group>"; };
 		2923F6A2240A1BF100AED8AD /* RNTrackAlbumArt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTrackAlbumArt.swift; sourceTree = "<group>"; };
 		2923F6A3240A1BF100AED8AD /* RNTrackTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTrackTitle.swift; sourceTree = "<group>"; };
-		2923F6A4240A1BF100AED8AD /* RNTrackArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTrackArtist.swift; sourceTree = "<group>"; };
-		2963BB292407019B006D23AB /* PlaylistModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistModel.swift; sourceTree = "<group>"; };
-		2963BB2A2407019B006D23AB /* PlayerQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerQueue.swift; sourceTree = "<group>"; };
+		2923F6A4240A1BF100AED8AD /* RNTrackArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTrackArtist.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 1; };
+		2963BB2A2407019B006D23AB /* PlayerQueueModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerQueueModel.swift; sourceTree = "<group>"; };
 		2963BB2B2407019B006D23AB /* SwiftPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SwiftPlayer.swift; sourceTree = "<group>"; tabWidth = 2; };
-		2963BB2C2407019B006D23AB /* PlayerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
+		2963BB2C2407019B006D23AB /* PlayerTrackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTrackModel.swift; sourceTree = "<group>"; };
 		2963BB2D2407019B006D23AB /* HysteriaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HysteriaManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2963BB50240708D2006D23AB /* Playlist-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Playlist-Bridging-Header.h"; sourceTree = "<group>"; };
 		2963BB5E24071805006D23AB /* RNPlaybarSlider.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RNPlaybarSlider.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -131,9 +129,8 @@
 			children = (
 				2963BB2D2407019B006D23AB /* HysteriaManager.swift */,
 				2963BB2B2407019B006D23AB /* SwiftPlayer.swift */,
-				2963BB292407019B006D23AB /* PlaylistModel.swift */,
-				2963BB2C2407019B006D23AB /* PlayerModel.swift */,
-				2963BB2A2407019B006D23AB /* PlayerQueue.swift */,
+				2963BB2C2407019B006D23AB /* PlayerTrackModel.swift */,
+				2963BB2A2407019B006D23AB /* PlayerQueueModel.swift */,
 			);
 			path = HysteriaSwiftManager;
 			sourceTree = "<group>";
@@ -256,7 +253,7 @@
 				2923F6A7240A1BF100AED8AD /* RNTrackArtist.swift in Sources */,
 				2915D5F1240881EE00E2FA0B /* RNPlayPauseButton.swift in Sources */,
 				2963BB302407019B006D23AB /* SwiftPlayer.swift in Sources */,
-				2963BB312407019B006D23AB /* PlayerModel.swift in Sources */,
+				2963BB312407019B006D23AB /* PlayerTrackModel.swift in Sources */,
 				2915D5FC24088CEE00E2FA0B /* Float+toTimerString.swift in Sources */,
 				2915D5F924088C1D00E2FA0B /* RNPlaylist.swift in Sources */,
 				29B4CAAE2408FBF90063F211 /* RNPlaylistService.swift in Sources */,
@@ -266,8 +263,7 @@
 				2968629024092A080009BFB8 /* RNSkipPrevButton.swift in Sources */,
 				2915D5F7240882BF00E2FA0B /* RNTimerDuration.swift in Sources */,
 				2915D5F32408820400E2FA0B /* RNSkipNextButton.swift in Sources */,
-				2963BB2E2407019B006D23AB /* PlaylistModel.swift in Sources */,
-				2963BB2F2407019B006D23AB /* PlayerQueue.swift in Sources */,
+				2963BB2F2407019B006D23AB /* PlayerQueueModel.swift in Sources */,
 				2963BB322407019B006D23AB /* HysteriaManager.swift in Sources */,
 				296519382407420800DBD838 /* RNPlaylistEventEmitter.swift in Sources */,
 				2923F6A5240A1BF100AED8AD /* RNTrackAlbumArt.swift in Sources */,

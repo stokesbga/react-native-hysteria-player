@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = "https://github.com/stokesbga/react-native-playlist"
   s.license      = "MIT"
-  s.authors      = {  'Alex Yosef' => 'alex@quadio.com'
+  s.authors      = {  'Alex Yosef' => 'alex@quadio.com',
                       'Stan Tsai' => 'feocms@gmail.com',
                       'iTSangar' => 'itsangardev@gmail.com' }
   s.platforms    = { :ios => "10.0" }
@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
   s.swift_versions = "5"
 
   s.dependency "React"
+  s.dependency "MarqueeLabel", "~> 4.0.2"
   s.dependency "ObjectMapper", "~> 3.5.0"
   s.dependency "AlamofireImage", "~> 4.0.0"
 end

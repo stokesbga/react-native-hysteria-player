@@ -27,6 +27,8 @@ class RNTimerProgressView: UILabel {
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.frame = frame
+    
+    self.textAlignment = .center
     self.textColor = .darkGray
     self.text = "0:00"
     

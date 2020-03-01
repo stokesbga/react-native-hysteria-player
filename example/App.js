@@ -9,9 +9,10 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, Dimensions, StyleSheet, Text, View } from 'react-native';
 import Playlist, { PlaylistComponent } from 'react-native-playlist';
 
+const deviceWidth = Dimensions.get('window').width
 const tracklistJSON = require('./data/hiphop_playlist_full.json')
 
 const {
@@ -29,45 +30,62 @@ const {
 export default class App extends Component<{}> {
   state = {
     switch: true,
-    color1: 'coral',
-    color2: '#ccc'
+    color1: 'teal',
+    loaded: false
   }
 
   async componentDidMount() {
-    Playlist.setupPlayer()
+    await Playlist.setup()
+    const playerTracks = tracklistJSON.tracks.data.map(t => ({
+      url: t.preview,
+      title: t.title,
+      artwork: t.album.cover_big,
+      album: t.album.title,
+      artist: t.artist.name,
+      custom: { hello: "blah"}
+    }))
 
-    setTimeout(() => {
-      // this.setState({ 
-      //   // switch: false,
-      //   // color1: 'violet',
-      //   // color2: 'orange'
-      // })
-    }, 2000)
+    Playlist.addTracks(playerTracks)
+
+    // setTimeout(() => {
+    //   Playlist.addTracks(playerTracks)
+    // }, 10000)
+    this.setState({
+      loaded: true
+    })
   }
 
   render() {
     return (
       <View style={styles.container}>
         <View style={{ flex: 1, width: '100%' }}>
-          <View style={{ flex: 1, backgroundColor: '#e0e0e0' }} />
+          <View style={{ flex: 1, backgroundColor: '#e0e0e0' }} >
+            <TrackAlbumArt style={{ width: '100%', height: deviceWidth/2, marginLeft: -110, marginTop: -8 }} />
+          </View>
           <View style={{ flex: 1 }}>
             <PlaybarSlider 
               hasControl={true}
-              thumbRadius={22}
-              trackHeightEnabled={10}
+              thumbRadius={20}
+              trackHeightEnabled={5}
               trackHeightDisabled={3}
               trackPlayedColor={this.state.color1}
               trackRemainingColor={this.state.color2}
-              style={{
-                backgroundColor: '#f0f0f0',
-              }} />
-            <View style={{ flexDirection: 'row', marginTop: 100 }}>
-              <TrackProgress style={{ flex: 1, marginLeft: 40, marginRight: -40 }} />
-              <SkipPrev style={{ flex: 1}} />
-              <PlayPause />
-              <SkipNext style={{ flex: 1}}/>
-              <TrackDuration style={{ flex: 1 }} />
+            />
+            <View style={{
+              marginTop: 15,
+              marginBottom: 60,
+            }}>
+              <TrackTitle style={{ minHeight: 30 }} />
+              <TrackArtist style={{ minHeight: 30 }} />
             </View>
+            <View style={{ flexDirection: 'row', marginTop: 20, alignItems: 'space-around' }}>
+              <TrackProgress />
+              <SkipPrev />
+              <PlayPause />
+              <SkipNext />
+              <TrackDuration />
+            </View>
+          <Text style={{ textAlign: 'center', marginTop: 40 }}>Hello: {this.state.color1}</Text>
           </View>
         </View>
       </View>

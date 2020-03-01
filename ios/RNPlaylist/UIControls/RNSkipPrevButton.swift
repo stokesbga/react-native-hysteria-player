@@ -12,7 +12,7 @@ import Foundation
 @objc(RNSkipPrevButton)
 class RNSkipPrevButton : RCTViewManager {
   override func view() -> UIView! {
-    return RNSkipPrevButtonView(type: .custom)
+    return RNSkipPrevButtonView()
   }
   
   override public static func requiresMainQueueSetup() -> Bool {
@@ -21,14 +21,27 @@ class RNSkipPrevButton : RCTViewManager {
 }
 
 
-class RNSkipPrevButtonView: UIButton {
-  let isDisabled: Bool = false
+class RNSkipPrevButtonView: UIView {
+  // React Props
+  private var prevButtonAssetName: NSString = "prev.png"
+  
+  private let isDisabled: Bool = false
+  private lazy var button: UIButton = {
+    let btn = UIButton(type: .custom)
+    btn.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    btn.contentMode = .center
+    btn.imageView?.contentMode = .scaleAspectFit
+    
+    btn.setImage(RNPlaylistGlobal.getFallbackResource("prev.png"), for: .normal)
+    return btn
+  }()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.frame = frame
-    self.setImage(UIImage(named: "prev.png", in: RNPlaylistGlobal.getResourceBundle(), compatibleWith: nil), for: .normal)
-    self.addTarget(self, action: #selector(self.onPress), for: .touchUpInside)
+          
+    addSubview(button)
+    
+    button.addTarget(self, action: #selector(self.onPress), for: .touchUpInside)
   }
 
   // On Press

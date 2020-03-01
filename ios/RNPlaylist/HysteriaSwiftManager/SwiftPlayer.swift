@@ -104,6 +104,10 @@ open class SwiftPlayer {
     HysteriaManager.sharedInstance.seekTo(slider)
   }
   
+  public static func seekToS(_ seconds: Double) {
+    HysteriaManager.sharedInstance.seekToS(seconds)
+  }
+  
   /// Get duration time of track
   public static func trackDurationTime() -> Float {
     return HysteriaManager.sharedInstance.playingItemDurationTime()
@@ -117,7 +121,7 @@ open class SwiftPlayer {
   // MARK: QUEUE
  
   /// Set new playlist in player
-  public static func newPlaylist(_ playlist: [PlayerTrack]) -> SwiftPlayer.Type {
+  public static func setPlaylist(_ playlist: [PlayerTrack]) -> SwiftPlayer.Type {
     HysteriaManager.sharedInstance.setPlaylist(playlist)
     return self
   }
