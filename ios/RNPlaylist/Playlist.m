@@ -61,24 +61,44 @@
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistNextButton, RNSkipNextButton, RCTViewManager)
+    RCT_EXPORT_VIEW_PROPERTY(disabledOpacity, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(icon, NSString);
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPrevButton, RNSkipPrevButton, RCTViewManager)
-@end
-
-@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTimerDuration, RNTimerDuration, RCTViewManager)
-@end
-
-@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTimerProgress, RNTimerProgress, RCTViewManager)
+    RCT_EXPORT_VIEW_PROPERTY(disabledOpacity, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(icon, NSString);
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistAlbumArt, RNTrackAlbumArt, RCTViewManager)
 @end
 
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTimerDuration, RNTimerDuration, RCTViewManager)
+    RCT_EXPORT_VIEW_PROPERTY(fontFamily, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(color, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(textAlign, NSNumber);
+@end
+
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTimerProgress, RNTimerProgress, RCTViewManager)
+    RCT_EXPORT_VIEW_PROPERTY(fontFamily, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(color, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(textAlign, NSNumber);
+@end
+
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTrackArtist, RNTrackArtist, RCTViewManager)
+    RCT_EXPORT_VIEW_PROPERTY(fontFamily, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(color, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(textAlign, NSNumber);
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTrackTitle, RNTrackTitle, RCTViewManager)
+    RCT_EXPORT_VIEW_PROPERTY(fontFamily, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(color, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(textAlign, NSNumber);
 @end
 
 

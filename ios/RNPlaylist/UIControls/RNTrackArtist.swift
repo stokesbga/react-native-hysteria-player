@@ -23,12 +23,16 @@ class RNTrackArtist : RCTViewManager {
 
 
 class RNTrackArtistView: UIView {
+	private var fontFamily: String = "System"
+	private var fontSize: CGFloat = 18.0
+	private var color: UIColor = .black
+	private var textAlign: NSTextAlignment = .left
 	private lazy var marqueeLabel: MarqueeLabel = {
     let label = MarqueeLabel(frame: CGRect(), duration: 8.0, fadeLength: 10.0)
     label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     label.contentMode = .center
-		label.textAlignment = .center
-		label.textColor = .black
+		label.textAlignment = textAlign
+		label.textColor = color
 		label.text = "None"
     return label
   }()
@@ -66,4 +70,37 @@ class RNTrackArtistView: UIView {
 **************/
 extension RNTrackArtistView {
   
+  @objc public func setFontFamily(_ val: NSString) {
+		fontFamily = val as? String ?? "System"
+		let font = UIFont(name: fontFamily, size: fontSize)
+		marqueeLabel.font = font
+  }
+	
+	@objc public func setFontSize(_ val: NSNumber) {
+		fontSize = RCTConvert.cgFloat(val) ?? 18
+		let font = UIFont(name: fontFamily, size: fontSize)
+		marqueeLabel.font = font
+  }
+	
+	@objc public func setColor(_ val: NSNumber) {
+		color = RCTConvert.uiColor(val) ?? .black
+		marqueeLabel.textColor = color
+  }
+	
+  @objc public func setTextAlign(_ val: NSNumber) {
+    textAlign = {
+      switch(val as? Int ?? 0) {
+      case 0:
+        return .left
+      case 1:
+        return .center
+      case 2:
+        return .right
+      default:
+        return .left
+      }
+    }()
+		marqueeLabel.textAlignment = textAlign
+  }
+	
 }

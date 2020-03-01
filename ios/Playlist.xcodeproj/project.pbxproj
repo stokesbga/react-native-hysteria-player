@@ -52,8 +52,8 @@
 		2915D5F824088C1D00E2FA0B /* RNPlaylist.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RNPlaylist.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2915D5FB24088CEE00E2FA0B /* Float+toTimerString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+toTimerString.swift"; sourceTree = "<group>"; };
 		2923F6A2240A1BF100AED8AD /* RNTrackAlbumArt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTrackAlbumArt.swift; sourceTree = "<group>"; };
-		2923F6A3240A1BF100AED8AD /* RNTrackTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTrackTitle.swift; sourceTree = "<group>"; };
-		2923F6A4240A1BF100AED8AD /* RNTrackArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNTrackArtist.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 1; };
+		2923F6A3240A1BF100AED8AD /* RNTrackTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RNTrackTitle.swift; sourceTree = "<group>"; tabWidth = 2; };
+		2923F6A4240A1BF100AED8AD /* RNTrackArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 1; lastKnownFileType = sourcecode.swift; path = RNTrackArtist.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 1; };
 		2963BB2A2407019B006D23AB /* PlayerQueueModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerQueueModel.swift; sourceTree = "<group>"; };
 		2963BB2B2407019B006D23AB /* SwiftPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SwiftPlayer.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2963BB2C2407019B006D23AB /* PlayerTrackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTrackModel.swift; sourceTree = "<group>"; };

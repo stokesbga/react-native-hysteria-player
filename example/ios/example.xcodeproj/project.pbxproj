@@ -13,6 +13,7 @@
 		2915D5EA24085C0700E2FA0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2915D5E924085C0700E2FA0B /* AppDelegate.swift */; };
 		2958D1322408CABB00FEECC7 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2958D1312408CABB00FEECC7 /* AppIcon.xcassets */; };
 		2958D1332408CB3100FEECC7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
+		2977E19E240B97EC00A173E4 /* skip_prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 2977E19D240B97EC00A173E4 /* skip_prev.png */; };
 		29E7DEFF24049BF60038D65F /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DEFE24049BF60038D65F /* Example.swift */; };
 		2DCD954D1E0B4F2C00145EB5 /* exampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* exampleTests.m */; };
 		9A6BBBAD82F9E8CED7BCD75C /* libPods-exampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F8011DAFBC0DBF2AFF6B07 /* libPods-exampleTests.a */; };
@@ -46,6 +47,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = example/Info.plist; sourceTree = "<group>"; };
 		2915D5E924085C0700E2FA0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2958D1312408CABB00FEECC7 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = AppIcon.xcassets; path = example/AppIcon.xcassets; sourceTree = "<group>"; };
+		2977E19D240B97EC00A173E4 /* skip_prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skip_prev.png; path = ../../assets/skip_prev.png; sourceTree = "<group>"; };
 		29E7DEFD24049BF60038D65F /* example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "example-Bridging-Header.h"; sourceTree = "<group>"; };
 		29E7DEFE24049BF60038D65F /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* example-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +135,14 @@
 			name = example;
 			sourceTree = "<group>";
 		};
+		2977E19C240B97C300A173E4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2977E19D240B97EC00A173E4 /* skip_prev.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +168,7 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* example */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				2977E19C240B97C300A173E4 /* Resources */,
 				00E356EF1AD99517003FC87E /* exampleTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -341,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2958D1332408CB3100FEECC7 /* LaunchScreen.xib in Resources */,
+				2977E19E240B97EC00A173E4 /* skip_prev.png in Resources */,
 				2958D1322408CABB00FEECC7 /* AppIcon.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

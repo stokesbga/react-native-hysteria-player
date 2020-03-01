@@ -11,6 +11,7 @@
 import React, { Component } from 'react';
 import { Platform, Dimensions, StyleSheet, Text, View } from 'react-native';
 import Playlist, { PlaylistEventEmitter, EventTypes, PlaylistComponent } from 'react-native-playlist';
+import Images from './assets'
 
 const deviceWidth = Dimensions.get('window').width
 const tracklistJSON = require('./data/hiphop_playlist_full.json')
@@ -38,7 +39,7 @@ export default class App extends Component<{}> {
   async componentDidMount() {
     await Playlist.setup()
 
-    const playerTracks = tracklistJSON.tracks.data.map(t => ({
+    const playerTracks = tracklistJSON.tracks.data.slice(0, 2).map(t => ({
       url: t.preview,
       title: t.title,
       artwork: t.album.cover_big,
@@ -83,17 +84,48 @@ export default class App extends Component<{}> {
               marginTop: 15,
               marginBottom: 60,
             }}>
-              <TrackTitle style={{ minHeight: 30 }} />
-              <TrackArtist style={{ minHeight: 30 }} />
+              <TrackTitle
+                fontFamily={'Avenir-Heavy'}
+                fontSize={23}
+                color={"#222"}
+                textAlign={"center"}
+                style={{ minHeight: 30 }} />
+              <TrackArtist 
+                fontFamily={'Monaco'}
+                fontSize={19}
+                color={"#666"}
+                textAlign={"center"}
+                style={{ minHeight: 30 }} />
             </View>
             <View style={{ flexDirection: 'row', marginTop: 20, alignItems: 'space-around' }}>
-              <TrackProgress />
-              <SkipPrev />
+              <TrackProgress
+                fontFamily={'Avenir-Heavy'}
+                fontSize={15}
+                color={'lightgray'}
+                textAlign={"center"}
+                style={{ minHeight: 50 }}
+                />
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <SkipPrev
+                disabledOpacity={0.3}
+                icon={"skip_prev.png"} 
+                style={{
+                  flex: 0,
+                  width: 28,
+                  height: 28,
+                }}/>
+                </View>
               <PlayPause />
-              <SkipNext />
-              <TrackDuration />
+              <SkipNext 
+                disabledOpacity={1.0} />
+              <TrackDuration 
+                fontFamily={'Avenir-Heavy'}
+                fontSize={15}
+                color={'lightgray'}
+                textAlign={"center"}
+                style={{ minHeight: 50 }} />
             </View>
-          <Text style={{ textAlign: 'center', marginTop: 40 }}>Hello: {this.state.trackTitle}</Text>
+          <Text style={{ textAlign: 'center', marginTop: 40 }}>Current track title from PlaylistEventEmitter: {this.state.trackTitle}</Text>
           </View>
         </View>
       </View>

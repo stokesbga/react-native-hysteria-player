@@ -22,14 +22,18 @@ class RNTimerProgress : RCTViewManager {
 
 
 class RNTimerProgressView: UILabel {
-  let isHoldingAtZero: Bool = false
+  // React Props
+  private var fontFamily: String = "System"
+  private var fontSize: CGFloat = 18.0
+  private var color: UIColor = .black
+  private var textAlign: NSTextAlignment = .left
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.frame = frame
     
-    self.textAlignment = .center
-    self.textColor = .darkGray
+    self.textAlignment = textAlign
+    self.textColor = color
     self.text = "0:00"
     
     // Notification Subscriber
@@ -58,5 +62,38 @@ class RNTimerProgressView: UILabel {
 *  React Props  *
 **************/
 extension RNTimerProgressView {
+  
+  @objc public func setFontFamily(_ val: NSString) {
+    fontFamily = val as? String ?? "System"
+    let font = UIFont(name: fontFamily, size: fontSize)
+    self.font = font
+  }
+  
+  @objc public func setFontSize(_ val: NSNumber) {
+    fontSize = RCTConvert.cgFloat(val) ?? 18
+    let font = UIFont(name: fontFamily, size: fontSize)
+    self.font = font
+  }
+  
+  @objc public func setColor(_ val: NSNumber) {
+    color = RCTConvert.uiColor(val) ?? .black
+    self.textColor = color
+  }
+  
+  @objc public func setTextAlign(_ val: NSNumber) {
+    textAlign = {
+      switch(val as? Int ?? 0) {
+      case 0:
+        return .left
+      case 1:
+        return .center
+      case 2:
+        return .right
+      default:
+        return .left
+      }
+    }()
+    self.textAlignment = textAlign
+  }
   
 }
