@@ -56,8 +56,7 @@ class RNPlayPauseButtonView: UIView {
   // isPlaying Observer
   @objc private func onPlayerStateChange(_ notification: Notification) {
     guard let isPlaying = notification.object as? Bool else { return }
-    print("PLAY IS PLAYING", isPlaying)
-//    self.button.isSelected = isPlaying ? true : false
+    self.button.isSelected = isPlaying ? true : false
   }
 
   // On Press Handler

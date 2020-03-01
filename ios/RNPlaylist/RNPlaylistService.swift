@@ -15,6 +15,9 @@ class PlaylistService: NSObject {
     return true
   }
   
+  private static var playerIsReady: Bool = false
+  
+  
   /**
    * Triggers
    */
@@ -62,16 +65,18 @@ class PlaylistService: NSObject {
   
   // Player
   func dispatchPlayerStateChange(_ isPlaying: Bool) {
-    NotificationCenter.default.post(name: .onPlayerStateChange, object: isPlaying)
+    if(PlaylistService.playerIsReady) {
+      NotificationCenter.default.post(name: .onPlayerStateChange, object: isPlaying)
+    }
   }
   func dispatchPlayerReachedEnd() {
 //    onPlayerReachedEnd?()
   }
   func dispatchPlayerReady() {
-//    onPlayerReady?()
+    PlaylistService.playerIsReady = true
   }
   func dispatchPlayerStall() {
-//    onPlayerStall?()
+//    playerIsReady = false
   }
   
   // Error
@@ -79,7 +84,7 @@ class PlaylistService: NSObject {
 //    onTrackLoadFailed?(error)
   }
   func dispatchPlayerFailed(_ error: NSError?) {
-//    onPlayerFailed?(error)
+    PlaylistService.playerIsReady = false
   }
 }
 

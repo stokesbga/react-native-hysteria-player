@@ -151,22 +151,32 @@ extension HysteriaManager {
 // MARK: - HysteriaManager - Remote Control Events
 extension HysteriaManager {
   fileprivate func enableCommandCenter() {
-    commandCenter.playCommand.addTarget (handler: { _ in
+    
+    // Optional Controls
+    commandCenter.changePlaybackPositionCommand.isEnabled = true
+    commandCenter.changePlaybackPositionCommand.addTarget (handler: { [unowned self] event in
+      let event = event as! MPChangePlaybackPositionCommandEvent
+      self.seekToS(event.positionTime)
+      return .success
+    })
+    
+    // Classic Controls
+    commandCenter.playCommand.addTarget (handler: { [unowned self] _ in
       self.play()
       return MPRemoteCommandHandlerStatus.success
     })
 
-    commandCenter.pauseCommand.addTarget (handler: { _ in
+    commandCenter.pauseCommand.addTarget (handler: { [unowned self]  _ in
       self.pause()
       return MPRemoteCommandHandlerStatus.success
     })
 
-    commandCenter.nextTrackCommand.addTarget (handler: { _ in
+    commandCenter.nextTrackCommand.addTarget (handler: { [unowned self] _ in
       self.next()
       return MPRemoteCommandHandlerStatus.success
     })
 
-    commandCenter.previousTrackCommand.addTarget (handler: { _ in
+    commandCenter.previousTrackCommand.addTarget (handler: { [unowned self] _ in
       self.previous()
       return MPRemoteCommandHandlerStatus.success
     })
@@ -443,7 +453,7 @@ extension HysteriaManager: HysteriaPlayerDelegate {
 
   func hysteriaPlayerCurrentItemPreloaded(_ time: CMTime) {
     if logs {print("• current item preloaded :time >> \(CMTimeGetSeconds(time))")}
-//    playlistService.dispatchTrackPreloaded(time)
+    playlistService.dispatchTrackPreloaded(time)
   }
 
   func hysteriaPlayerDidFailed(_ identifier: HysteriaPlayerFailed, error: NSError!) {
