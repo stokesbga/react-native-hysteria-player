@@ -1,11 +1,12 @@
 import React from 'react'
-import { Platform, DeviceEventEmitter, NativeEventEmitter, NativeModules } from 'react-native';
-import * as Components from './src/components'
+import { Platform, NativeEventEmitter, NativeModules } from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
 
+import * as Components from './src/components'
+import PlaylistEvents, { EventTypes as AllEventTypes } from './src/events'
+
 const { 
-  RNPlaylist: Playlist, 
-  RNPlaylistEventEmitter
+  RNPlaylist: Playlist,
 } = NativeModules
 
 resolveAsset = (url) => {
@@ -18,19 +19,17 @@ resolveUrl = (url) => {
   return resolveAssetSource(url) || url;
 }
 
+// Manager
 export default Playlist
-export const PlaylistEventEmitter = new NativeEventEmitter(RNPlaylistEventEmitter)
-
-// Subscribe to Events
-PlaylistEventEmitter.addListener(
-  "playback-state",
-  res => console.log("Playback state change: ", res)
-)
 
 // Components 
 export const PlaylistComponent = {
   ...Components
 }
+
+// Events
+export const PlaylistEventEmitter = PlaylistEvents
+export const EventTypes = AllEventTypes
 
 
 

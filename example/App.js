@@ -10,7 +10,7 @@
 
 import React, { Component } from 'react';
 import { Platform, Dimensions, StyleSheet, Text, View } from 'react-native';
-import Playlist, { PlaylistComponent } from 'react-native-playlist';
+import Playlist, { PlaylistEventEmitter, EventTypes, PlaylistComponent } from 'react-native-playlist';
 
 const deviceWidth = Dimensions.get('window').width
 const tracklistJSON = require('./data/hiphop_playlist_full.json')
@@ -31,11 +31,13 @@ export default class App extends Component<{}> {
   state = {
     switch: true,
     color1: 'teal',
-    loaded: false
+    loaded: false,
+    trackTitle: 'bah'
   }
 
   async componentDidMount() {
     await Playlist.setup()
+
     const playerTracks = tracklistJSON.tracks.data.map(t => ({
       url: t.preview,
       title: t.title,
@@ -46,6 +48,12 @@ export default class App extends Component<{}> {
     }))
 
     Playlist.addTracks(playerTracks)
+
+    // Add Listener
+    PlaylistEventEmitter.addListener(EventTypes.onTrackChange, track => {
+      console.log('track', track)
+      this.setState({ trackTitle: track?.title })
+    })
 
     // setTimeout(() => {
     //   Playlist.addTracks(playerTracks)
@@ -85,7 +93,7 @@ export default class App extends Component<{}> {
               <SkipNext />
               <TrackDuration />
             </View>
-          <Text style={{ textAlign: 'center', marginTop: 40 }}>Hello: {this.state.color1}</Text>
+          <Text style={{ textAlign: 'center', marginTop: 40 }}>Hello: {this.state.trackTitle}</Text>
           </View>
         </View>
       </View>

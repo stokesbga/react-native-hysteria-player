@@ -151,7 +151,6 @@ open class SwiftPlayer {
       }
     }
     
-    
     return HysteriaManager.sharedInstance.queue.nextQueue
   }
   

@@ -30,7 +30,7 @@ extension RNPlaylist {
 
   @objc(setup:rejecter:)
   public func setup(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-//    SwiftPlayer.newPlaylist(playlist).playAll()
+    PlaylistService.isSetup = true
     resolve(NSNull())
   }
 

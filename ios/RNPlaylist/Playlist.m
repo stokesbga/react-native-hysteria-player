@@ -84,5 +84,5 @@
 
 
 // Event Emitter
-@interface RCT_EXTERN_MODULE(RNPlaylistEventEmitter, RCTEventEmitter)
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistEventEmitter, RNPlaylistService, RCTEventEmitter)
 @end
