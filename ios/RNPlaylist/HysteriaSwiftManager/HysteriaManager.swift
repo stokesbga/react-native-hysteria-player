@@ -41,7 +41,7 @@ class HysteriaManager: NSObject {
   static let sharedInstance = HysteriaManager()
   var hysteriaPlayer = HysteriaPlayer.sharedInstance()
 
-  var logs = true
+  var logs = false
   var queue = PlayerQueue()
   
   let playlistService = PlaylistService.shared
@@ -60,7 +60,7 @@ class HysteriaManager: NSObject {
   fileprivate func initHysteriaPlayer() {
     hysteriaPlayer?.delegate = self;
     hysteriaPlayer?.datasource = self;
-    hysteriaPlayer?.enableMemoryCached(true)
+    hysteriaPlayer?.enableMemoryCached(false)
     enableCommandCenter()
   }
 }
@@ -91,6 +91,10 @@ extension HysteriaManager {
 
 // MARK: - HysteriaManager - MPNowPlayingInfoCenter
 extension HysteriaManager {
+  
+  func setMemoryCached(_ enable: Bool) {
+    hysteriaPlayer?.enableMemoryCached(enable)
+  }
 
   func updateImageInfoCenter(_ image: UIImage) {
     if var dictionary = MPNowPlayingInfoCenter.default().nowPlayingInfo {
@@ -424,7 +428,7 @@ extension HysteriaManager: HysteriaPlayerDataSource {
       fetchAndPlayAtIndex(index - 1)
       return
     }
-
+    
     hysteriaPlayer?.setupPlayerItem(with: URL(string: track.url)!, index: index)
   }
 }
@@ -450,7 +454,7 @@ extension HysteriaManager: HysteriaPlayerDelegate {
   }
 
   func hysteriaPlayerDidReachEnd() {
-    if logs {print("• player did reach end", currentIndex(), queue.history.popLast())}
+    if logs {print("• player did reach end")}
     playlistService?.dispatchPlayerReachedEnd()
     
     pause()

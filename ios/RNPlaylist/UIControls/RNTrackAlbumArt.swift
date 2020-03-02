@@ -23,7 +23,8 @@ class RNTrackAlbumArt : RCTViewManager {
 
 class RNTrackAlbumArtView: UIView {
   private lazy var imageView: UIImageView = {
-    let image = RNPlaylistGlobal.getFallbackResource("placeholder.png")
+    // @todo - create imagefallback prop RNPlaylistGlobal.getFallbackResource("placeholder.png")
+    let image = UIImage()
     let imgView = UIImageView(image: image)
     imgView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     imgView.contentMode = .scaleAspectFit
@@ -45,8 +46,10 @@ class RNTrackAlbumArtView: UIView {
   
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {
-    guard let track = notification.object as? [String: AnyObject] else { return }
-    self.imageView.image = track["albumArtUIImage"] as? UIImage
+    DispatchQueue.main.async { [unowned self] in
+      guard let track = notification.object as? [String: AnyObject] else { return }
+      self.imageView.image = track["albumArtUIImage"] as? UIImage
+    }
   }
 
     

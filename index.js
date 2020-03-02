@@ -4,23 +4,11 @@ import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 
 import * as Components from './src/components'
 import PlaylistEvents, { EventTypes as AllEventTypes } from './src/events'
+import PlaylistManager from './src'
 
-const { 
-  RNPlaylist: Playlist,
-} = NativeModules
-
-resolveAsset = (url) => {
-  if(!uri) return undefined;
-  return resolveAssetSource(uri);
-}
-
-resolveUrl = (url) => {
-  if(!url) return undefined;
-  return resolveAssetSource(url) || url;
-}
 
 // Manager
-export default Playlist
+export default PlaylistManager
 
 // Components 
 export const PlaylistComponent = {

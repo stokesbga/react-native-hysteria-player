@@ -12,12 +12,12 @@ import Foundation
 class PlaylistService: RCTEventEmitter {
 
   private static var playerIsReady: Bool = false
-  public static var isSetup: Bool = false
+  public static var isRNSubscribed: Bool = false
   private static var throttler = Throttler(minimumDelay: 0.5)
   public static var shared: PlaylistService?
   
   private func isBridgeReady() -> Bool {
-    return PlaylistService.isSetup
+    return PlaylistService.isRNSubscribed
   }
   
   
@@ -61,7 +61,7 @@ class PlaylistService: RCTEventEmitter {
   }
   
   override public static func requiresMainQueueSetup() -> Bool {
-    return true
+    return false
   }
   
   

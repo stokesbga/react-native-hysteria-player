@@ -18,6 +18,11 @@ open class SwiftPlayer {
     HysteriaManager.sharedInstance.logs = active
   }
   
+  /// Set useCache
+  public static func enableCache(_ enable: Bool) {
+    HysteriaManager.sharedInstance.setMemoryCached(enable)
+  }
+  
   /// ▶️ Play music
   public static func play() {
     HysteriaManager.sharedInstance.play()

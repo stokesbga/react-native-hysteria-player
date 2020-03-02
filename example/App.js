@@ -9,10 +9,10 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Platform, TouchableOpacity, Dimensions, StyleSheet, Text, View } from 'react-native';
 import Playlist, { PlaylistEventEmitter, EventTypes, PlaylistComponent } from 'react-native-playlist';
 
-const deviceWidth = Dimensions.get('window').width
+const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window')
 const tracklistJSON = require('./data/hiphop_playlist_full.json')
 
 const {
@@ -27,41 +27,43 @@ const {
   TrackTitle
 } = PlaylistComponent
 
+const playerTracks = tracklistJSON.tracks.data.slice(1, 3).map(t => ({
+  url: t.preview,
+  title: t.title,
+  artwork: t.album.cover_big,
+  album: t.album.title,
+  artist: t.artist.name,
+  custom: {
+    foo: "any extra data here",
+    bar: ["a", "b", "c"],
+  }
+}))
+
+const playerTracks2 = tracklistJSON.tracks.data.slice(4, 6).map(t => ({
+  url: t.preview,
+  title: t.title,
+  artwork: t.album.cover_big,
+  album: t.album.title,
+  artist: t.artist.name,
+  custom: {
+    foo: "any extra data here",
+    bar: ["a", "b", "c"],
+  }
+}))
+
 export default class App extends Component<{}> {
   state = {
-    switch: true,
+    playlistId: 1,
     color1: 'teal',
-    loaded: false,
     trackTitle: 'N/A'
   }
 
   async componentDidMount() {
-    await Playlist.setup()
-
-    const playerTracks = tracklistJSON.tracks.data.slice(0, 2).map(t => ({
-      url: t.preview,
-      title: t.title,
-      artwork: t.album.cover_big,
-      album: t.album.title,
-      artist: t.artist.name,
-      custom: {
-        foo: "any extra data here",
-        bar: ["a", "b", "c"],
-      }
-    }))
-
-    const playerTracks2 = tracklistJSON.tracks.data.slice(9, 11).map(t => ({
-      url: t.preview,
-      title: t.title,
-      artwork: t.album.cover_big,
-      album: t.album.title,
-      artist: t.artist.name,
-      custom: {
-        foo: "any extra data here",
-        bar: ["a", "b", "c"],
-      }
-    }))
-
+    Playlist.setup({
+      enableEvents: false,
+      enableCache: false,
+      enableLogs: false
+    })
 
     Playlist.addTracks(playerTracks)
 
@@ -70,13 +72,12 @@ export default class App extends Component<{}> {
       console.log('track', track)
       this.setState({ trackTitle: track?.title })
     })
+  }
 
-    // setTimeout(() => {
-    //   Playlist.addTracks(playerTracks2)
-    // }, 5000)
-    this.setState({
-      loaded: true
-    })
+  onPressLoadNextPlaylist = () => {
+    const playlistId = this.state.playlistId === 1 ? 2 : 1
+    this.setState({ playlistId })
+    Playlist.addTracks(playlistId === 1 ? playerTracks : playerTracks2)
   }
 
   render() {
@@ -84,7 +85,7 @@ export default class App extends Component<{}> {
       <View style={styles.container}>
         <View style={{ flex: 1, width: '100%' }}>
           <View style={{ flex: 1, backgroundColor: '#e0e0e0' }} >
-            <TrackAlbumArt style={{ width: '100%', height: deviceWidth/2, marginLeft: -110, marginTop: -8 }} />
+            <TrackAlbumArt style={{ width: deviceHeight/2, height: deviceHeight/2 }} />
           </View>
           <View style={{ flex: 1 }}>
             <PlaybarSlider 
@@ -154,8 +155,16 @@ export default class App extends Component<{}> {
                 textAlign={"center"}
                 style={{ minHeight: 50 }} />
             </View>
-            <Text style={{ fontWeight: '600', textAlign: 'center', marginTop: 40 }}>Current track title from PlaylistEventEmitter:</Text>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={{ fontWeight: '600', textAlign: 'center', marginTop: 40 }}>Current track title from PlaylistEventEmitter:</Text>
               <Text style={{ textAlign: 'center'}}>{this.state.trackTitle}</Text>
+
+              <TouchableOpacity onPress={this.onPressLoadNextPlaylist}>
+                <View style={{ height: 40, paddingHorizontal: 16, marginTop: 20, backgroundColor: '#e8e8e8', alignItems: 'center', justifyContent: 'center' }}>
+                  <Text>Load next playlist</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>

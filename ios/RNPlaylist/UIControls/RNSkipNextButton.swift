@@ -56,15 +56,17 @@ class RNSkipNextButtonView: UIView {
   
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {
-    guard let track = notification.object as? [String: AnyObject] else { return }
-    let idx = SwiftPlayer.currentTrackIndex()
-    let total = SwiftPlayer.totalTracks()
-    if (idx == (total-1)) {
-      button.isEnabled = false
-      button.alpha = disabledOpacity;
-    } else {
-      button.isEnabled = true
-      button.alpha = 1.0;
+    DispatchQueue.main.async { [unowned self] in
+      guard let track = notification.object as? [String: AnyObject] else { return }
+      let idx = SwiftPlayer.currentTrackIndex()
+      let total = SwiftPlayer.totalTracks()
+      if (idx == (total-1)) {
+        self.button.isEnabled = false
+        self.button.alpha = self.disabledOpacity;
+      } else {
+        self.button.isEnabled = true
+        self.button.alpha = 1.0;
+      }
     }
   }
 

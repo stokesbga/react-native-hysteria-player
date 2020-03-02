@@ -46,8 +46,10 @@ class RNTimerDurationView: UILabel {
   
   // Track Position Observer
   @objc private func onTrackDurationChange(_ notification: Notification) {
-    guard let seconds = notification.object as? Float else { return }
-    self.text = seconds.toTimerString()
+    DispatchQueue.main.async { [unowned self] in
+      guard let seconds = notification.object as? Float else { return }
+      self.text = seconds.toTimerString()
+    }
   }
 
     

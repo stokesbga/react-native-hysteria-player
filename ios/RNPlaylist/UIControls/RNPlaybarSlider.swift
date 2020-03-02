@@ -65,13 +65,15 @@ class RNPlaybarSliderView: UISlider {
   
   // Track Position Observer
   @objc private func onTrackPositionChange(_ notification: Notification) {
-    guard self.isSeeking == false else { return }
-    guard let seconds = notification.object as? Float else { return }
-    let minValue = self.minimumValue
-    let maxValue = self.maximumValue
-    let val = ((maxValue - minValue) * seconds / SwiftPlayer.trackDurationTime() + minValue)
-    
-    self.setValue(val, animated: minValue/val < 0.98 && val/maxValue < 0.98)
+    DispatchQueue.main.async { [unowned self] in
+      guard self.isSeeking == false else { return }
+      guard let seconds = notification.object as? Float else { return }
+      let minValue = self.minimumValue
+      let maxValue = self.maximumValue
+      let val = ((maxValue - minValue) * seconds / SwiftPlayer.trackDurationTime() + minValue)
+      
+      self.setValue(val, animated: minValue/val < 0.98 && val/maxValue < 0.98)
+    }
   }
   
   // On Seek

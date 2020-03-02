@@ -14,8 +14,7 @@
 
 // Controller
 @interface RCT_EXTERN_MODULE(RNPlaylist, NSObject)
-    RCT_EXTERN_METHOD(setup:(RCTPromiseResolveBlock)resolve
-                     rejecter:(RCTPromiseRejectBlock)reject);
+    RCT_EXTERN_METHOD(setup:(NSDictionary)config);
 
     RCT_EXTERN_METHOD(reset:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject);

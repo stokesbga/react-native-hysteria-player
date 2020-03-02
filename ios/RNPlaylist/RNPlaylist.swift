@@ -28,14 +28,27 @@ class RNPlaylist : NSObject {
 //MARK: - Adjust initial UI
 extension RNPlaylist {
 
-  @objc(setup:rejecter:)
-  public func setup(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-    PlaylistService.isSetup = true
+  @objc(setup:)
+  public func setup(_ config: [String: Any]) {
+    let enableEvents = config["enableEvents"] as? Bool ?? false
+    let enableCache = config["enableCache"] as? Bool ?? false
+    let enableLogs = config["enableLogs"] as? Bool ?? false
     
-    SwiftPlayer.logs(true)
     
+    if(enableEvents) {
+      print("Subscribing to Events")
+      PlaylistService.isRNSubscribed = true
+    }
     
-    resolve(NSNull())
+    if(enableCache) {
+      print("Enabling Mem cache")
+      SwiftPlayer.enableCache(true)
+    }
+    
+    if(enableLogs) {
+      print("Enabling Hysteria Player Logs")
+      SwiftPlayer.logs(true)
+    }
   }
 
   @objc(reset:rejecter:)
@@ -46,7 +59,9 @@ extension RNPlaylist {
     
   @objc(addTracks:)
   public func addTracks(_ tracks: [[String: Any]]) {
-    SwiftPlayer.pause()
+   if (SwiftPlayer.totalTracks() > 0) {
+     SwiftPlayer.play()
+   }
     
     var queue = [PlayerTrack]()
     for track in tracks {

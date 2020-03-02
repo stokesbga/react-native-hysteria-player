@@ -53,8 +53,10 @@ class RNTrackTitleView: UIView {
   
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {
-    guard let track = notification.object as? [String: AnyObject] else { return }
-    marqueeLabel.text = track["title"] as? String ?? "None"
+    DispatchQueue.main.async { [unowned self] in
+      guard let track = notification.object as? [String: AnyObject] else { return }
+      self.marqueeLabel.text = track["title"] as? String ?? "None"
+    }
   }
 
     
