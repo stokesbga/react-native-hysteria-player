@@ -1,8 +1,8 @@
 
 import React from 'react'
-import { Platform, processColor, requireNativeComponent } from 'react-native';
-// import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
+import { Platform, requireNativeComponent } from 'react-native';
 import PropTypes from 'prop-types'
+import { cleanProps } from '../propUtils'
 import styles from '../styles'
 
 const RNNext = requireNativeComponent("RNPlaylistNextButton", SkipNext)
@@ -10,13 +10,8 @@ const RNNext = requireNativeComponent("RNPlaylistNextButton", SkipNext)
 
 export default class SkipNext extends React.Component {
   render() {
-    let { icon, style, ...props} = this.props;
     return (
-      <RNNext 
-        style={[styles.wrapper, style]}
-        icon={icon}
-        {...props}
-      />
+      <RNNext {...cleanProps(this.props, styles.wrapper)} />
     )
   }
 }

@@ -11,9 +11,12 @@
 		09EEDA89DFEA18D2BA94920A /* libPods-example-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 479589D982D2E9CF99E5F9A3 /* libPods-example-tvOSTests.a */; };
 		126EF84A45236F529204D5CB /* libPods-example-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F11A9C51B181AE259761266 /* libPods-example-tvOS.a */; };
 		2915D5EA24085C0700E2FA0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2915D5E924085C0700E2FA0B /* AppDelegate.swift */; };
+		293920EF240C5AD500387494 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 293920EB240C5AD500387494 /* next.png */; };
+		293920F0240C5AD500387494 /* previous.png in Resources */ = {isa = PBXBuildFile; fileRef = 293920EC240C5AD500387494 /* previous.png */; };
+		293920F1240C5AD500387494 /* pause-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 293920ED240C5AD500387494 /* pause-circle.png */; };
+		293920F2240C5AD500387494 /* play-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 293920EE240C5AD500387494 /* play-circle.png */; };
 		2958D1322408CABB00FEECC7 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2958D1312408CABB00FEECC7 /* AppIcon.xcassets */; };
 		2958D1332408CB3100FEECC7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
-		2977E19E240B97EC00A173E4 /* skip_prev.png in Resources */ = {isa = PBXBuildFile; fileRef = 2977E19D240B97EC00A173E4 /* skip_prev.png */; };
 		29E7DEFF24049BF60038D65F /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7DEFE24049BF60038D65F /* Example.swift */; };
 		2DCD954D1E0B4F2C00145EB5 /* exampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* exampleTests.m */; };
 		9A6BBBAD82F9E8CED7BCD75C /* libPods-exampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F8011DAFBC0DBF2AFF6B07 /* libPods-exampleTests.a */; };
@@ -46,8 +49,11 @@
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = example/Info.plist; sourceTree = "<group>"; };
 		2915D5E924085C0700E2FA0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		293920EB240C5AD500387494 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = next.png; path = ../../assets/next.png; sourceTree = "<group>"; };
+		293920EC240C5AD500387494 /* previous.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = previous.png; path = ../../assets/previous.png; sourceTree = "<group>"; };
+		293920ED240C5AD500387494 /* pause-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pause-circle.png"; path = "../../assets/pause-circle.png"; sourceTree = "<group>"; };
+		293920EE240C5AD500387494 /* play-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "play-circle.png"; path = "../../assets/play-circle.png"; sourceTree = "<group>"; };
 		2958D1312408CABB00FEECC7 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = AppIcon.xcassets; path = example/AppIcon.xcassets; sourceTree = "<group>"; };
-		2977E19D240B97EC00A173E4 /* skip_prev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = skip_prev.png; path = ../../assets/skip_prev.png; sourceTree = "<group>"; };
 		29E7DEFD24049BF60038D65F /* example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "example-Bridging-Header.h"; sourceTree = "<group>"; };
 		29E7DEFE24049BF60038D65F /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* example-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "example-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,7 +144,10 @@
 		2977E19C240B97C300A173E4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2977E19D240B97EC00A173E4 /* skip_prev.png */,
+				293920EB240C5AD500387494 /* next.png */,
+				293920ED240C5AD500387494 /* pause-circle.png */,
+				293920EE240C5AD500387494 /* play-circle.png */,
+				293920EC240C5AD500387494 /* previous.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -351,9 +360,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				293920F0240C5AD500387494 /* previous.png in Resources */,
 				2958D1332408CB3100FEECC7 /* LaunchScreen.xib in Resources */,
-				2977E19E240B97EC00A173E4 /* skip_prev.png in Resources */,
+				293920F1240C5AD500387494 /* pause-circle.png in Resources */,
+				293920F2240C5AD500387494 /* play-circle.png in Resources */,
 				2958D1322408CABB00FEECC7 /* AppIcon.xcassets in Resources */,
+				293920EF240C5AD500387494 /* next.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

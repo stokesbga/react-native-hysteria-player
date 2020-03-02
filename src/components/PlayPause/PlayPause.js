@@ -1,7 +1,8 @@
 
 import React from 'react'
-import { Platform, processColor, requireNativeComponent } from 'react-native';
+import { Platform, requireNativeComponent } from 'react-native';
 import PropTypes from 'prop-types'
+import { cleanProps } from '../propUtils'
 import styles from '../styles'
 
 const RNPlayPause = requireNativeComponent("RNPlaylistPlayPauseButton", PlayPause)
@@ -9,11 +10,8 @@ const RNPlayPause = requireNativeComponent("RNPlaylistPlayPauseButton", PlayPaus
 
 export default class PlayPause extends React.Component {
   render() {
-    let { theme, style, ...props} = this.props;
     return (
-      <RNPlayPause 
-        style={[styles.wrapper, style]}
-        {...props} />
+      <RNPlayPause {...cleanProps(this.props, styles.wrapper)} />
     )
   }
 }

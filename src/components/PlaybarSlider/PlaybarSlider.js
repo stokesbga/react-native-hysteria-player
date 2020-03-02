@@ -1,7 +1,8 @@
 
 import React from 'react'
-import { Platform, processColor, requireNativeComponent } from 'react-native';
+import { Platform, requireNativeComponent } from 'react-native';
 import PropTypes from 'prop-types'
+import { cleanProps } from '../propUtils'
 import styles from '../styles'
 
 const RNPlaybar = requireNativeComponent("RNPlaylistPlaybarSlider", PlaybarSlider)
@@ -9,24 +10,8 @@ const RNPlaybar = requireNativeComponent("RNPlaylistPlaybarSlider", PlaybarSlide
 
 export default class PlaybarSlider extends React.Component {
   render() {
-    let { trackPlayedColor, trackRemainingColor, style, ...props} = this.props;
     return (
-      <RNPlaybar 
-        {...props}
-        style={[styles.wrapperNoFlex, style]}
-        trackPlayedColor={processColor(trackPlayedColor)}
-        trackRemainingColor={processColor(trackRemainingColor)} />
+      <RNPlaybar {...cleanProps(this.props, styles.wrapperNoFlex)} />
     )
   }
 }
-
-
-// hasControl={this.state.switch}
-// thumbRadius={20}
-// trackHeightEnabled={20}
-// trackHeightDisabled={10}
-// trackPlayedColor={this.state.color1}
-// trackRemainingColor={this.state.color2}
-// style={{
-// backgroundColor: '#f0f0f0',
-// }}

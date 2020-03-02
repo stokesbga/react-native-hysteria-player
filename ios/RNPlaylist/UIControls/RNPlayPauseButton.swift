@@ -21,9 +21,11 @@ class RNPlayPauseButton : RCTViewManager {
 
 
 class RNPlayPauseButtonView: UIView {
-  // React Props
-  private var playButtonAssetName: NSString = "play.png"
-  private var pauseButtonAssetName: NSString = "pause.png"
+    // React Props
+  private var playIcon: String? = "play.png"
+  private var pauseIcon: String? = "pause.png"
+  private var disabledOpacity: CGFloat = 0.3
+  private var color: UIColor = .black
   
   private lazy var button: UIButton = {
     let btn = UIButton(type: .custom)
@@ -78,17 +80,22 @@ class RNPlayPauseButtonView: UIView {
 **************/
 extension RNPlayPauseButtonView {
   
-  @objc public func setPlayButtonAssetName(_ val: NSString) {
-    guard let assetStr = val as? String else { return }
-    let img = UIImage(named: assetStr, in: Bundle.main, compatibleWith: nil) ?? RNPlaylistGlobal.getFallbackResource("play.png")
-    button.setImage(img, for: .normal)
-    playButtonAssetName = val ?? "play.png"
+  @objc public func setDisabledOpacity(_ val: NSNumber) {
+    disabledOpacity = RCTConvert.cgFloat(val ?? 0.3)
   }
   
-  @objc public func setPauseButtonAssetName(_ val: NSString) {
-    guard let assetStr = val as? String else { return }
-    let img = UIImage(named: assetStr, in: Bundle.main, compatibleWith: nil) ?? RNPlaylistGlobal.getFallbackResource("pause.png")
-    button.setImage(img, for: .selected)
-    pauseButtonAssetName = val ?? "pause.png"
+  @objc public func setPlayIcon(_ val: NSString) {
+   let img = UIImage(named: (val as? String)!, in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    button.setImage(img, for: .normal)
   }
+  
+  @objc public func setPauseIcon(_ val: NSString) {
+    let img = UIImage(named: (val as? String)!, in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    button.setImage(img, for: .selected)
+  }
+  
+  @objc public func setColor(_ val: NSNumber) {
+    button.tintColor = RCTConvert.uiColor(val)
+  }
+  
 }

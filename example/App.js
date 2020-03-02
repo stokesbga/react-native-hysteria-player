@@ -11,7 +11,6 @@
 import React, { Component } from 'react';
 import { Platform, Dimensions, StyleSheet, Text, View } from 'react-native';
 import Playlist, { PlaylistEventEmitter, EventTypes, PlaylistComponent } from 'react-native-playlist';
-import Images from './assets'
 
 const deviceWidth = Dimensions.get('window').width
 const tracklistJSON = require('./data/hiphop_playlist_full.json')
@@ -33,7 +32,7 @@ export default class App extends Component<{}> {
     switch: true,
     color1: 'teal',
     loaded: false,
-    trackTitle: 'bah'
+    trackTitle: 'N/A'
   }
 
   async componentDidMount() {
@@ -45,8 +44,24 @@ export default class App extends Component<{}> {
       artwork: t.album.cover_big,
       album: t.album.title,
       artist: t.artist.name,
-      custom: { hello: "blah"}
+      custom: {
+        foo: "any extra data here",
+        bar: ["a", "b", "c"],
+      }
     }))
+
+    const playerTracks2 = tracklistJSON.tracks.data.slice(9, 11).map(t => ({
+      url: t.preview,
+      title: t.title,
+      artwork: t.album.cover_big,
+      album: t.album.title,
+      artist: t.artist.name,
+      custom: {
+        foo: "any extra data here",
+        bar: ["a", "b", "c"],
+      }
+    }))
+
 
     Playlist.addTracks(playerTracks)
 
@@ -57,8 +72,8 @@ export default class App extends Component<{}> {
     })
 
     // setTimeout(() => {
-    //   Playlist.addTracks(playerTracks)
-    // }, 10000)
+    //   Playlist.addTracks(playerTracks2)
+    // }, 5000)
     this.setState({
       loaded: true
     })
@@ -89,7 +104,7 @@ export default class App extends Component<{}> {
                 fontSize={23}
                 color={"#222"}
                 textAlign={"center"}
-                style={{ minHeight: 30 }} />
+                style={{ minHeight: 30, marginBottom: 5, marginTop: 20, marginHorizontal: 50 }} />
               <TrackArtist 
                 fontFamily={'Monaco'}
                 fontSize={19}
@@ -105,19 +120,33 @@ export default class App extends Component<{}> {
                 textAlign={"center"}
                 style={{ minHeight: 50 }}
                 />
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
               <SkipPrev
-                disabledOpacity={0.3}
-                icon={"skip_prev.png"} 
+                disabledOpacity={0.4}
+                icon={"previous.png"}
+                color={'#444'} 
                 style={{
                   flex: 0,
                   width: 28,
                   height: 28,
                 }}/>
-                </View>
-              <PlayPause />
+              <PlayPause
+                playIcon={"play-circle.png"}
+                pauseIcon={"pause-circle.png"} 
+                color={'#222'} 
+                style={{
+                  flex: 0,
+                  width: 50,
+                  marginHorizontal: 35,
+                }}/>
               <SkipNext 
-                disabledOpacity={1.0} />
+                disabledOpacity={0.4}
+                icon={"next.png"}
+                color={'#444'}
+                style={{
+                  flex: 0,
+                  width: 28,
+                  height: 28
+                }} />
               <TrackDuration 
                 fontFamily={'Avenir-Heavy'}
                 fontSize={15}
@@ -125,7 +154,8 @@ export default class App extends Component<{}> {
                 textAlign={"center"}
                 style={{ minHeight: 50 }} />
             </View>
-          <Text style={{ textAlign: 'center', marginTop: 40 }}>Current track title from PlaylistEventEmitter: {this.state.trackTitle}</Text>
+            <Text style={{ fontWeight: '600', textAlign: 'center', marginTop: 40 }}>Current track title from PlaylistEventEmitter:</Text>
+              <Text style={{ textAlign: 'center'}}>{this.state.trackTitle}</Text>
           </View>
         </View>
       </View>

@@ -25,6 +25,7 @@ class RNSkipNextButtonView: UIView {
   // React Props
   private var icon: String? = ""
   private var disabledOpacity: CGFloat = 0.3
+  private var color: UIColor = .black
   
   private lazy var button: UIButton = {
     let btn = UIButton(type: .custom)
@@ -89,6 +90,11 @@ extension RNSkipNextButtonView {
   }
   
   @objc public func setIcon(_ val: NSString) {
-    button.setImage(UIImage(named: (val as? String)!, in: Bundle.main, compatibleWith: nil), for: .normal)
+    let img = UIImage(named: (val as? String)!, in: Bundle.main, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    button.setImage(img, for: .normal)
+  }
+  
+  @objc public func setColor(_ val: NSNumber) {
+    button.tintColor = RCTConvert.uiColor(val)
   }
 }

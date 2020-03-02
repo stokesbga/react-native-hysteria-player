@@ -60,7 +60,7 @@ class HysteriaManager: NSObject {
   fileprivate func initHysteriaPlayer() {
     hysteriaPlayer?.delegate = self;
     hysteriaPlayer?.datasource = self;
-    hysteriaPlayer?.enableMemoryCached(false)
+    hysteriaPlayer?.enableMemoryCached(true)
     enableCommandCenter()
   }
 }
@@ -121,6 +121,10 @@ extension HysteriaManager {
         dictionary[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: loaded)
         dictionary["albumArtUIImage"] = loaded
         dictionary["albumArtURL"] = track.image as AnyObject?
+    }
+    
+    if let custom = track.custom {
+      dictionary["custom"] = custom as AnyObject
     }
 
     MPNowPlayingInfoCenter.default().nowPlayingInfo = dictionary
@@ -191,7 +195,6 @@ extension HysteriaManager {
   func play() {
     if !(hysteriaPlayer?.isPlaying())! {
       hysteriaPlayer?.play()
-      
       MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = hysteriaPlayer?.getPlayingItemCurrentTime()
       MPNowPlayingInfoCenter.default().nowPlayingInfo![MPNowPlayingInfoPropertyPlaybackRate] = 1
     }
@@ -447,8 +450,13 @@ extension HysteriaManager: HysteriaPlayerDelegate {
   }
 
   func hysteriaPlayerDidReachEnd() {
-    if logs {print("• player did reach end")}
+    if logs {print("• player did reach end", currentIndex(), queue.history.popLast())}
     playlistService?.dispatchPlayerReachedEnd()
+    
+    pause()
+    let lastTrack = queue.history.popLast()
+    guard let lastIdx = lastTrack?.position! else { return }
+    fetchAndPlayAtIndex(lastIdx)
   }
 
   func hysteriaPlayerCurrentItemPreloaded(_ time: CMTime) {

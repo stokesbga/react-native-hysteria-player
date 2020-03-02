@@ -12,12 +12,12 @@ import Foundation
 class PlaylistService: RCTEventEmitter {
 
   private static var playerIsReady: Bool = false
+  public static var isSetup: Bool = false
   private static var throttler = Throttler(minimumDelay: 0.5)
-  public static var isSetup = false
   public static var shared: PlaylistService?
   
   private func isBridgeReady() -> Bool {
-    return PlaylistService.isSetup && self.bridge != nil
+    return PlaylistService.isSetup
   }
   
   
@@ -66,28 +66,6 @@ class PlaylistService: RCTEventEmitter {
   
   
   /**
-   * Triggers
-   */
-  // Track
-  var onTrackPreloaded: ((_ time: CMTime?)->())?
-  var onTrackWillChange: ((_ index: Int?)->())?
-  var onTrackChange: ((_ track: PlayerTrack?)->())?
-  var onTrackPlayReady: (()->())?
-  var onTrackPositionChange: ((_ seconds: Float?)->())?
-  var onTrackDurationChange: ((_ seconds: Float?)->())?
-  
-  // Player
-  var onPlayerStateChange: ((_ isPlaying: Bool)->())?
-  var onPlayerReachedEnd: (()->())?
-  var onPlayerReady: (()->())?
-  var onPlayerStall: (()->())?
-  
-  // Error
-  var onTrackLoadFailed: ((_ error: NSError?)->())?
-  var onPlayerFailed: ((_ error: NSError?)->())?
-  
-  
-  /**
   * Dispatchers
   */
   
@@ -95,34 +73,34 @@ class PlaylistService: RCTEventEmitter {
   public func dispatchTrackPreloaded(_ time: CMTime?) {
     NotificationCenter.default.post(name: .onTrackPreloaded, object: time)
     guard isBridgeReady() else { return }
-    sendEvent(withName: "onTrackPreloaded", body: time)
+    PlaylistService.shared?.sendEvent(withName: "onTrackPreloaded", body: time)
   }
   public func dispatchTrackWillChange(_ index: Int?) {
     NotificationCenter.default.post(name: .onTrackWillChange, object: index)
     guard isBridgeReady() else { return }
-    sendEvent(withName: "onTrackWillChange", body: index)
+    PlaylistService.shared?.sendEvent(withName: "onTrackWillChange", body: index)
   }
   public func dispatchTrackChange(_ track: [String: AnyObject]?) {
     NotificationCenter.default.post(name: .onTrackChange, object: track)
     guard isBridgeReady() else { return }
-    sendEvent(withName: "onTrackChange", body: track)
+    PlaylistService.shared?.sendEvent(withName: "onTrackChange", body: track)
   }
   public func dispatchTrackPlayReady() {
     NotificationCenter.default.post(name: .onTrackPlayReady, object: nil)
     guard isBridgeReady() else { return }
-    sendEvent(withName: "onTrackPlayReady", body: nil)
+    PlaylistService.shared?.sendEvent(withName: "onTrackPlayReady", body: nil)
   }
   public func dispatchTrackPositionChange(_ seconds: Float?) {
     NotificationCenter.default.post(name: .onTrackPositionChange, object: seconds)
-    PlaylistService.throttler.throttle { [unowned self] in
+    PlaylistService.throttler.throttle {
       guard (self.isBridgeReady()) else { return }
-      self.sendEvent(withName: "onTrackPositionChange", body: seconds)
+      PlaylistService.shared?.sendEvent(withName: "onTrackPositionChange", body: seconds)
     }
   }
   public func dispatchTrackDurationChange(_ seconds: Float?) {
     NotificationCenter.default.post(name: .onTrackDurationChange, object: seconds)
     guard isBridgeReady() else { return }
-    sendEvent(withName: "onTrackDurationChange", body: seconds)
+    PlaylistService.shared?.sendEvent(withName: "onTrackDurationChange", body: seconds)
   }
   
   // Player
@@ -130,37 +108,37 @@ class PlaylistService: RCTEventEmitter {
     if(PlaylistService.playerIsReady) {
       NotificationCenter.default.post(name: .onPlayerStateChange, object: isPlaying)
       guard isBridgeReady() else { return }
-      sendEvent(withName: "onPlayerStateChange", body: isPlaying)
+      PlaylistService.shared?.sendEvent(withName: "onPlayerStateChange", body: isPlaying)
     }
   }
   public func dispatchPlayerReachedEnd() {
     NotificationCenter.default.post(name: .onPlayerReachedEnd, object: nil)
     guard isBridgeReady() else { return }
-    sendEvent(withName: "onPlayerReachedEnd", body: nil)
+    PlaylistService.shared?.sendEvent(withName: "onPlayerReachedEnd", body: nil)
   }
   public func dispatchPlayerReady() {
     PlaylistService.playerIsReady = true
     NotificationCenter.default.post(name: .onPlayerReady, object: nil)
     guard isBridgeReady() else { return }
-    sendEvent(withName: "onPlayerReady", body: nil)
+    PlaylistService.shared?.sendEvent(withName: "onPlayerReady", body: nil)
   }
   public func dispatchPlayerStall() {
     NotificationCenter.default.post(name: .onPlayerStall, object: nil)
     guard isBridgeReady() else { return }
-    sendEvent(withName: "onPlayerStall", body: nil)
+    PlaylistService.shared?.sendEvent(withName: "onPlayerStall", body: nil)
   }
   
   // Error
   public func dispatchTrackLoadFailed(_ error: NSError?) {
     NotificationCenter.default.post(name: .onTrackLoadFailed, object: error)
     guard isBridgeReady() else { return }
-    sendEvent(withName: "onTrackLoadFailed", body: nil)
+    PlaylistService.shared?.sendEvent(withName: "onTrackLoadFailed", body: nil)
   }
   public func dispatchPlayerFailed(_ error: NSError?) {
     PlaylistService.playerIsReady = false
     NotificationCenter.default.post(name: .onPlayerFailed, object: error)
     guard isBridgeReady() else { return }
-    sendEvent(withName: "onPlayerFailed", body: nil)
+    PlaylistService.shared?.sendEvent(withName: "onPlayerFailed", body: nil)
   }
 }
 

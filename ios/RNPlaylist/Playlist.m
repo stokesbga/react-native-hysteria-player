@@ -56,18 +56,22 @@
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPlayPauseButton, RNPlayPauseButton, RCTViewManager)
-    RCT_EXPORT_VIEW_PROPERTY(playButtonAssetName, NSString);
-    RCT_EXPORT_VIEW_PROPERTY(pauseButtonAssetName, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(disabledOpacity, NSNumber);
+    RCT_EXPORT_VIEW_PROPERTY(playIcon, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(pauseIcon, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(color, NSNumber);
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistNextButton, RNSkipNextButton, RCTViewManager)
     RCT_EXPORT_VIEW_PROPERTY(disabledOpacity, NSNumber);
     RCT_EXPORT_VIEW_PROPERTY(icon, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(color, NSNumber);
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistPrevButton, RNSkipPrevButton, RCTViewManager)
     RCT_EXPORT_VIEW_PROPERTY(disabledOpacity, NSNumber);
     RCT_EXPORT_VIEW_PROPERTY(icon, NSString);
+    RCT_EXPORT_VIEW_PROPERTY(color, NSNumber);
 @end
 
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistAlbumArt, RNTrackAlbumArt, RCTViewManager)
