@@ -11,7 +11,7 @@ import Foundation
 @objc(RNPlaylistService)
 class PlaylistService: RCTEventEmitter {
 
-  private static var isQueueReady: Bool = false
+  public static var isQueueReady: Bool = false
   private static var playerIsReady: Bool = false
   public static var isRNSubscribed: Bool = false
   private static var throttler = Throttler(minimumDelay: 0.5)

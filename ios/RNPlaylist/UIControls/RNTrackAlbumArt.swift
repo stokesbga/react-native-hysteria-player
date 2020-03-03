@@ -48,6 +48,25 @@ class RNTrackAlbumArtView: UIView {
       object: nil
     )
   }
+
+  override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+
+    if newWindow == nil {
+      // UIView disappear
+    } else {
+      if (PlaylistService.isQueueReady) {
+        let track = SwiftPlayer.trackAtIndex(SwiftPlayer.currentTrackIndex() as? Int ?? 0)
+        guard let img = track.image as? String else {
+          imageView.image = UIImage()
+          return
+        }
+        imageView.af.setImage(withURL: URL(string: img)!)
+        return
+      }
+      imageView.image = UIImage()
+    }
+  }
   
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {

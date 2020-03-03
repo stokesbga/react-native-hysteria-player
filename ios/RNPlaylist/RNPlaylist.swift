@@ -42,7 +42,6 @@ extension RNPlaylist {
     RNPlaylist.emptyTrackTitle = config["emptyTrackTitle"] as? String ?? "None"
     RNPlaylist.emptyArtistTitle = config["emptyArtistTitle"] as? String ?? "None"
     
-    
     if(enableEvents) {
       print("Subscribing to Events")
       PlaylistService.isRNSubscribed = true

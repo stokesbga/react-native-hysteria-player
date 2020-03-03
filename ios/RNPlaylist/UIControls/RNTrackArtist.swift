@@ -55,6 +55,21 @@ class RNTrackArtistView: UIView {
       object: nil
     )
   }
+
+  override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+
+    if newWindow == nil {
+        // UIView disappear
+    } else {
+      if (PlaylistService.isQueueReady) {
+        let track = SwiftPlayer.trackAtIndex(SwiftPlayer.currentTrackIndex() as? Int ?? 0)
+        marqueeLabel.text = track.artist?.name ?? RNPlaylist.emptyArtistTitle
+      } else {
+        marqueeLabel.text = RNPlaylist.emptyArtistTitle
+      }
+    }
+  }
   
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {
