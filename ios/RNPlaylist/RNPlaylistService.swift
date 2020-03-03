@@ -11,6 +11,7 @@ import Foundation
 @objc(RNPlaylistService)
 class PlaylistService: RCTEventEmitter {
 
+  private static var isQueueReady: Bool = false
   private static var playerIsReady: Bool = false
   public static var isRNSubscribed: Bool = false
   private static var throttler = Throttler(minimumDelay: 0.5)
@@ -45,6 +46,7 @@ class PlaylistService: RCTEventEmitter {
       "onPlayerReachedEnd",
       "onPlayerReady",
       "onPlayerStall",
+      "onQueueUpdate",
       "onTrackLoadFailed",
       "onPlayerFailed",
       
@@ -127,6 +129,17 @@ class PlaylistService: RCTEventEmitter {
     guard isBridgeReady() else { return }
     PlaylistService.shared?.sendEvent(withName: "onPlayerStall", body: nil)
   }
+  public func dispatchQueueUpdate(_ queue: PlayerQueue) {
+    if (queue.allTracks.count == 0 && PlaylistService.isQueueReady) {
+      PlaylistService.isQueueReady = false
+      NotificationCenter.default.post(name: .onQueueStateChange, object: false)
+    } else if (queue.allTracks.count > 0 && !PlaylistService.isQueueReady) {
+      PlaylistService.isQueueReady = true
+      NotificationCenter.default.post(name: .onQueueStateChange, object: true)
+    }
+    guard isBridgeReady() else { return }
+    PlaylistService.shared?.sendEvent(withName: "onQueueUpdate", body: queue)
+  }
   
   // Error
   public func dispatchTrackLoadFailed(_ error: NSError?) {
@@ -154,6 +167,7 @@ extension Notification.Name {
   static let onPlayerReachedEnd = Notification.Name("onPlayerReachedEnd")
   static let onPlayerReady = Notification.Name("onPlayerReady")
   static let onPlayerStall = Notification.Name("onPlayerStall")
+  static let onQueueStateChange = Notification.Name("onQueueStateChange")
   static let onTrackLoadFailed = Notification.Name("onTrackLoadFailed")
   static let onPlayerFailed = Notification.Name("onPlayerFailed")
 }

@@ -12,6 +12,11 @@ import AVFoundation
 
 @objc(RNPlaylist)
 class RNPlaylist : NSObject {
+  
+  // Config static vars
+  public static var emptyTrackTitle = "None"
+  public static var emptyArtistTitle = "None"
+  
 
   override init() {
     super.init()
@@ -33,6 +38,9 @@ extension RNPlaylist {
     let enableEvents = config["enableEvents"] as? Bool ?? false
     let enableCache = config["enableCache"] as? Bool ?? false
     let enableLogs = config["enableLogs"] as? Bool ?? false
+    
+    RNPlaylist.emptyTrackTitle = config["emptyTrackTitle"] as? String ?? "None"
+    RNPlaylist.emptyArtistTitle = config["emptyArtistTitle"] as? String ?? "None"
     
     
     if(enableEvents) {
@@ -59,9 +67,9 @@ extension RNPlaylist {
     
   @objc(addTracks:)
   public func addTracks(_ tracks: [[String: Any]]) {
-   if (SwiftPlayer.totalTracks() > 0) {
-     SwiftPlayer.play()
-   }
+    if (SwiftPlayer.totalTracks() > 0) {
+      SwiftPlayer.play()
+    }
     
     var queue = [PlayerTrack]()
     for track in tracks {

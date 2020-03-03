@@ -33,7 +33,7 @@ class RNTrackArtistView: UIView {
     label.contentMode = .center
 		label.textAlignment = textAlign
 		label.textColor = color
-		label.text = "None"
+		label.text = RNPlaylist.emptyArtistTitle
     return label
   }()
 	
@@ -49,14 +49,29 @@ class RNTrackArtistView: UIView {
       name: .onTrackChange,
       object: nil
     )
+    NotificationCenter.default.addObserver(self,
+      selector: #selector(onQueueStateChange),
+      name: .onQueueStateChange,
+      object: nil
+    )
   }
   
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {
-		DispatchQueue.main.async { [unowned self] in
+		DispatchQueue.main.async {
 			guard let track = notification.object as? [String: AnyObject] else { return }
 			self.marqueeLabel.text = track["artist"] as? String ?? "None"
 		}
+  }
+	
+  // On Queue State Change Observer (empty, item added)
+  @objc private func onQueueStateChange(_ notification: Notification) {
+    DispatchQueue.main.async {
+      guard let isReady = notification.object as? Bool else { return }
+      if(!isReady) {
+				self.marqueeLabel.text = RNPlaylist.emptyArtistTitle
+      }
+    }
   }
 
     

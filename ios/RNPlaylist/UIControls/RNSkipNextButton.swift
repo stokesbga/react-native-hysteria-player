@@ -32,6 +32,8 @@ class RNSkipNextButtonView: UIView {
     btn.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     btn.contentMode = .center
     btn.imageView?.contentMode = .scaleAspectFit
+    btn.alpha = disabledOpacity
+    btn.isEnabled = false
     
     btn.setImage(RNPlaylistGlobal.getFallbackResource("next.png"), for: .normal)
     return btn
@@ -52,21 +54,35 @@ class RNSkipNextButtonView: UIView {
       name: .onTrackChange,
       object: nil
     )
+    NotificationCenter.default.addObserver(self,
+      selector: #selector(onQueueStateChange),
+      name: .onQueueStateChange,
+      object: nil
+    )
   }
   
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {
-    DispatchQueue.main.async { [unowned self] in
+    DispatchQueue.main.async {
       guard let track = notification.object as? [String: AnyObject] else { return }
       let idx = SwiftPlayer.currentTrackIndex()
       let total = SwiftPlayer.totalTracks()
-      if (idx == (total-1)) {
+      if (idx == (total-1) || total == 0) {
         self.button.isEnabled = false
         self.button.alpha = self.disabledOpacity;
       } else {
         self.button.isEnabled = true
         self.button.alpha = 1.0;
       }
+    }
+  }
+  
+  // On Queue State Change Observer (empty, item added)
+  @objc private func onQueueStateChange(_ notification: Notification) {
+    DispatchQueue.main.async {
+      guard let isReady = notification.object as? Bool else { return }
+      self.button.isEnabled = isReady ? true : false
+      self.button.alpha = isReady ? 1.0 : self.disabledOpacity;
     }
   }
 

@@ -9,16 +9,17 @@
 import Foundation
 
 struct PlayerQueue {
+  var playlistService = PlaylistService.shared
   
   var history = [PlayerTrack]()
   var nextQueue = [PlayerTrack]()
+  var allTracks = [PlayerTrack]()
   var mainQueue = [PlayerTrack]() {
     didSet {
       allTracks = mainQueue
+      playlistService?.dispatchQueueUpdate(self)
     }
   }
-  
-  fileprivate var allTracks = [PlayerTrack]()
   
   ///////////////////////////////////////////////
   func totalTracks() -> Int {
@@ -29,12 +30,14 @@ struct PlayerQueue {
   mutating func newNextTrack(_ track: PlayerTrack, nowIndex: Int) {
     nextQueue.insert(track, at: 0)
     allTracks.insert(track, at: nowIndex + 1)
+    playlistService?.dispatchQueueUpdate(self)
   }
   
   ///////////////////////////////////////////////
   mutating func removeNextAtIndex(_ index: Int) {
     allTracks.remove(at: index)
     nextQueue.remove(at: 0)
+    playlistService?.dispatchQueueUpdate(self)
   }
   
   ///////////////////////////////////////////////
@@ -43,6 +46,7 @@ struct PlayerQueue {
       if index > 0 && allTracks[index - 1].origin == TrackType.next {
         allTracks.remove(at: index - 1)
         nextQueue.remove(at: 0)
+        playlistService?.dispatchQueueUpdate(self)
         return nil
       }
     }
@@ -95,6 +99,7 @@ struct PlayerQueue {
       nextQueue.remove(at: 0)
     }
     
+    playlistService?.dispatchQueueUpdate(self)
     return indexOnQueue - totalFound
   }
   
@@ -115,6 +120,8 @@ struct PlayerQueue {
         break
       }
     }
+    
+    playlistService?.dispatchQueueUpdate(self)
   }
   
   ///////////////////////////////////////////////

@@ -42,13 +42,28 @@ class RNTimerProgressView: UILabel {
       name: .onTrackPositionChange,
       object: nil
     )
+    NotificationCenter.default.addObserver(self,
+      selector: #selector(onQueueStateChange),
+      name: .onQueueStateChange,
+      object: nil
+    )
   }
   
   // Track Position Observer
   @objc private func onTrackPositionChange(_ notification: Notification) {
-    DispatchQueue.main.async { [unowned self] in
+    DispatchQueue.main.async {
       guard let seconds = notification.object as? Float else { return }
       self.text = seconds.toTimerString()
+    }
+  }
+  
+  // On Queue State Change Observer (empty, item added)
+  @objc private func onQueueStateChange(_ notification: Notification) {
+    DispatchQueue.main.async {
+      guard let isReady = notification.object as? Bool else { return }
+      if(!isReady) {
+        self.text = "0:00"
+      }
     }
   }
 

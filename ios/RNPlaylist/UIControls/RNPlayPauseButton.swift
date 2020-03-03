@@ -32,6 +32,8 @@ class RNPlayPauseButtonView: UIView {
     btn.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     btn.contentMode = .center
     btn.imageView?.contentMode = .scaleAspectFit
+    btn.alpha = disabledOpacity
+    btn.isEnabled = false
     
     btn.setImage(RNPlaylistGlobal.getFallbackResource("play.png"), for: .normal)
     btn.setImage(RNPlaylistGlobal.getFallbackResource("pause.png"), for: .selected)
@@ -53,13 +55,27 @@ class RNPlayPauseButtonView: UIView {
       name: .onPlayerStateChange,
       object: nil
     )
+    NotificationCenter.default.addObserver(self,
+      selector: #selector(onQueueStateChange),
+      name: .onQueueStateChange,
+      object: nil
+    )
   }
   
   // isPlaying Observer
   @objc private func onPlayerStateChange(_ notification: Notification) {
-    DispatchQueue.main.async { [unowned self] in
+    DispatchQueue.main.async {
       guard let isPlaying = notification.object as? Bool else { return }
       self.button.isSelected = isPlaying ? true : false
+    }
+  }
+  
+  // On Queue State Change Observer (empty, item added)
+  @objc private func onQueueStateChange(_ notification: Notification) {
+    DispatchQueue.main.async {
+      guard let isReady = notification.object as? Bool else { return }
+      self.button.isEnabled = isReady ? true : false
+      self.button.alpha = isReady ? 1.0 : self.disabledOpacity;
     }
   }
 

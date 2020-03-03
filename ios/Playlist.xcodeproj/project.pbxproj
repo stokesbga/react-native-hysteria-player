@@ -54,7 +54,7 @@
 		2923F6A2240A1BF100AED8AD /* RNTrackAlbumArt.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RNTrackAlbumArt.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2923F6A3240A1BF100AED8AD /* RNTrackTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RNTrackTitle.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2923F6A4240A1BF100AED8AD /* RNTrackArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RNTrackArtist.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 1; };
-		2963BB2A2407019B006D23AB /* PlayerQueueModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerQueueModel.swift; sourceTree = "<group>"; };
+		2963BB2A2407019B006D23AB /* PlayerQueueModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = PlayerQueueModel.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2963BB2B2407019B006D23AB /* SwiftPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SwiftPlayer.swift; sourceTree = "<group>"; tabWidth = 2; };
 		2963BB2C2407019B006D23AB /* PlayerTrackModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerTrackModel.swift; sourceTree = "<group>"; };
 		2963BB2D2407019B006D23AB /* HysteriaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HysteriaManager.swift; sourceTree = "<group>"; tabWidth = 2; };

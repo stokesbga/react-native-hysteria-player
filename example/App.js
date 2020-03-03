@@ -12,8 +12,9 @@ import React, { Component } from 'react';
 import { Platform, TouchableOpacity, Dimensions, StyleSheet, Text, View } from 'react-native';
 import Playlist, { PlaylistEventEmitter, EventTypes, PlaylistComponent } from 'react-native-playlist';
 
+import Tracks from './Tracks'
+
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window')
-const tracklistJSON = require('./data/hiphop_playlist_full.json')
 
 const {
   PlaybarSlider,
@@ -27,45 +28,23 @@ const {
   TrackTitle
 } = PlaylistComponent
 
-const playerTracks = tracklistJSON.tracks.data.slice(1, 3).map(t => ({
-  url: t.preview,
-  title: t.title,
-  artwork: t.album.cover_big,
-  album: t.album.title,
-  artist: t.artist.name,
-  custom: {
-    foo: "any extra data here",
-    bar: ["a", "b", "c"],
-  }
-}))
-
-const playerTracks2 = tracklistJSON.tracks.data.slice(4, 6).map(t => ({
-  url: t.preview,
-  title: t.title,
-  artwork: t.album.cover_big,
-  album: t.album.title,
-  artist: t.artist.name,
-  custom: {
-    foo: "any extra data here",
-    bar: ["a", "b", "c"],
-  }
-}))
-
 export default class App extends Component<{}> {
   state = {
-    playlistId: 1,
+    pidx: 0,
     color1: 'teal',
     trackTitle: 'N/A'
   }
 
   async componentDidMount() {
     Playlist.setup({
+      emptyTrackTitle: "No track selected",
+      emptyArtistTitle: "Press any card to start listening",
       enableEvents: false,
       enableCache: false,
       enableLogs: false
     })
 
-    Playlist.addTracks(playerTracks)
+    Playlist.addTracks([])
 
     // Add Listener
     PlaylistEventEmitter.addListener(EventTypes.onTrackChange, track => {
@@ -75,9 +54,10 @@ export default class App extends Component<{}> {
   }
 
   onPressLoadNextPlaylist = () => {
-    const playlistId = this.state.playlistId === 1 ? 2 : 1
-    this.setState({ playlistId })
-    Playlist.addTracks(playlistId === 1 ? playerTracks : playerTracks2)
+    let { pidx } = this.state
+    if(++pidx > 2) pidx = 0
+    this.setState({ pidx })
+    Playlist.addTracks(Tracks[pidx])
   }
 
   render() {
@@ -134,6 +114,7 @@ export default class App extends Component<{}> {
                 playIcon={"play-circle.png"}
                 pauseIcon={"pause-circle.png"} 
                 color={'#222'} 
+                disabledOpacity={0.4}
                 style={{
                   flex: 0,
                   width: 50,
@@ -160,8 +141,9 @@ export default class App extends Component<{}> {
               <Text style={{ textAlign: 'center'}}>{this.state.trackTitle}</Text>
 
               <TouchableOpacity onPress={this.onPressLoadNextPlaylist}>
-                <View style={{ height: 40, paddingHorizontal: 16, marginTop: 20, backgroundColor: '#e8e8e8', alignItems: 'center', justifyContent: 'center' }}>
-                  <Text>Load next playlist</Text>
+                <View style={{ height: 50, paddingHorizontal: 16, marginTop: 20, backgroundColor: '#e8e8e8', alignItems: 'center', justifyContent: 'center' }}>
+                  <Text style={{ fontWeight: '700' }}>Load next playlist</Text>
+                  <Text style={{ fontSize: 11, marginTop: 3 }}>Current: playlist {this.state.pidx}</Text>
                 </View>
               </TouchableOpacity>
             </View>

@@ -4,7 +4,6 @@ import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource'
 
 const textAlignStates = { "left": 0, "center": 1, "right": 2 }
 const textAlignFormat = (alignStr = "left") => {
-  console.log()
   return textAlignStates?.[alignStr] || 0
 }
 
@@ -21,7 +20,6 @@ export const cleanProps = (props, baseStyle) => {
     } 
     // Icons & Assets
     if(pKeyLower.indexOf("icon") > -1) {
-      console.log("Asset: ", resolveAssetSource(val))
       cleanedProps[propKey] = val
       return
     }

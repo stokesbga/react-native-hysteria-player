@@ -23,7 +23,7 @@ class RNPlaybarSlider : RCTViewManager {
 
 class RNPlaybarSliderView: UISlider {
   // React Props
-  private var hasControl: Bool = true
+  private var hasControl: Bool = false
   private var thumbRadius: CGFloat = 18
   private var trackHeightEnabled: CGFloat = 6
   private var trackHeightDisabled: CGFloat = 4
@@ -65,7 +65,7 @@ class RNPlaybarSliderView: UISlider {
   
   // Track Position Observer
   @objc private func onTrackPositionChange(_ notification: Notification) {
-    DispatchQueue.main.async { [unowned self] in
+    DispatchQueue.main.async {
       guard self.isSeeking == false else { return }
       guard let seconds = notification.object as? Float else { return }
       let minValue = self.minimumValue
@@ -117,7 +117,7 @@ class RNPlaybarSliderView: UISlider {
       let thumb = thumbImage(radius: self.thumbRadius)
       self.setThumbImage(thumb, for: .normal)
     } else {
-      self.setThumbImage(thumbViewDisabled, for: .normal)
+      self.setThumbImage(UIImage(), for: .normal)
     }
   }
   
@@ -135,6 +135,7 @@ class RNPlaybarSliderView: UISlider {
 extension RNPlaybarSliderView {
   
   @objc public func setHasControl(_ val: Bool) {
+    print("set has control", val)
     self.isUserInteractionEnabled = val
     self.hasControl = val
     self.updateThumbImg(val)
