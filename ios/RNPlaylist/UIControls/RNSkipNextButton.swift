@@ -60,6 +60,29 @@ class RNSkipNextButtonView: UIView {
       object: nil
     )
   }
+
+  override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+
+    if newWindow == nil {
+      // UIView disappear
+    } else {
+      if (PlaylistService.isQueueReady) {
+        let idx = SwiftPlayer.currentTrackIndex()
+        let total = SwiftPlayer.totalTracks()
+        if (idx == (total-1) || total == 0) {
+          button.isEnabled = false
+          button.alpha = self.disabledOpacity;
+        } else {
+          button.isEnabled = true
+          button.alpha = 1.0;
+        }
+      } else {
+        button.isEnabled = false
+        button.alpha = self.disabledOpacity;
+      }
+    }
+  }
   
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {

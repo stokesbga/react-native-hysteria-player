@@ -61,6 +61,24 @@ class RNPlayPauseButtonView: UIView {
       object: nil
     )
   }
+
+  override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+
+    if newWindow == nil {
+      // UIView disappear
+    } else {
+      if (PlaylistService.isQueueReady) {
+        let isPlaying = SwiftPlayer.isPlaying()
+        self.button.isSelected = isPlaying ? true : false
+        button.isEnabled = true
+        button.alpha = 1.0
+      } else {
+        button.isEnabled = false
+        button.alpha = self.disabledOpacity;
+      }
+    }
+  }
   
   // isPlaying Observer
   @objc private func onPlayerStateChange(_ notification: Notification) {
@@ -75,7 +93,7 @@ class RNPlayPauseButtonView: UIView {
     DispatchQueue.main.async {
       guard let isReady = notification.object as? Bool else { return }
       self.button.isEnabled = isReady ? true : false
-      self.button.alpha = isReady ? 1.0 : self.disabledOpacity;
+      self.button.alpha = isReady ? 1.0 : self.disabledOpacity
     }
   }
 

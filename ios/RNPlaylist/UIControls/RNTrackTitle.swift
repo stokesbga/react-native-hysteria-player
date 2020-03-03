@@ -60,7 +60,7 @@ class RNTrackTitleView: UIView {
     super.willMove(toWindow: newWindow)
 
     if newWindow == nil {
-        // UIView disappear
+      // UIView disappear
     } else {
       if (PlaylistService.isQueueReady) {
         let track = SwiftPlayer.trackAtIndex(SwiftPlayer.currentTrackIndex() as? Int ?? 0)

@@ -48,6 +48,24 @@ class RNTimerDurationView: UILabel {
       object: nil
     )
   }
+
+  override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+
+    if newWindow == nil {
+      // UIView disappear
+    } else {
+      if (PlaylistService.isQueueReady) {
+        guard let duration = SwiftPlayer.trackDurationTime() as? Float else {
+          self.text = "0:00"
+          return
+        }
+        self.text = duration.toTimerString()
+      } else {
+        self.text = "0:00"
+      }
+    }
+  }
   
   // Track Position Observer
   @objc private func onTrackDurationChange(_ notification: Notification) {
