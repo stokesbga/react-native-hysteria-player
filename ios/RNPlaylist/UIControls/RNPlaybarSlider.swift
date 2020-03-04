@@ -60,6 +60,11 @@ class RNPlaybarSliderView: UISlider {
       name: .onTrackPositionChange,
       object: nil
     )
+    NotificationCenter.default.addObserver(self,
+      selector: #selector(onQueueStateChange),
+      name: .onQueueStateChange,
+      object: nil
+    )
   }
   
   
@@ -73,6 +78,16 @@ class RNPlaybarSliderView: UISlider {
       let val = ((maxValue - minValue) * seconds / SwiftPlayer.trackDurationTime() + minValue)
       
       self.setValue(val, animated: minValue/val < 0.98 && val/maxValue < 0.98)
+    }
+  }
+  
+  // On Queue State Change Observer (empty, item added)
+  @objc private func onQueueStateChange(_ notification: Notification) {
+    DispatchQueue.main.async {
+      guard let isReady = notification.object as? Bool else { return }
+      if(isReady) {
+        self.setValue(SwiftPlayer.currentPosition(), animated: false)
+      }
     }
   }
   

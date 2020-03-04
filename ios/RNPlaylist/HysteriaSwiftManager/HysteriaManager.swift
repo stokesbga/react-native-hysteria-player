@@ -95,6 +95,10 @@ extension HysteriaManager {
   func setMemoryCached(_ enable: Bool) {
     hysteriaPlayer?.enableMemoryCached(enable)
   }
+  
+  func getCurrentPosition() -> Float {
+    return hysteriaPlayer?.getPlayingItemCurrentTime() ?? 0.0
+  }
 
   func updateImageInfoCenter(_ image: UIImage) {
     if var dictionary = MPNowPlayingInfoCenter.default().nowPlayingInfo {

@@ -164,6 +164,11 @@ open class SwiftPlayer {
     return HysteriaManager.sharedInstance.queue.trackAtIndex(index)
   }
   
+  /// Current Position Time
+  public static func currentPosition() -> Float {
+    return HysteriaManager.sharedInstance.getCurrentPosition()
+  }
+  
   /// Current AVPlayerItem
   public static func currentItem() -> AVPlayerItem {
     return HysteriaManager.sharedInstance.currentItem()
