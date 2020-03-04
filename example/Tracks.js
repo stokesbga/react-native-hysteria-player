@@ -13,8 +13,9 @@ const formatTrack = (t) => ({
   }
 })
 
-const list1 = tracklistJSON.tracks.data.slice(1, 3).map(t => formatTrack(t))
+let list1 = tracklistJSON.tracks.data.slice(1, 3).map(t => formatTrack(t))
 const list2 = tracklistJSON.tracks.data.slice(4, 6).map(t => formatTrack(t))
 
+list1[1].url = "https://ioasefoisef.com/sjisoef"
 
 export default [[], list1, list2]

@@ -29,7 +29,8 @@ class RNPlaybarSliderView: UISlider {
   private var trackHeightDisabled: CGFloat = 4
   private var trackPlayedColor: UIColor = .blue
   private var trackRemainingColor: UIColor = .lightGray
-    
+  
+  private var currentDuration: Float = 0.0
   private var isSeeking: Bool = false
   private lazy var thumbViewEnabled: UIView = {
     let thumb = UIView()
@@ -44,8 +45,8 @@ class RNPlaybarSliderView: UISlider {
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.frame = frame
-    self.minimumValue = 0
-    self.maximumValue = 1
+    self.minimumValue = 1
+    self.maximumValue = 100
     self.isContinuous = true
     
     // Custom Thumb Image
@@ -61,10 +62,20 @@ class RNPlaybarSliderView: UISlider {
       object: nil
     )
     NotificationCenter.default.addObserver(self,
-      selector: #selector(onQueueStateChange),
-      name: .onQueueStateChange,
+      selector: #selector(onTrackDurationChange),
+      name: .onTrackDurationChange,
       object: nil
     )
+  }
+  
+  override func willMove(toWindow newWindow: UIWindow?) {
+    super.willMove(toWindow: newWindow)
+
+    if newWindow == nil {
+      // UIView disappear
+    } else {
+      self.setValue(SwiftPlayer.getPosition(), animated: false)
+    }
   }
   
   
@@ -75,21 +86,19 @@ class RNPlaybarSliderView: UISlider {
       guard let seconds = notification.object as? Float else { return }
       let minValue = self.minimumValue
       let maxValue = self.maximumValue
-      let val = ((maxValue - minValue) * seconds / SwiftPlayer.trackDurationTime() + minValue)
-      
-      self.setValue(val, animated: minValue/val < 0.98 && val/maxValue < 0.98)
+      let val = ((maxValue - minValue) * seconds / self.currentDuration + minValue)
+      self.setValue(val, animated: val > 2.9 && val < 8.7)
     }
   }
   
-  // On Queue State Change Observer (empty, item added)
-  @objc private func onQueueStateChange(_ notification: Notification) {
+  // Track Position Observer
+  @objc private func onTrackDurationChange(_ notification: Notification) {
     DispatchQueue.main.async {
-      guard let isReady = notification.object as? Bool else { return }
-      if(isReady) {
-        self.setValue(SwiftPlayer.currentPosition(), animated: false)
-      }
+      guard let seconds = notification.object as? Float else { return }
+      self.currentDuration = seconds
     }
   }
+  
   
   // On Seek
   @objc public func onSeek(_ source: UISlider, event: UIEvent ) -> Void {

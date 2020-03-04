@@ -113,9 +113,14 @@ open class SwiftPlayer {
     HysteriaManager.sharedInstance.seekToS(seconds)
   }
   
-  /// Get duration time of track
-  public static func trackDurationTime() -> Float {
+  /// Get duration time
+  public static func getDuration() -> Float {
     return HysteriaManager.sharedInstance.playingItemDurationTime()
+  }
+  
+  /// Current Position Time
+  public static func getPosition() -> Float {
+    return HysteriaManager.sharedInstance.getCurrentPosition()
   }
   
   /// 🔊 Player volume view
@@ -163,12 +168,7 @@ open class SwiftPlayer {
   public static func trackAtIndex(_ index: Int) -> PlayerTrack {
     return HysteriaManager.sharedInstance.queue.trackAtIndex(index)
   }
-  
-  /// Current Position Time
-  public static func currentPosition() -> Float {
-    return HysteriaManager.sharedInstance.getCurrentPosition()
-  }
-  
+    
   /// Current AVPlayerItem
   public static func currentItem() -> AVPlayerItem {
     return HysteriaManager.sharedInstance.currentItem()

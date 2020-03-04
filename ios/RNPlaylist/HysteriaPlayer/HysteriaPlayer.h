@@ -36,11 +36,6 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerReadyToPlay) {
     HysteriaPlayerReadyToPlayCurrentItem = 3001,
 };
 
-typedef NS_ENUM(NSInteger, HysteriaPlayerFailed) {
-    HysteriaPlayerFailedPlayer = 4000,
-    HysteriaPlayerFailedCurrentItem = 4001,
-};
-
 
 /**
  *  HysteriaPlayerDelegate, all delegate method is optional.
@@ -53,7 +48,8 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerFailed) {
 - (void)hysteriaPlayerRateChanged:(BOOL)isPlaying;
 - (void)hysteriaPlayerDidReachEnd;
 - (void)hysteriaPlayerCurrentItemPreloaded:(CMTime)time;
-- (void)hysteriaPlayerDidFailed:(HysteriaPlayerFailed)identifier error:(NSError *)error;
+- (void)hysteriaPlayerDidFail:(NSError *)error;
+- (void)hysteriaPlayerTrackDidFailAtIndex:(NSInteger)index error:(NSError *)error;
 - (void)hysteriaPlayerReadyToPlay:(HysteriaPlayerReadyToPlay)identifier;
 
 - (void)hysteriaPlayerItemFailedToPlayEndTime:(AVPlayerItem *)item error:(NSError *)error;
@@ -92,7 +88,7 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerFailed) {
 
 @end
 
-typedef void (^ Failed)(HysteriaPlayerFailed identifier, NSError *error) DEPRECATED_MSG_ATTRIBUTE("deprecated since 2.5 version");
+typedef void (^ Failed)(NSError *error) DEPRECATED_MSG_ATTRIBUTE("deprecated since 2.5 version");
 typedef void (^ ReadyToPlay)(HysteriaPlayerReadyToPlay identifier) DEPRECATED_MSG_ATTRIBUTE("deprecated since 2.5 version");
 typedef void (^ SourceAsyncGetter)(NSInteger index) DEPRECATED_MSG_ATTRIBUTE("deprecated since 2.5 version");
 typedef NSURL * (^ SourceSyncGetter)(NSInteger index) DEPRECATED_MSG_ATTRIBUTE("deprecated since 2.5 version");
@@ -125,7 +121,6 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerShuffleMode) {
 @property (nonatomic, strong, readonly) NSArray *playerItems;
 @property (nonatomic, readonly) BOOL emptySoundPlaying;
 @property (nonatomic) BOOL skipEmptySoundPlaying;
-@property (nonatomic) BOOL popAlertWhenError;
 
 
 + (HysteriaPlayer *)sharedInstance;

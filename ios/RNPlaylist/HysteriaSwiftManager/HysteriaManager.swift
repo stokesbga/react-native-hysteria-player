@@ -477,19 +477,6 @@ extension HysteriaManager: HysteriaPlayerDelegate {
     playlistService?.dispatchTrackPreloaded(time)
   }
 
-  func hysteriaPlayerDidFailed(_ identifier: HysteriaPlayerFailed, error: NSError!) {
-    if logs {print("• player did failed :error >> \(error.description)")}
-    switch identifier {
-    case .currentItem:
-      playlistService?.dispatchTrackLoadFailed(error)
-      next()
-      break
-    case .player:
-      playlistService?.dispatchPlayerFailed(error)
-      break
-    }
-  }
-
   func hysteriaPlayerReady(_ identifier: HysteriaPlayerReadyToPlay) {
     if logs {print("• player ready to play")}
     switch identifier {
@@ -503,10 +490,22 @@ extension HysteriaManager: HysteriaPlayerDelegate {
       break
     }
   }
+  
+  func hysteriaPlayerDidFail(_ error: NSError!) {
+    if logs {print("• player did failed :error >> \(error.description)")}
+    playlistService?.dispatchPlayerFailed(error)
+  }
+  
+  func hysteriaPlayerTrackDidFailAt(at index: Int, error: NSError!) {
+    if logs {print("• player did failed at track", index)}
+    //  next()
+  
+    playlistService?.dispatchTrackLoadFailed(error, index: index)
+  }
 
   func hysteriaPlayerItemFailed(toPlayEndTime item: AVPlayerItem!, error: NSError!) {
     if logs {print("• item failed to play end time :error >> \(error.description)")}
-    playlistService?.dispatchTrackLoadFailed(error)
+    playlistService?.dispatchTrackLoadFailed(error, index: -1)
   }
 
   func hysteriaPlayerItemPlaybackStall(_ item: AVPlayerItem!) {

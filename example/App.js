@@ -39,7 +39,7 @@ export default class App extends Component<{}> {
     Playlist.setup({
       emptyTrackTitle: "No track selected",
       emptyArtistTitle: "Press any card to start listening",
-      enableEvents: false,
+      enableEvents: true,
       enableCache: false,
       enableLogs: false
     })
@@ -50,6 +50,14 @@ export default class App extends Component<{}> {
     PlaylistEventEmitter.addListener(EventTypes.onTrackChange, track => {
       console.log('track', track)
       this.setState({ trackTitle: track?.title })
+    })
+
+    PlaylistEventEmitter.addListener(EventTypes.onTrackWillChange, idx => {
+      console.log('TRACK CHANGE', idx)
+    })
+
+    PlaylistEventEmitter.addListener(EventTypes.onTrackLoadFailed, idx => {
+      console.log('TRACK ERROR', idx)
     })
   }
 
@@ -69,7 +77,7 @@ export default class App extends Component<{}> {
           </View>
           <View style={{ flex: 1 }}>
             <PlaybarSlider 
-              hasControl={true}
+              hasControl={false}
               thumbRadius={20}
               trackHeightEnabled={5}
               trackHeightDisabled={3}
