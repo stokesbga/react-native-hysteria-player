@@ -410,7 +410,7 @@ extension HysteriaManager: HysteriaPlayerDataSource {
 
   func hysteriaPlayerAsyncSetUrlForItem(at index: Int, preBuffer: Bool) {
     if preBuffer { return }
-
+    
     if isClicked && lastIndexClicked != -1 {
       isClicked = false
       fetchAndPlayAtIndex(lastIndexClicked + 1)
@@ -477,19 +477,6 @@ extension HysteriaManager: HysteriaPlayerDelegate {
     playlistService?.dispatchTrackPreloaded(time)
   }
 
-  func hysteriaPlayerDidFailed(_ identifier: HysteriaPlayerFailed, error: NSError!) {
-    if logs {print("• player did failed :error >> \(error.description)")}
-    switch identifier {
-    case .currentItem:
-      playlistService?.dispatchTrackLoadFailed(error)
-      next()
-      break
-    case .player:
-      playlistService?.dispatchPlayerFailed(error)
-      break
-    }
-  }
-
   func hysteriaPlayerReady(_ identifier: HysteriaPlayerReadyToPlay) {
     if logs {print("• player ready to play")}
     switch identifier {
@@ -503,10 +490,22 @@ extension HysteriaManager: HysteriaPlayerDelegate {
       break
     }
   }
+  
+  func hysteriaPlayerDidFail(_ error: Error?) {
+    if logs {print("• player did failed :error >> \(error)")}
+    playlistService?.dispatchPlayerFailed(error)
+  }
+  
+  func hysteriaPlayerTrackDidFail(at index: Int, error: Error?) {
+    if logs {print("• player did failed at track", index)}
+    //  next()
+  
+    playlistService?.dispatchTrackLoadFailed(error, index: index)
+  }
 
-  func hysteriaPlayerItemFailed(toPlayEndTime item: AVPlayerItem!, error: NSError!) {
-    if logs {print("• item failed to play end time :error >> \(error.description)")}
-    playlistService?.dispatchTrackLoadFailed(error)
+  func hysteriaPlayerItemFailed(toPlayEndTime item: AVPlayerItem!, error: Error?) {
+    if logs {print("• item failed to play end time :error >> \(error)")}
+    playlistService?.dispatchTrackLoadFailed(error, index: -1)
   }
 
   func hysteriaPlayerItemPlaybackStall(_ item: AVPlayerItem!) {

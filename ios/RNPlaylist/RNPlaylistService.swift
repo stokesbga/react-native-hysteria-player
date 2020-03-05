@@ -142,12 +142,12 @@ class PlaylistService: RCTEventEmitter {
   }
   
   // Error
-  public func dispatchTrackLoadFailed(_ error: NSError?) {
+  public func dispatchTrackLoadFailed(_ error: Error?, index: Int) {
     NotificationCenter.default.post(name: .onTrackLoadFailed, object: error)
     guard isBridgeReady() else { return }
-    PlaylistService.shared?.sendEvent(withName: "onTrackLoadFailed", body: nil)
+    PlaylistService.shared?.sendEvent(withName: "onTrackLoadFailed", body: index)
   }
-  public func dispatchPlayerFailed(_ error: NSError?) {
+  public func dispatchPlayerFailed(_ error: Error?) {
     PlaylistService.playerIsReady = false
     NotificationCenter.default.post(name: .onPlayerFailed, object: error)
     guard isBridgeReady() else { return }

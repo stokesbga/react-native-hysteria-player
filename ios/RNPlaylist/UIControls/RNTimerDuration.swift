@@ -56,7 +56,7 @@ class RNTimerDurationView: UILabel {
       // UIView disappear
     } else {
       if (PlaylistService.isQueueReady) {
-        guard let duration = SwiftPlayer.trackDurationTime() as? Float else {
+        guard let duration = SwiftPlayer.getDuration() as? Float else {
           self.text = "0:00"
           return
         }

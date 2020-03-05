@@ -74,18 +74,6 @@ static dispatch_once_t onceToken;
     return sharedInstance;
 }
 
-+ (void)showAlertWithError:(NSError *)error
-{
-     #if TARGET_OS_IPHONE
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Player errors"
-                                                    message:[error localizedDescription]
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil, nil];
-    [alert show];
-     #endif
-}
-
 - (id)init {
     self = [super init];
     if (self) {
@@ -111,7 +99,7 @@ static dispatch_once_t onceToken;
 
 - (void)registerHandlerReadyToPlay:(ReadyToPlay)readyToPlay{}
 
--(void)registerHandlerFailed:(Failed)failed {}
+- (void)registerHandlerFailed:(Failed)failed {}
 
 - (void)setupSourceGetter:(SourceSyncGetter)itemBlock ItemsCount:(NSInteger)count {}
 
@@ -735,11 +723,8 @@ static dispatch_once_t onceToken;
                 NSLog(@"HysteriaPlayer: %@", self.audioPlayer.error);
             }
             
-            if (self.popAlertWhenError) {
-                [HysteriaPlayer showAlertWithError:self.audioPlayer.error];
-            }
-            if ([self.delegate respondsToSelector:@selector(hysteriaPlayerDidFailed:error:)]) {
-                [self.delegate hysteriaPlayerDidFailed:HysteriaPlayerFailedPlayer error:self.audioPlayer.error];
+            if ([self.delegate respondsToSelector:@selector(hysteriaPlayerDidFail:)]) {
+                [self.delegate hysteriaPlayerDidFail:self.audioPlayer.error];
             }
         }
     }
@@ -777,12 +762,9 @@ static dispatch_once_t onceToken;
     if (object == self.audioPlayer.currentItem && [keyPath isEqualToString:@"status"]) {
         isPreBuffered = NO;
         if (self.audioPlayer.currentItem.status == AVPlayerItemStatusFailed) {
-            if (self.popAlertWhenError) {
-                [HysteriaPlayer showAlertWithError:self.audioPlayer.currentItem.error];
-            }
             
-            if ([self.delegate respondsToSelector:@selector(hysteriaPlayerDidFailed:error:)]) {
-                [self.delegate hysteriaPlayerDidFailed:HysteriaPlayerFailedCurrentItem error:self.audioPlayer.currentItem.error];
+            if ([self.delegate respondsToSelector:@selector(hysteriaPlayerTrackDidFailAtIndex:error:)]) {
+                [self.delegate hysteriaPlayerTrackDidFailAtIndex:self.lastItemIndex error:self.audioPlayer.currentItem.error];
             }
         } else if (self.audioPlayer.currentItem.status == AVPlayerItemStatusReadyToPlay) {
             if ([self.delegate respondsToSelector:@selector(hysteriaPlayerReadyToPlay:)]) {
