@@ -23,6 +23,12 @@ open class SwiftPlayer {
     HysteriaManager.sharedInstance.setMemoryCached(enable)
   }
   
+  /// Set enable callbacks for CF Signing
+  public static func enableTrackUrlCallbacks() {
+    HysteriaManager.sharedInstance.enableTrackUrlCallbacks = true
+  }
+  
+  
   /// ▶️ Play music
   public static func play() {
     HysteriaManager.sharedInstance.play()
@@ -36,6 +42,10 @@ open class SwiftPlayer {
   /// ▶️0️⃣ Play all tracks starting by 0
   public static func playAll() {
     HysteriaManager.sharedInstance.playAllTracks()
+  }
+  
+  public static func setupTrack(_ url: String, index: Int) {
+    HysteriaManager.sharedInstance.setupPlayerItem(URL(string: url)!, index: index)
   }
   
   public static func playToggle() {

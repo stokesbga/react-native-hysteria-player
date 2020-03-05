@@ -51,6 +51,7 @@ class HysteriaManager: NSObject {
   fileprivate var lastIndexClicked = -1
   fileprivate var lastIndexShuffle = -1
 
+  public var enableTrackUrlCallbacks: Bool = false
 
   fileprivate override init() {
     super.init()
@@ -399,6 +400,10 @@ extension HysteriaManager {
   func volumeViewFrom(_ view: UIView) -> MPVolumeView! {
     return MPVolumeView(frame: view.bounds)
   }
+  
+  func setupPlayerItem(_ url: URL, index: Int ) {
+    hysteriaPlayer?.setupPlayerItem(with: url, index: index)
+  }
 }
 
 
@@ -438,7 +443,11 @@ extension HysteriaManager: HysteriaPlayerDataSource {
       return
     }
     
-    hysteriaPlayer?.setupPlayerItem(with: URL(string: track.url)!, index: index)
+    if(!enableTrackUrlCallbacks) {
+      hysteriaPlayer?.setupPlayerItem(with: URL(string: track.url)!, index: index)
+    } else {
+      playlistService?.dispatchAttemptLoadNextTrack(track, index: index)
+    }
   }
 }
 

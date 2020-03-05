@@ -35,16 +35,19 @@ extension RNPlaylist {
 
   @objc(setup:)
   public func setup(_ config: [String: Any]) {
-    let enableEvents = config["enableEvents"] as? Bool ?? false
+    let enableEvents = config["enableEvents"] as? [String] ?? []
     let enableCache = config["enableCache"] as? Bool ?? false
     let enableLogs = config["enableLogs"] as? Bool ?? false
+    let enableTrackUrlCallbacks = config["enableTrackUrlCallbacks"] as? Bool ?? false
     
     RNPlaylist.emptyTrackTitle = config["emptyTrackTitle"] as? String ?? "None"
     RNPlaylist.emptyArtistTitle = config["emptyArtistTitle"] as? String ?? "None"
     
-    if(enableEvents) {
-      print("Subscribing to Events")
-      PlaylistService.isRNSubscribed = true
+    print("Subscribing to Events")
+    PlaylistService.subscribedEvents = enableEvents
+    
+    if(enableTrackUrlCallbacks) {
+      SwiftPlayer.enableTrackUrlCallbacks()
     }
     
     if(enableCache) {
@@ -86,6 +89,11 @@ extension RNPlaylist {
     SwiftPlayer.setPlaylist(queue).playAll()
   }
 
+  @objc(setupTrackURL:index:)
+  public func setupTrackURL(_ url: String, index: NSNumber) {
+    SwiftPlayer.setupTrack(url, index: (index as? Int)!)
+  }
+  
   @objc(togglePlay:rejecter:)
   public func togglePlay(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
     SwiftPlayer.isPlaying() ? SwiftPlayer.pause() : SwiftPlayer.play()

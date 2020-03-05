@@ -37,11 +37,27 @@ export default class App extends Component<{}> {
 
   async componentDidMount() {
     Playlist.setup({
+      enableTrackUrlCallbacks: false,
       emptyTrackTitle: "No track selected",
       emptyArtistTitle: "Press any card to start listening",
-      enableEvents: true,
       enableCache: false,
-      enableLogs: false
+      enableLogs: true,
+      enableEvents: [
+        "onTrackPreloaded",
+        "onTrackWillChange",
+        "onAttemptLoadNextTrack",
+        "onTrackChange",
+        "onTrackPlayReady",
+        "onTrackPositionChange",
+        "onTrackDurationChange",
+        "onPlayerStateChange",
+        "onPlayerReachedEnd",
+        "onPlayerReady",
+        "onPlayerStall",
+        "onQueueUpdate",
+        "onTrackLoadFailed",
+        "onPlayerFailed",
+      ]
     })
 
     Playlist.addTracks([])
@@ -56,8 +72,15 @@ export default class App extends Component<{}> {
       console.log('TRACK CHANGE', idx)
     })
 
+    // Uncomment to replace all audio
+    // PlaylistEventEmitter.addListener(EventTypes.onAttemptLoadNextTrack, track => {
+    //   console.log('TRACK ATTEMPT LOAD', track)
+    //   Playlist.setupTrackURL("https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3", 0)
+    // })
+
     PlaylistEventEmitter.addListener(EventTypes.onTrackLoadFailed, idx => {
       console.log('TRACK ERROR', idx)
+      Playlist.addTracks(Tracks[2])
     })
   }
 

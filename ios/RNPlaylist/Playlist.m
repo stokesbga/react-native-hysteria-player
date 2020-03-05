@@ -21,6 +21,8 @@
     
     RCT_EXTERN_METHOD(addTracks:(NSArray)tracks);
 
+    RCT_EXTERN_METHOD(setupTrackURL:(NSString)url index:(nonnull NSNumber *)index);
+
     RCT_EXTERN_METHOD(play:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject);
 
@@ -36,7 +38,7 @@
     RCT_EXTERN_METHOD(skipToPrevious:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject);
 
-    RCT_EXTERN_METHOD(seekTo:(NSNumber)seconds);
+    RCT_EXTERN_METHOD(seekTo:(nonnull NSNumber *)seconds);
     
     RCT_EXTERN_METHOD(toggleShuffle:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject);

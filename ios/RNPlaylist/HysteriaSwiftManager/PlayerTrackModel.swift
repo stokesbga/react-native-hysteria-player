@@ -20,9 +20,19 @@ public struct PlayerTrack {
   public let album: Album?
   public let artist: Artist?
   public let custom: NSDictionary?
-  
-  public var modelObjectSupport: AnyObject?
-  
+  public var dictionary: [String: Any] {
+    return [
+      "url": url as? Any,
+      "name": name as? Any,
+      "image": image as? Any,
+      "album": album?.name as? Any,
+      "artist": artist?.name as? Any,
+      "custom": custom as? Any,
+      "origin": origin as? Any,
+      "position": position as? Any
+    ]
+  }
+    
   var origin: TrackType! = TrackType.normal
   var position: Int?
   
