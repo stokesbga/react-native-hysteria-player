@@ -29,9 +29,10 @@ class RNPlaybarSliderView: UISlider {
   private var trackHeightDisabled: CGFloat = 4
   private var trackPlayedColor: UIColor = .blue
   private var trackRemainingColor: UIColor = .lightGray
-  
+
   private var currentDuration: Float = 0.0
   private var isSeeking: Bool = false
+
   private lazy var thumbViewEnabled: UIView = {
     let thumb = UIView()
     thumb.backgroundColor = .white
@@ -45,8 +46,9 @@ class RNPlaybarSliderView: UISlider {
   override init(frame: CGRect) {
     super.init(frame: frame)
     self.frame = frame
-    self.minimumValue = 1
-    self.maximumValue = 100
+
+    self.minimumValue = 0
+    self.maximumValue = 1
     self.isContinuous = true
     
     // Custom Thumb Image
@@ -61,11 +63,6 @@ class RNPlaybarSliderView: UISlider {
       name: .onTrackPositionChange,
       object: nil
     )
-    NotificationCenter.default.addObserver(self,
-      selector: #selector(onTrackDurationChange),
-      name: .onTrackDurationChange,
-      object: nil
-    )
   }
   
   override func willMove(toWindow newWindow: UIWindow?) {
@@ -74,28 +71,21 @@ class RNPlaybarSliderView: UISlider {
     if newWindow == nil {
       // UIView disappear
     } else {
-      self.setValue(SwiftPlayer.getPosition(), animated: false)
+      if (PlaylistService.isQueueReady) {
+        let val = ((self.maximumValue - self.minimumValue) * SwiftPlayer.getPosition() / SwiftPlayer.getDuration() + self.minimumValue)
+        if(val == Float.infinity) { return }
+        self.setValue(val, animated: false)
+      }
     }
   }
-  
   
   // Track Position Observer
   @objc private func onTrackPositionChange(_ notification: Notification) {
     DispatchQueue.main.async {
       guard self.isSeeking == false else { return }
       guard let seconds = notification.object as? Float else { return }
-      let minValue = self.minimumValue
-      let maxValue = self.maximumValue
-      let val = ((maxValue - minValue) * seconds / self.currentDuration + minValue)
-      self.setValue(val, animated: val > 2.9 && val < 8.7)
-    }
-  }
-  
-  // Track Position Observer
-  @objc private func onTrackDurationChange(_ notification: Notification) {
-    DispatchQueue.main.async {
-      guard let seconds = notification.object as? Float else { return }
-      self.currentDuration = seconds
+      let val = ((self.maximumValue - self.minimumValue) * seconds / SwiftPlayer.getDuration() + self.minimumValue)
+      self.setValue(val, animated: val > 2.9 && val < (self.maximumValue - 1.9))
     }
   }
   
