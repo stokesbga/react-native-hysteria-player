@@ -1,3 +1,3 @@
-import TrackProgress from './TrackProgress'
+import TrackProgress from "./TrackProgress"
 
 export default TrackProgress

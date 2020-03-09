@@ -8,13 +8,24 @@
  * https://github.com/facebook/react-native
  */
 
-import React, { Component } from 'react';
-import { Platform, TouchableOpacity, Dimensions, StyleSheet, Text, View } from 'react-native';
-import Playlist, { PlaylistEventEmitter, EventTypes, PlaylistComponent } from 'react-native-playlist';
+import React, { Component } from "react"
+import {
+  Platform,
+  TouchableOpacity,
+  Dimensions,
+  StyleSheet,
+  Text,
+  View
+} from "react-native"
+import Playlist, {
+  PlaylistEventEmitter,
+  EventTypes,
+  PlaylistComponent
+} from "react-native-playlist"
 
-import Tracks from './Tracks'
+import Tracks from "./Tracks"
 
-const { width: deviceWidth, height: deviceHeight } = Dimensions.get('window')
+const { width: deviceWidth, height: deviceHeight } = Dimensions.get("window")
 
 const {
   PlaybarSlider,
@@ -31,8 +42,8 @@ const {
 export default class App extends Component<{}> {
   state = {
     pidx: 0,
-    color1: 'teal',
-    trackTitle: 'N/A'
+    color1: "teal",
+    trackTitle: "N/A"
   }
 
   async componentDidMount() {
@@ -56,7 +67,7 @@ export default class App extends Component<{}> {
         "onPlayerStall",
         "onQueueUpdate",
         "onTrackLoadFailed",
-        "onPlayerFailed",
+        "onPlayerFailed"
       ]
     })
 
@@ -64,12 +75,12 @@ export default class App extends Component<{}> {
 
     // Add Listener
     PlaylistEventEmitter.addListener(EventTypes.onTrackChange, track => {
-      console.log('track', track)
+      console.log("track", track)
       this.setState({ trackTitle: track?.title })
     })
 
     PlaylistEventEmitter.addListener(EventTypes.onTrackWillChange, idx => {
-      console.log('TRACK CHANGE', idx)
+      console.log("TRACK CHANGE", idx)
     })
 
     // Uncomment to replace all audio
@@ -79,14 +90,14 @@ export default class App extends Component<{}> {
     // })
 
     PlaylistEventEmitter.addListener(EventTypes.onTrackLoadFailed, idx => {
-      console.log('TRACK ERROR', idx)
+      console.log("TRACK ERROR", idx)
       Playlist.addTracks(Tracks[2])
     })
   }
 
   onPressLoadNextPlaylist = () => {
     let { pidx } = this.state
-    if(++pidx > 2) pidx = 0
+    if (++pidx > 2) pidx = 0
     this.setState({ pidx })
     Playlist.addTracks(Tracks[pidx])
   }
@@ -94,12 +105,14 @@ export default class App extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ flex: 1, width: '100%' }}>
-          <View style={{ flex: 1, backgroundColor: '#e0e0e0' }} >
-            <TrackAlbumArt style={{ width: deviceHeight/2, height: deviceHeight/2 }} />
+        <View style={{ flex: 1, width: "100%" }}>
+          <View style={{ flex: 1, backgroundColor: "#e0e0e0" }}>
+            <TrackAlbumArt
+              style={{ width: deviceHeight / 2, height: deviceHeight / 2 }}
+            />
           </View>
           <View style={{ flex: 1 }}>
-            <PlaybarSlider 
+            <PlaybarSlider
               hasControl={false}
               thumbRadius={20}
               trackHeightEnabled={5}
@@ -107,12 +120,13 @@ export default class App extends Component<{}> {
               trackPlayedColor={this.state.color1}
               trackRemainingColor={this.state.color2}
             />
-            <View style={{
-              marginTop: 15,
-              marginBottom: 60,
-            }}>
+            <View
+              style={{
+                marginTop: 15,
+                marginBottom: 60
+              }}>
               <TrackTitle
-                fontFamily={'Avenir-Heavy'}
+                fontFamily={"Avenir-Heavy"}
                 fontSize={23}
                 color={"#222"}
                 textAlign={"center"}
@@ -120,89 +134,124 @@ export default class App extends Component<{}> {
                 marqueeDelay={2.0}
                 marqueeFadeLength={50}
                 marqueeTrailingMargin={100}
-                style={{ minHeight: 30, marginBottom: 5, marginTop: 20, marginHorizontal: 50 }} />
-              <TrackArtist 
-                fontFamily={'Monaco'}
+                style={{
+                  minHeight: 30,
+                  marginBottom: 5,
+                  marginTop: 20,
+                  marginHorizontal: 50
+                }}
+              />
+              <TrackArtist
+                fontFamily={"Monaco"}
                 fontSize={19}
                 color={"#666"}
                 textAlign={"center"}
-                style={{ minHeight: 30 }} />
+                style={{ minHeight: 30 }}
+              />
             </View>
-            <View style={{ flexDirection: 'row', marginTop: 20, alignItems: 'space-around' }}>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: 20,
+                alignItems: "space-around"
+              }}>
               <TrackProgress
-                fontFamily={'Avenir-Heavy'}
+                fontFamily={"Avenir-Heavy"}
                 fontSize={15}
-                color={'lightgray'}
+                color={"lightgray"}
                 textAlign={"center"}
                 style={{ minHeight: 50 }}
-                />
+              />
               <SkipPrev
                 disabledOpacity={0.4}
                 icon={"previous.png"}
-                color={'#444'} 
-                style={{
-                  flex: 0,
-                  width: 28,
-                  height: 28,
-                }}/>
-              <PlayPause
-                playIcon={"play-circle.png"}
-                pauseIcon={"pause-circle.png"} 
-                color={'#222'} 
-                disabledOpacity={0.4}
-                style={{
-                  flex: 0,
-                  width: 50,
-                  marginHorizontal: 35,
-                }}/>
-              <SkipNext 
-                disabledOpacity={0.4}
-                icon={"next.png"}
-                color={'#444'}
+                color={"#444"}
                 style={{
                   flex: 0,
                   width: 28,
                   height: 28
-                }} />
-              <TrackDuration 
-                fontFamily={'Avenir-Heavy'}
+                }}
+              />
+              <PlayPause
+                playIcon={"play-circle.png"}
+                pauseIcon={"pause-circle.png"}
+                color={"#222"}
+                disabledOpacity={0.4}
+                style={{
+                  flex: 0,
+                  width: 50,
+                  marginHorizontal: 35
+                }}
+              />
+              <SkipNext
+                disabledOpacity={0.4}
+                icon={"next.png"}
+                color={"#444"}
+                style={{
+                  flex: 0,
+                  width: 28,
+                  height: 28
+                }}
+              />
+              <TrackDuration
+                fontFamily={"Avenir-Heavy"}
                 fontSize={15}
-                color={'lightgray'}
+                color={"lightgray"}
                 textAlign={"center"}
-                style={{ minHeight: 50 }} />
+                style={{ minHeight: 50 }}
+              />
             </View>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{ fontWeight: '600', textAlign: 'center', marginTop: 40 }}>Current track title from PlaylistEventEmitter:</Text>
-              <Text style={{ textAlign: 'center'}}>{this.state.trackTitle}</Text>
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Text
+                style={{
+                  fontWeight: "600",
+                  textAlign: "center",
+                  marginTop: 40
+                }}>
+                Current track title from PlaylistEventEmitter:
+              </Text>
+              <Text style={{ textAlign: "center" }}>
+                {this.state.trackTitle}
+              </Text>
 
               <TouchableOpacity onPress={this.onPressLoadNextPlaylist}>
-                <View style={{ height: 50, paddingHorizontal: 16, marginTop: 20, backgroundColor: '#e8e8e8', alignItems: 'center', justifyContent: 'center' }}>
-                  <Text style={{ fontWeight: '700' }}>Load next playlist</Text>
-                  <Text style={{ fontSize: 11, marginTop: 3 }}>Current: playlist {this.state.pidx}</Text>
+                <View
+                  style={{
+                    height: 50,
+                    paddingHorizontal: 16,
+                    marginTop: 20,
+                    backgroundColor: "#e8e8e8",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}>
+                  <Text style={{ fontWeight: "700" }}>Load next playlist</Text>
+                  <Text style={{ fontSize: 11, marginTop: 3 }}>
+                    Current: playlist {this.state.pidx}
+                  </Text>
                 </View>
               </TouchableOpacity>
             </View>
           </View>
         </View>
       </View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center"
   },
   welcome: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    textAlign: "center",
+    margin: 10
   },
   instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+    textAlign: "center",
+    color: "#333333",
+    marginBottom: 5
+  }
+})

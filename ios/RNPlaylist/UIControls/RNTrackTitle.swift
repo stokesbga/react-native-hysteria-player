@@ -28,8 +28,15 @@ class RNTrackTitleView: UIView {
   private var color: UIColor = .black
   private var textAlign: NSTextAlignment = .left
   private lazy var marqueeLabel: MarqueeLabel = {
-  let label = MarqueeLabel(frame: CGRect(), duration: 8.0, fadeLength: 10.0)
+  let label = MarqueeLabel(frame: CGRect())
+    // Marquee Label props
     label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    label.speed = .rate(60)
+    label.animationDelay = 0.5
+    label.fadeLength = 50
+    label.trailingBuffer = 50
+    
+    // Text props
     label.contentMode = .center
     label.textAlignment = textAlign
     label.textColor = color
@@ -133,6 +140,23 @@ extension RNTrackTitleView {
       }
     }()
     marqueeLabel.textAlignment = textAlign
+  }
+  
+  // Marquee Props
+  @objc public func setMarqueeSpeed(_ val: NSNumber) {
+    marqueeLabel.speed = .rate(CGFloat(val))
+  }
+  
+  @objc public func setMarqueeDelay(_ val: NSNumber) {
+    marqueeLabel.animationDelay = CGFloat(val)
+  }
+  
+  @objc public func setMarqueeFadeLength(_ val: NSNumber) {
+    marqueeLabel.fadeLength = CGFloat(val)
+  }
+  
+  @objc public func setMarqueeTrailingMargin(_ val: NSNumber) {
+    marqueeLabel.trailingBuffer = CGFloat(val)
   }
     
 }

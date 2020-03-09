@@ -1,3 +1,3 @@
-import PlaybarSlider from './PlaybarSlider'
+import PlaybarSlider from "./PlaybarSlider"
 
 export default PlaybarSlider

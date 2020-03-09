@@ -1,3 +1,3 @@
-import TrackTitle from './TrackTitle'
+import TrackTitle from "./TrackTitle"
 
 export default TrackTitle

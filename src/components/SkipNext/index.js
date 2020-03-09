@@ -1,3 +1,3 @@
-import SkipNext from './SkipNext'
+import SkipNext from "./SkipNext"
 
 export default SkipNext

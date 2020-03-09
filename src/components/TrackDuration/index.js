@@ -1,3 +1,3 @@
-import TrackDuration from './TrackDuration'
+import TrackDuration from "./TrackDuration"
 
 export default TrackDuration

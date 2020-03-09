@@ -1,3 +1,3 @@
-import PlayPause from './PlayPause'
+import PlayPause from "./PlayPause"
 
 export default PlayPause

@@ -1,3 +1,3 @@
-import TrackAlbumArt from './TrackAlbumArt'
+import TrackAlbumArt from "./TrackAlbumArt"
 
 export default TrackAlbumArt

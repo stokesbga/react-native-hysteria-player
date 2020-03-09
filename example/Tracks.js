@@ -1,7 +1,6 @@
-const tracklistJSON = require('./data/hiphop_playlist_full.json')
+const tracklistJSON = require("./data/hiphop_playlist_full.json")
 
-
-const formatTrack = (t) => ({
+const formatTrack = t => ({
   url: t.preview,
   title: t.title,
   artwork: t.album.cover_big,
@@ -9,7 +8,7 @@ const formatTrack = (t) => ({
   artist: t.artist.name,
   custom: {
     foo: "any extra data here",
-    bar: ["a", "b", "c"],
+    bar: ["a", "b", "c"]
   }
 })
 

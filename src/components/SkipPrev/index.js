@@ -1,3 +1,3 @@
-import SkipPrev from './SkipPrev'
+import SkipPrev from "./SkipPrev"
 
 export default SkipPrev

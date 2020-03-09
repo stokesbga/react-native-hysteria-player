@@ -1,11 +1,11 @@
-const path = require('path')
+const path = require("path")
 
-const root = path.resolve(__dirname, "..");
+const root = path.resolve(__dirname, "..")
 
 module.exports = {
   dependencies: {
-    'react-native-playlist': {
+    "react-native-playlist": {
       root
-    },
-  },
-};
+    }
+  }
+}

@@ -1,3 +1,3 @@
-import TrackArtist from './TrackArtist'
+import TrackArtist from "./TrackArtist"
 
 export default TrackArtist
