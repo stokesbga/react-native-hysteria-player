@@ -116,6 +116,10 @@ export default class App extends Component<{}> {
                 fontSize={23}
                 color={"#222"}
                 textAlign={"center"}
+                marqueeSpeed={60}
+                marqueeDelay={2.0}
+                marqueeFadeLength={50}
+                marqueeTrailingMargin={100}
                 style={{ minHeight: 30, marginBottom: 5, marginTop: 20, marginHorizontal: 50 }} />
               <TrackArtist 
                 fontFamily={'Monaco'}
