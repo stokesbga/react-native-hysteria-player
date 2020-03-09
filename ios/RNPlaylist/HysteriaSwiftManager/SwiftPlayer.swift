@@ -13,6 +13,16 @@ import MediaPlayer
 /// Struct to access player actions 🎵
 open class SwiftPlayer {
   
+  /// Setup Hysteria Player
+  public static func setup() {
+    HysteriaManager.sharedInstance.initHysteriaPlayer()
+  }
+  
+  /// Teardown Hysteria Player
+  public static func teardown() {
+    HysteriaManager.sharedInstance.teardownHysteriaPlayer()
+  }
+  
   /// Set logs
   public static func logs(_ active: Bool) {
     HysteriaManager.sharedInstance.logs = active
@@ -177,6 +187,11 @@ open class SwiftPlayer {
   /// All tracks by index 
   public static func trackAtIndex(_ index: Int) -> PlayerTrack {
     return HysteriaManager.sharedInstance.queue.trackAtIndex(index)
+  }
+  
+  /// Current PlayerTrack
+  public static func currentPlayerTrack() -> PlayerTrack? {
+    return HysteriaManager.sharedInstance.currentPlayerTrack()
   }
     
   /// Current AVPlayerItem

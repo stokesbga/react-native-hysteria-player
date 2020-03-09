@@ -531,7 +531,6 @@ static dispatch_once_t onceToken;
         if (_repeatMode == HysteriaPlayerRepeatModeOn) {
             [self fetchAndPlayPlayerItem:[self hysteriaPlayerItemsCount] - 1];
         } else {
-            // [self.audioPlayer.currentItem seekToTime:kCMTimeZero];
             [self pause];
             [self.audioPlayer.currentItem seekToTime:kCMTimeZero completionHandler:^(BOOL finished) {
                 [self play];

@@ -38,7 +38,7 @@ class PlaylistService: RCTEventEmitter {
     return [
       "onTrackPreloaded",
       "onTrackWillChange",
-      "onAttemptLoadNextTrack",
+      "onTracksAboutToExpire",
       "onTrackChange",
       "onTrackPlayReady",
       "onTrackPositionChange",
@@ -83,14 +83,14 @@ class PlaylistService: RCTEventEmitter {
     guard isBridgeReady("onTrackWillChange") else { return }
     PlaylistService.shared?.sendEvent(withName: "onTrackWillChange", body: index)
   }
-  public func dispatchAttemptLoadNextTrack(_ track: PlayerTrack?, index: Int?) {
-    guard isBridgeReady("onAttemptLoadNextTrack") else { return }
-    PlaylistService.shared?.sendEvent(withName: "onAttemptLoadNextTrack", body: ["index": index, "track": track?.dictionary])
+  public func dispatchTracksAboutToExpire(_ tracks: [PlayerTrack]?, indexes: [Int]?) {
+    guard isBridgeReady("onTracksAboutToExpire") else { return }
+    PlaylistService.shared?.sendEvent(withName: "onTracksAboutToExpire", body: [ "indexes": indexes, "tracks": tracks ])
   }
-  public func dispatchTrackChange(_ track: [String: AnyObject]?) {
+  public func dispatchTrackChange(_ track: PlayerTrack?) {
     NotificationCenter.default.post(name: .onTrackChange, object: track)
     guard isBridgeReady("onTrackChange") else { return }
-    PlaylistService.shared?.sendEvent(withName: "onTrackChange", body: track)
+    PlaylistService.shared?.sendEvent(withName: "onTrackChange", body: track?.dictionary)
   }
   public func dispatchTrackPlayReady() {
     NotificationCenter.default.post(name: .onTrackPlayReady, object: nil)

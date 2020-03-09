@@ -15,7 +15,7 @@ export default PlaylistEventEmitter
 export const AllEventTypes = {
   onTrackPreloaded: "onTrackPreloaded",
   onTrackWillChange: "onTrackWillChange",
-  onAttemptLoadNextTrack: "onAttemptLoadNextTrack",
+  onTracksAboutToExpire: "onTracksAboutToExpire",
   onTrackChange: "onTrackChange",
   onTrackPlayReady: "onTrackPlayReady",
   onTrackPositionChange: "onTrackPositionChange",

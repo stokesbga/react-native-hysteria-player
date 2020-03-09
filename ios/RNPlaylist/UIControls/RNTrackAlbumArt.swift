@@ -71,8 +71,8 @@ class RNTrackAlbumArtView: UIView {
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {
     DispatchQueue.main.async {
-      guard let track = notification.object as? [String: AnyObject] else { return }
-      self.imageView.image = track["albumArtUIImage"] as? UIImage
+      guard let track = notification.object as? PlayerTrack else { return }
+      self.imageView.image = track.AVMediaPlayerProperties?["albumArtUIImage"] as? UIImage
     }
   }
   

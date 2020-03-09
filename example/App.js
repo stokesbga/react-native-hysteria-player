@@ -56,7 +56,7 @@ export default class App extends Component<{}> {
       enableEvents: [
         "onTrackPreloaded",
         "onTrackWillChange",
-        "onAttemptLoadNextTrack",
+        "onTracksAboutToExpire",
         "onTrackChange",
         "onTrackPlayReady",
         "onTrackPositionChange",
@@ -84,9 +84,9 @@ export default class App extends Component<{}> {
     })
 
     // Uncomment to replace all audio
-    PlaylistEventEmitter.addListener(EventTypes.onAttemptLoadNextTrack, ({ track: { custom: t }, index }) => {
-      console.log('TRACK ATTEMPT LOAD', index, t)
-      Playlist.setupTrackURL("https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3", index)
+    PlaylistEventEmitter.addListener(EventTypes.onTracksAboutToExpire, ({ tracks, indexes }) => {
+      console.log('TRACKS ABOUT TO EXPIRE', indexes, tracks)
+      Playlist.setupTrackURL("https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3", indexes[0])
     })
 
     PlaylistEventEmitter.addListener(EventTypes.onTrackLoadFailed, idx => {

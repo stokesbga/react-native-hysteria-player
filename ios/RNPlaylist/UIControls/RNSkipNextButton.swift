@@ -111,7 +111,6 @@ class RNSkipNextButtonView: UIView {
 
   // On Press
   @objc private func onPress(sender: UIButton!) {
-    print("On Press Next")
     SwiftPlayer.next()
   }
 

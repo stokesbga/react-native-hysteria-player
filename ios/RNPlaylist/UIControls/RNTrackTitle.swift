@@ -81,8 +81,8 @@ class RNTrackTitleView: UIView {
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {
     DispatchQueue.main.async {
-      guard let track = notification.object as? [String: AnyObject] else { return }
-      self.marqueeLabel.text = track["title"] as? String ?? "None"
+      guard let track = notification.object as? PlayerTrack else { return }
+      self.marqueeLabel.text = track.AVMediaPlayerProperties?["title"] as? String ?? "None"
     }
   }
   

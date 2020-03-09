@@ -106,7 +106,7 @@ struct PlayerQueue {
   ///////////////////////////////////////////////
   mutating func reorderQueuePrevious(_ nowIndex: Int, reorderHysteria: (_ from: Int, _ to: Int) -> Void) {
     if nowIndex <= 0 { return }
-    
+      
     var totalNext = 0
     for nTrack in allTracks where nTrack.origin == TrackType.next {
       totalNext += 1

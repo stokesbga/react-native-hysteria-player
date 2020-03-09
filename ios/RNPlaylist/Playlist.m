@@ -16,10 +16,13 @@
 @interface RCT_EXTERN_MODULE(RNPlaylist, NSObject)
     RCT_EXTERN_METHOD(setup:(NSDictionary)config);
 
-    RCT_EXTERN_METHOD(reset:(RCTPromiseResolveBlock)resolve
+    RCT_EXTERN_METHOD(teardown:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject);
     
     RCT_EXTERN_METHOD(addTracks:(NSArray)tracks);
+
+    RCT_EXTERN_METHOD(getCurrentTrack:(RCTPromiseResolveBlock)resolve
+                      rejecter:(RCTPromiseRejectBlock)reject);
 
     RCT_EXTERN_METHOD(setupTrackURL:(NSString)url index:(nonnull NSNumber *)index);
 

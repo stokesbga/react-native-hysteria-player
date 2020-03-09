@@ -43,28 +43,26 @@ extension RNPlaylist {
     RNPlaylist.emptyTrackTitle = config["emptyTrackTitle"] as? String ?? "None"
     RNPlaylist.emptyArtistTitle = config["emptyArtistTitle"] as? String ?? "None"
     
-    print("Subscribing to Events")
     PlaylistService.subscribedEvents = enableEvents
+    
+    SwiftPlayer.setup()
     
     if(enableTrackUrlCallbacks) {
       SwiftPlayer.enableTrackUrlCallbacks()
     }
     
     if(enableCache) {
-      print("Enabling Mem cache")
       SwiftPlayer.enableCache(true)
     }
     
     if(enableLogs) {
-      print("Enabling Hysteria Player Logs")
       SwiftPlayer.logs(true)
     }
   }
 
-  @objc(reset:rejecter:)
-  public func reset(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-    SwiftPlayer.pause()
-    SwiftPlayer.setPlaylist([PlayerTrack]())
+  @objc(teardown:rejecter:)
+  public func teardown(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+    SwiftPlayer.teardown()
   }
     
   @objc(addTracks:)
@@ -80,9 +78,10 @@ extension RNPlaylist {
       guard let trackArtwork = track["artwork"] as? String else { return }
       guard let trackAlbum = track["album"] as? String else { return }
       guard let trackArtist = track["artist"] as? String else { return }
-      guard let trackCustom = track["custom"] as? NSDictionary else { return }
+      let trackExpirationTime = RCTConvert.nsDate(track["expires"]) ?? Date.distantFuture
+      let trackCustom = track["custom"] as? NSDictionary ?? [:]
         
-      let playerTrack = PlayerTrack(url: trackUrl, name: trackTitle, image: trackArtwork, album: trackAlbum, artist: trackArtist, custom: trackCustom)
+      let playerTrack = PlayerTrack(url: trackUrl, name: trackTitle, image: trackArtwork, album: trackAlbum, artist: trackArtist, expires: trackExpirationTime, custom: trackCustom)
       queue.append(playerTrack)
     }
     
@@ -92,6 +91,12 @@ extension RNPlaylist {
   @objc(setupTrackURL:index:)
   public func setupTrackURL(_ url: String, index: NSNumber) {
     SwiftPlayer.setupTrack(url, index: (index as? Int)!)
+  }
+  
+  @objc(getCurrentTrack:rejecter:)
+  public func getCurrentTrack(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
+    let track = SwiftPlayer.currentPlayerTrack()
+    resolve(track)
   }
   
   @objc(togglePlay:rejecter:)
