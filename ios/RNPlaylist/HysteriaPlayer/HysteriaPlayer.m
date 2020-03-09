@@ -268,26 +268,26 @@ static dispatch_once_t onceToken;
 
 - (NSInteger)hysteriaPlayerItemsCount
 {
-    if ([self.datasource respondsToSelector:@selector(hysteriaPlayerNumberOfItems)]) {
-        return [self.datasource hysteriaPlayerNumberOfItems];
+    if ([self.delegate respondsToSelector:@selector(hysteriaPlayerNumberOfItems)]) {
+        return [self.delegate hysteriaPlayerNumberOfItems];
     }
     return self.itemsCount;
 }
 
 - (void)getSourceURLAtIndex:(NSInteger)index preBuffer:(BOOL)preBuffer
 {
-    NSAssert([self.datasource respondsToSelector:@selector(hysteriaPlayerURLForItemAtIndex:preBuffer:)] || [self.datasource respondsToSelector:@selector(hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer:)], @"You didn't implement URL getter delegate from HysteriaPlayerDelegate, hysteriaPlayerURLForItemAtIndex:preBuffer: and hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer: provides for the use of alternatives.");
+    NSAssert([self.delegate respondsToSelector:@selector(hysteriaPlayerURLForItemAtIndex:preBuffer:)] || [self.delegate respondsToSelector:@selector(hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer:)], @"You didn't implement URL getter delegate from HysteriaPlayerDelegate, hysteriaPlayerURLForItemAtIndex:preBuffer: and hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer: provides for the use of alternatives.");
     if([self hysteriaPlayerItemsCount] <= index) return;
 //    NSAssert([self hysteriaPlayerItemsCount] > index, ([NSString stringWithFormat:@"You are about to access index: %li URL when your HysteriaPlayer items count value is %li, please check hysteriaPlayerNumberOfItems or set itemsCount directly.", (unsigned long)index, (unsigned long)[self hysteriaPlayerItemsCount]]));
-    if ([self.datasource respondsToSelector:@selector(hysteriaPlayerURLForItemAtIndex:preBuffer:)] && [self.datasource hysteriaPlayerURLForItemAtIndex:index preBuffer:preBuffer]) {
+    if ([self.delegate respondsToSelector:@selector(hysteriaPlayerURLForItemAtIndex:preBuffer:)] && [self.delegate hysteriaPlayerURLForItemAtIndex:index preBuffer:preBuffer]) {
         dispatch_async(HBGQueue, ^{
-            [self setupPlayerItemWithUrl:[self.datasource hysteriaPlayerURLForItemAtIndex:index preBuffer:preBuffer] index:index];
+            [self setupPlayerItemWithUrl:[self.delegate hysteriaPlayerURLForItemAtIndex:index preBuffer:preBuffer] index:index];
         });
-    } else if ([self.datasource respondsToSelector:@selector(hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer:)]) {
-        [self.datasource hysteriaPlayerAsyncSetUrlForItemAtIndex:index preBuffer:preBuffer];
+    } else if ([self.delegate respondsToSelector:@selector(hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer:)]) {
+        [self.delegate hysteriaPlayerAsyncSetUrlForItemAtIndex:index preBuffer:preBuffer];
     } else {
         // 2.2.0
-        NSLog(@"No HysteriaPlayer datasource detected at %li index", (unsigned long) index);
+        NSLog(@"No HysteriaPlayer delegate detected at %li index", (unsigned long) index);
         
         // 2.1.0
         // NSException *exception = [[NSException alloc] initWithName:@"HysteriaPlayer Error" reason:[NSString stringWithFormat:@"Cannot find item URL at index %li", (unsigned long)index] userInfo:nil];
@@ -918,7 +918,6 @@ static dispatch_once_t onceToken;
     
     [self.audioPlayer pause];
     self.delegate = nil;
-    self.datasource = nil;
     self.audioPlayer = nil;
     
     onceToken = 0;

@@ -55,11 +55,6 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerReadyToPlay) {
 - (void)hysteriaPlayerItemFailedToPlayEndTime:(AVPlayerItem *)item error:(NSError *)error;
 - (void)hysteriaPlayerItemPlaybackStall:(AVPlayerItem *)item;
 
-@end
-
-@protocol HysteriaPlayerDataSource <NSObject>
-
-@optional
 
 /**
  *  Asks the data source to return the number of items that HysteriaPlayer would play.
@@ -115,7 +110,6 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerShuffleMode) {
 
 @property (nonatomic, strong) AVQueuePlayer *audioPlayer;
 @property (nonatomic, weak) id<HysteriaPlayerDelegate> delegate;
-@property (nonatomic, weak) id<HysteriaPlayerDataSource> datasource;
 @property (nonatomic) NSInteger itemsCount;
 @property (nonatomic) BOOL disableLogs;
 @property (nonatomic, strong, readonly) NSArray *playerItems;
@@ -129,9 +123,9 @@ typedef NS_ENUM(NSInteger, HysteriaPlayerShuffleMode) {
 - (void)registerHandlerFailed:(Failed)failed DEPRECATED_MSG_ATTRIBUTE("use HysteriaPlayerDelegate instead");
 
 
-- (void)setupSourceGetter:(SourceSyncGetter)itemBlock ItemsCount:(NSInteger) count DEPRECATED_MSG_ATTRIBUTE("use HysteriaPlayerDataSource instead.");
-- (void)asyncSetupSourceGetter:(SourceAsyncGetter)asyncBlock ItemsCount:(NSInteger)count DEPRECATED_MSG_ATTRIBUTE("use HysteriaPlayerDataSource instead.");
-- (void)setItemsCount:(NSInteger)count DEPRECATED_MSG_ATTRIBUTE("use HysteriaPlayerDataSource instead.");
+- (void)setupSourceGetter:(SourceSyncGetter)itemBlock ItemsCount:(NSInteger) count DEPRECATED_MSG_ATTRIBUTE("use HysteriaPlayerDelegate instead.");
+- (void)asyncSetupSourceGetter:(SourceAsyncGetter)asyncBlock ItemsCount:(NSInteger)count DEPRECATED_MSG_ATTRIBUTE("use HysteriaPlayerDelegate instead.");
+- (void)setItemsCount:(NSInteger)count DEPRECATED_MSG_ATTRIBUTE("use HysteriaPlayerDelegate instead.");
 
 /**
  *   This method is necessary if you implement hysteriaPlayerAsyncSetUrlForItemAtIndex:preBuffer: delegate method,

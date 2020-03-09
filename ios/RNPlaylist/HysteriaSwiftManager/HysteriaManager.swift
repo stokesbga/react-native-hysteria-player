@@ -56,7 +56,6 @@ class HysteriaManager: NSObject {
   // Init
   func initHysteriaPlayer() {
     hysteriaPlayer?.delegate = self;
-    hysteriaPlayer?.datasource = self;
     hysteriaPlayer?.enableMemoryCached(false)
     enableCommandCenter()
   }
@@ -405,9 +404,7 @@ extension HysteriaManager {
   }
 }
 
-
-// MARK: - HysteriaPlayerDataSource
-extension HysteriaManager: HysteriaPlayerDataSource {
+extension HysteriaManager: HysteriaPlayerDelegate {
   func hysteriaPlayerNumberOfItems() -> Int {
     return queue.totalTracks()
   }
@@ -448,12 +445,7 @@ extension HysteriaManager: HysteriaPlayerDataSource {
       playlistService?.dispatchTracksAboutToExpire([track], indexes: [index])
     }
   }
-}
-
-
-// MARK: - HysteriaPlayerDelegate
-extension HysteriaManager: HysteriaPlayerDelegate {
-
+  
   func hysteriaPlayerWillChanged(at index: Int) {
     if logs {print("• player will changed :atindex >> \(index)")}
     playlistService?.dispatchTrackWillChange(index)
