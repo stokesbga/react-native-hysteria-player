@@ -48,7 +48,7 @@ export default class App extends Component<{}> {
 
   async componentDidMount() {
     Playlist.setup({
-      enableTrackUrlCallbacks: false,
+      enableTrackUrlCallbacks: true,
       emptyTrackTitle: "No track selected",
       emptyArtistTitle: "Press any card to start listening",
       enableCache: false,
@@ -84,10 +84,10 @@ export default class App extends Component<{}> {
     })
 
     // Uncomment to replace all audio
-    // PlaylistEventEmitter.addListener(EventTypes.onAttemptLoadNextTrack, track => {
-    //   console.log('TRACK ATTEMPT LOAD', track)
-    //   Playlist.setupTrackURL("https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3", 0)
-    // })
+    PlaylistEventEmitter.addListener(EventTypes.onAttemptLoadNextTrack, ({ track: { custom: t }, index }) => {
+      console.log('TRACK ATTEMPT LOAD', index, t)
+      Playlist.setupTrackURL("https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3", index)
+    })
 
     PlaylistEventEmitter.addListener(EventTypes.onTrackLoadFailed, idx => {
       console.log("TRACK ERROR", idx)
@@ -113,7 +113,7 @@ export default class App extends Component<{}> {
           </View>
           <View style={{ flex: 1 }}>
             <PlaybarSlider
-              hasControl={false}
+              hasControl={true}
               thumbRadius={20}
               trackHeightEnabled={5}
               trackHeightDisabled={3}

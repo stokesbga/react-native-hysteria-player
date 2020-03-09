@@ -6,14 +6,16 @@ const formatTrack = t => ({
   artwork: t.album.cover_big,
   album: t.album.title,
   artist: t.artist.name,
+  expires: new Date(new Date().getTime() + (2 * 60 * 1000)),
   custom: {
+    ...t,
     foo: "any extra data here",
     bar: ["a", "b", "c"]
   }
 })
 
 let list1 = tracklistJSON.tracks.data.slice(1, 3).map(t => formatTrack(t))
-const list2 = tracklistJSON.tracks.data.slice(4, 6).map(t => formatTrack(t))
+const list2 = tracklistJSON.tracks.data.slice(4, 10).map(t => formatTrack(t))
 
 list1[1].url = "https://ioasefoisef.com/sjisoef"
 
