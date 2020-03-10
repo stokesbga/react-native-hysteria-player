@@ -74,6 +74,7 @@ extension RNPlaylist {
     var queue = [PlayerTrack]()
     for track in tracks {
       let trackUrl = track["url"] as? String ?? ""
+      guard let trackId = track["id"] as? String else { return }
       guard let trackTitle = track["title"] as? String else { return }
       guard let trackArtwork = track["artwork"] as? String else { return }
       guard let trackAlbum = track["album"] as? String else { return }
@@ -81,7 +82,7 @@ extension RNPlaylist {
       let trackExpirationTime = RCTConvert.nsDate(track["expires"]) ?? Date.distantFuture
       let trackCustom = track["custom"] as? NSDictionary ?? [:]
         
-      let playerTrack = PlayerTrack(url: trackUrl, name: trackTitle, image: trackArtwork, album: trackAlbum, artist: trackArtist, expires: trackExpirationTime, custom: trackCustom)
+      let playerTrack = PlayerTrack(id: trackId, url: trackUrl, name: trackTitle, image: trackArtwork, album: trackAlbum, artist: trackArtist, expires: trackExpirationTime, custom: trackCustom)
       queue.append(playerTrack)
     }
     

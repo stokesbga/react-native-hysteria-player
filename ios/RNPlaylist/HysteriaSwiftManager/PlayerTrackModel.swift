@@ -14,6 +14,7 @@ enum TrackType {
 }
 
 public struct PlayerTrack {
+  public let id: String!
   public let url: String!
   public let name: String?
   public let image: String?
@@ -62,7 +63,8 @@ public struct PlayerTrack {
     }
   }
   
-  public init(url: String, name: String? = nil, image: String? = nil, album: String? = nil, artist: String? = nil, expires: Date, custom: NSDictionary?) {
+  public init(id: String, url: String, name: String, image: String, album: String, artist: String, expires: Date, custom: NSDictionary?) {
+    self.id = id
     self.url = url
     self.name = name
     self.image = image

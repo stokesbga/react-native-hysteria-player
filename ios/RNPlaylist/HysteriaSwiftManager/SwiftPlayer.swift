@@ -166,22 +166,27 @@ open class SwiftPlayer {
     return HysteriaManager.sharedInstance.queue.totalTracks()
   }
   
+  /// Total tracks in previous playlist
+  public static func totalPrevTracks() -> Int {
+    return HysteriaManager.sharedInstance.queue.totalPrevTracks()
+  }
+  
   /// Tracks in main queue
   public static func mainTracks() -> [PlayerTrack] {
-    return HysteriaManager.sharedInstance.queue.mainQueue
+    return HysteriaManager.sharedInstance.queue.main
   }
   
   /// Tracks without playing track in next queue
   public static func nextTracks() -> [PlayerTrack] {
     if let index = SwiftPlayer.currentTrackIndex() {
       if SwiftPlayer.trackAtIndex(index).origin == TrackType.next {
-        var pop = HysteriaManager.sharedInstance.queue.nextQueue
+        var pop = HysteriaManager.sharedInstance.queue.next
         pop.remove(at: 0)
         return pop
       }
     }
     
-    return HysteriaManager.sharedInstance.queue.nextQueue
+    return HysteriaManager.sharedInstance.queue.next
   }
   
   /// All tracks by index 

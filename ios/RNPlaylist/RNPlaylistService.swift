@@ -135,10 +135,10 @@ class PlaylistService: RCTEventEmitter {
     PlaylistService.shared?.sendEvent(withName: "onPlayerStall", body: nil)
   }
   public func dispatchQueueUpdate(_ queue: PlayerQueue) {
-    if (queue.allTracks.count == 0 && PlaylistService.isQueueReady) {
+    if (queue.main.count == 0 && PlaylistService.isQueueReady) {
       PlaylistService.isQueueReady = false
       NotificationCenter.default.post(name: .onQueueStateChange, object: false)
-    } else if (queue.allTracks.count > 0 && !PlaylistService.isQueueReady) {
+    } else if (queue.main.count > 0 && !PlaylistService.isQueueReady) {
       PlaylistService.isQueueReady = true
       NotificationCenter.default.post(name: .onQueueStateChange, object: true)
     }

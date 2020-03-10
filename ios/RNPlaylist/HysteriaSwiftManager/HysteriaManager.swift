@@ -234,8 +234,9 @@ extension HysteriaManager {
 
   func previous() {
     if let index = currentIndex() {
-      queue.reorderQueuePrevious(index - 1, reorderHysteria: reorderHysteryaQueue())
+      queue.reorderQueuePrevious(index - 1, reorderHysteria: reorderHysteriaQueue())
       hysteriaPlayer?.playPrevious()
+       updateCount()
     }
   }
 
@@ -313,7 +314,9 @@ extension HysteriaManager {
       nTrack.position = index
       nPlaylist.append(nTrack)
     }
-    queue.mainQueue = nPlaylist
+    addHistoryTracks(queue.main)
+    print("History Tracks", queue.main.count, queue.previous.count)
+    queue.main = nPlaylist
   }
 
   func addPlayNext(_ track: PlayerTrack) {
@@ -321,18 +324,36 @@ extension HysteriaManager {
     var nTrack = track
     nTrack.origin = TrackType.next
     if let index = currentIndex() {
-      queue.newNextTrack(nTrack, nowIndex: index)
+      queue.addUpNextTrack(nTrack, nowIndex: index)
       updateCount()
     }
   }
 
   fileprivate func addHistoryTrack(_ track: PlayerTrack) {
-    queue.history.append(track)
+    var history = queue.previous.filter({ track.id != $0.id })
+    queue.previous = history
+    queue.previous.append(track)
+  }
+  
+  fileprivate func addHistoryTracks(_ tracks: [PlayerTrack]) {
+    let newIds = tracks.map({ $0.id })
+    var history = queue.previous.filter({ !newIds.contains($0.id) })
+    history += tracks
+    queue.previous = history
+  }
+  
+  fileprivate func removeHistoryTrackAtIndex(_ index: Int) {
+    queue.previous = queue.previous.enumerated().filter({ (arg) -> Bool in
+        let (tidx, element) = arg
+        return tidx != index }).map({ $1 })
+    queue.main = queue.main.enumerated().filter({ (arg) -> Bool in
+        let (tidx, element) = arg
+        return tidx != index }).map({ $1 })
   }
 
   func playMainAtIndex(_ index: Int) {
     if let qIndex = queue.indexToPlayAt(index) {
-      if queue.nextQueue.count > 0 {
+      if queue.next.count > 0 {
         lastIndexClicked = currentIndex()!
       }
       fetchAndPlayAtIndex(qIndex)
@@ -345,13 +366,13 @@ extension HysteriaManager {
       next()
       return
     }
-    if let qIndex = queue.indexToPlayNextAt(index, nowIndex: currentIndex()!) {
+    if let qIndex = queue.skipToPlayAtIndex(index, nowIndex: currentIndex()!) {
       updateCount()
       fetchAndPlayAtIndex(qIndex)
     }
   }
 
-  fileprivate func reorderHysteryaQueue() -> (_ from: Int, _ to: Int) -> Void {
+  fileprivate func reorderHysteriaQueue() -> (_ from: Int, _ to: Int) -> Void {
     let closure: (_ from: Int, _ to: Int) -> Void = { from, to in
       self.hysteriaPlayer!.moveItem(from: from, to: to)
     }
@@ -366,7 +387,7 @@ extension HysteriaManager {
   public func currentPlayerTrack() -> PlayerTrack? {
     if let index: NSNumber = hysteriaPlayer?.getHysteriaIndex(hysteriaPlayer?.getCurrentItem()) {
       let track = queue.trackAtIndex(Int(index))
-      addHistoryTrack(track)
+//      addHistoryTrack(track)
       return track
     }
     return nil
@@ -467,7 +488,7 @@ extension HysteriaManager: HysteriaPlayerDelegate {
     playlistService?.dispatchPlayerReachedEnd()
     
     pause()
-    let lastTrack = queue.history.popLast()
+    let lastTrack = queue.previous.popLast()
     guard let lastIdx = lastTrack?.position! else { return }
     fetchAndPlayAtIndex(lastIdx)
   }
@@ -498,8 +519,7 @@ extension HysteriaManager: HysteriaPlayerDelegate {
   
   func hysteriaPlayerTrackDidFail(at index: Int, error: Error?) {
     if logs {print("• player did failed at track", index)}
-    //  next()
-  
+    removeHistoryTrackAtIndex(index)
     playlistService?.dispatchTrackLoadFailed(error, index: index)
   }
 

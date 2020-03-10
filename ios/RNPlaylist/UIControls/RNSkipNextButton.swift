@@ -87,7 +87,7 @@ class RNSkipNextButtonView: UIView {
   // Track Change Observer
   @objc private func onTrackChange(_ notification: Notification) {
     DispatchQueue.main.async {
-      guard let track = notification.object as? [String: AnyObject] else { return }
+      guard let track = notification.object as? PlayerTrack else { return }
       let idx = SwiftPlayer.currentTrackIndex()
       let total = SwiftPlayer.totalTracks()
       if (idx == (total-1) || total == 0) {

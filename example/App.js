@@ -52,22 +52,11 @@ export default class App extends Component<{}> {
       emptyTrackTitle: "No track selected",
       emptyArtistTitle: "Press any card to start listening",
       enableCache: false,
-      enableLogs: true,
+      enableLogs: false,
       enableEvents: [
-        "onTrackPreloaded",
-        "onTrackWillChange",
         "onTracksAboutToExpire",
         "onTrackChange",
-        "onTrackPlayReady",
-        "onTrackPositionChange",
-        "onTrackDurationChange",
-        "onPlayerStateChange",
-        "onPlayerReachedEnd",
-        "onPlayerReady",
-        "onPlayerStall",
-        "onQueueUpdate",
-        "onTrackLoadFailed",
-        "onPlayerFailed"
+        "onTrackLoadFailed"
       ]
     })
 
@@ -79,10 +68,6 @@ export default class App extends Component<{}> {
       this.setState({ trackTitle: track?.title })
     })
 
-    PlaylistEventEmitter.addListener(EventTypes.onTrackWillChange, idx => {
-      console.log("TRACK CHANGE", idx)
-    })
-
     // Uncomment to replace all audio
     PlaylistEventEmitter.addListener(EventTypes.onTracksAboutToExpire, ({ tracks, indexes }) => {
       console.log('TRACKS ABOUT TO EXPIRE', indexes, tracks)
@@ -91,7 +76,6 @@ export default class App extends Component<{}> {
 
     PlaylistEventEmitter.addListener(EventTypes.onTrackLoadFailed, idx => {
       console.log("TRACK ERROR", idx)
-      Playlist.addTracks(Tracks[2])
     })
   }
 

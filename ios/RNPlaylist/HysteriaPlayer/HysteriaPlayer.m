@@ -763,6 +763,7 @@ static dispatch_once_t onceToken;
         if (self.audioPlayer.currentItem.status == AVPlayerItemStatusFailed) {
             
             if ([self.delegate respondsToSelector:@selector(hysteriaPlayerTrackDidFailAtIndex:error:)]) {
+                [self removeItemAtIndex:self.lastItemIndex];
                 [self.delegate hysteriaPlayerTrackDidFailAtIndex:self.lastItemIndex error:self.audioPlayer.currentItem.error];
             }
         } else if (self.audioPlayer.currentItem.status == AVPlayerItemStatusReadyToPlay) {
