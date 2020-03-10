@@ -67,12 +67,13 @@ class RNSkipPrevButtonView: UIView {
     } else {
       if (PlaylistService.isQueueReady) {
         let idx = SwiftPlayer.currentTrackIndex()
-        if (idx == 0) {
-          button.isEnabled = false
-          button.alpha = self.disabledOpacity;
+        let total = SwiftPlayer.totalPrevTracks()
+        if (total == 0 && idx == 0) {
+          self.button.isEnabled = false
+          self.button.alpha = self.disabledOpacity;
         } else {
-          button.isEnabled = true
-          button.alpha = 1.0;
+          self.button.isEnabled = true
+          self.button.alpha = 1.0;
         }
       } else {
         button.isEnabled = false

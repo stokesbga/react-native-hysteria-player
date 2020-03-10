@@ -314,8 +314,9 @@ extension HysteriaManager {
       nTrack.position = index
       nPlaylist.append(nTrack)
     }
-    addHistoryTracks(queue.main)
-    print("History Tracks", queue.main.count, queue.previous.count)
+    let newPlaylistIds = nPlaylist.map({ $0.id })
+    let previousMainQueue = queue.main.filter({ !newPlaylistIds.contains($0.id) })
+    addHistoryTracks(previousMainQueue)
     queue.main = nPlaylist
   }
 
