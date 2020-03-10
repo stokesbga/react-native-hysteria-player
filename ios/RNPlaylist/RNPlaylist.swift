@@ -79,7 +79,7 @@ extension RNPlaylist {
       guard let trackArtwork = track["artwork"] as? String else { return }
       guard let trackAlbum = track["album"] as? String else { return }
       guard let trackArtist = track["artist"] as? String else { return }
-      let trackExpirationTime = RCTConvert.nsDate(track["expires"]) ?? Date.distantFuture
+      let trackExpirationTime = RCTConvert.nsDate(track["expires"] as? String) ?? Date.distantFuture
       let trackCustom = track["custom"] as? NSDictionary ?? [:]
         
       let playerTrack = PlayerTrack(id: trackId, url: trackUrl, name: trackTitle, image: trackArtwork, album: trackAlbum, artist: trackArtist, expires: trackExpirationTime, custom: trackCustom)
@@ -97,7 +97,7 @@ extension RNPlaylist {
   @objc(getCurrentTrack:rejecter:)
   public func getCurrentTrack(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
     let track = SwiftPlayer.currentPlayerTrack()
-    resolve(track)
+    resolve(track?.dictionary)
   }
   
   @objc(togglePlay:rejecter:)

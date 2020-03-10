@@ -43,7 +43,8 @@ export default class App extends Component<{}> {
   state = {
     pidx: 0,
     color1: "teal",
-    trackTitle: "N/A"
+    trackTitle: "N/A",
+    currentTrackTitle: "None"
   }
 
   async componentDidMount() {
@@ -65,7 +66,7 @@ export default class App extends Component<{}> {
     // Add Listener
     PlaylistEventEmitter.addListener(EventTypes.onTrackChange, track => {
       console.log("track", track)
-      this.setState({ trackTitle: track?.title })
+      this.setState({ trackTitle: track?.name })
     })
 
     // Uncomment to replace all audio
@@ -84,6 +85,12 @@ export default class App extends Component<{}> {
     if (++pidx > 2) pidx = 0
     this.setState({ pidx })
     Playlist.addTracks(Tracks[pidx])
+  }
+
+  onPressGetCurrentTrack = async () => {
+    let track = await Playlist.getCurrentTrack()
+    if(!track) { return }
+    this.setState({ currentTrackTitle: track?.name })
   }
 
   render() {
@@ -190,7 +197,7 @@ export default class App extends Component<{}> {
                 style={{
                   fontWeight: "600",
                   textAlign: "center",
-                  marginTop: 40
+                  marginTop: 50
                 }}>
                 Current track title from PlaylistEventEmitter:
               </Text>
@@ -198,22 +205,41 @@ export default class App extends Component<{}> {
                 {this.state.trackTitle}
               </Text>
 
-              <TouchableOpacity onPress={this.onPressLoadNextPlaylist}>
-                <View
-                  style={{
-                    height: 50,
-                    paddingHorizontal: 16,
-                    marginTop: 20,
-                    backgroundColor: "#e8e8e8",
-                    alignItems: "center",
-                    justifyContent: "center"
-                  }}>
-                  <Text style={{ fontWeight: "700" }}>Load next playlist</Text>
-                  <Text style={{ fontSize: 11, marginTop: 3 }}>
-                    Current: playlist {this.state.pidx}
-                  </Text>
-                </View>
-              </TouchableOpacity>
+              <View style={{ width: '100%', marginTop: 10, paddingHorizontal: 50, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <TouchableOpacity onPress={this.onPressLoadNextPlaylist}>
+                  <View
+                    style={{
+                      height: 50,
+                      paddingHorizontal: 16,
+                      marginTop: 20,
+                      backgroundColor: "#e8e8e8",
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}>
+                    <Text style={{ fontWeight: "700" }}>Load next playlist</Text>
+                    <Text style={{ fontSize: 11, marginTop: 3 }}>
+                      Current: playlist {this.state.pidx}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.onPressGetCurrentTrack}>
+                  <View
+                    style={{
+                      height: 50,
+                      paddingHorizontal: 16,
+                      marginTop: 20,
+                      backgroundColor: "#dfdfdf",
+                      alignItems: "center",
+                      justifyContent: "center"
+                    }}>
+                    <Text style={{ fontWeight: "700" }}>Get current track</Text>
+                    <Text numberOfLines={1} style={{ fontSize: 11, marginTop: 3, width: 120, textAlign: 'center' }}>
+                      {this.state.currentTrackTitle}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>

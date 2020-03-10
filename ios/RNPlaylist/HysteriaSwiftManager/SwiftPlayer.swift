@@ -20,6 +20,7 @@ open class SwiftPlayer {
   
   /// Teardown Hysteria Player
   public static func teardown() {
+    HysteriaManager.sharedInstance.pause()
     HysteriaManager.sharedInstance.teardownHysteriaPlayer()
   }
   
