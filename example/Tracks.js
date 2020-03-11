@@ -8,7 +8,7 @@ const formatTrack = t => ({
   artwork: t.album.cover_big,
   album: t.album.title,
   artist: t.artist.name,
-  expires: new Date(new Date().getTime() + (2 * 60 * 1000)),
+  expires: new Date(new Date().getTime() + (1 * 20 * 1000)),
   custom: {
     ...t,
     foo: "any extra data here",

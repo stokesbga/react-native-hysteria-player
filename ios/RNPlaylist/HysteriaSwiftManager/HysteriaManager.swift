@@ -464,7 +464,7 @@ extension HysteriaManager: HysteriaPlayerDelegate {
     if(!enableTrackUrlCallbacks || track.expires > Date().addingTimeInterval(TimeInterval(30.0))) {
       hysteriaPlayer?.setupPlayerItem(with: URL(string: track.url)!, index: index)
     } else {
-      playlistService?.dispatchTracksAboutToExpire([track], indexes: [index])
+      playlistService?.dispatchTracksAboutToExpire(queue.main, index: index)
     }
   }
   

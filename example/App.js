@@ -53,7 +53,7 @@ export default class App extends Component<{}> {
       emptyTrackTitle: "No track selected",
       emptyArtistTitle: "Press any card to start listening",
       enableCache: false,
-      enableLogs: false,
+      enableLogs: true,
       enableEvents: [
         "onTracksAboutToExpire",
         "onTrackChange",
@@ -65,13 +65,13 @@ export default class App extends Component<{}> {
 
     // Add Listener
     PlaylistEventEmitter.addListener(EventTypes.onTrackChange, track => {
-      console.log("track", track)
+      // console.log("track", track)
       this.setState({ trackTitle: track?.name })
     })
 
     // Uncomment to replace all audio
-    PlaylistEventEmitter.addListener(EventTypes.onTracksAboutToExpire, ({ tracks, indexes }) => {
-      console.log('TRACKS ABOUT TO EXPIRE', indexes, tracks)
+    PlaylistEventEmitter.addListener(EventTypes.onTracksAboutToExpire, (tracks) => {
+      console.log('TRACKS ABOUT TO EXPIRE', tracks)
       Playlist.setupTrackURL("https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3", indexes[0])
     })
 

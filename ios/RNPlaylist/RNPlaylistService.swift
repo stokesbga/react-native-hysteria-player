@@ -83,9 +83,9 @@ class PlaylistService: RCTEventEmitter {
     guard isBridgeReady("onTrackWillChange") else { return }
     PlaylistService.shared?.sendEvent(withName: "onTrackWillChange", body: index)
   }
-  public func dispatchTracksAboutToExpire(_ tracks: [PlayerTrack]?, indexes: [Int]?) {
+  public func dispatchTracksAboutToExpire(_ tracks: [PlayerTrack]?, index: Int?) {
     guard isBridgeReady("onTracksAboutToExpire") else { return }
-    PlaylistService.shared?.sendEvent(withName: "onTracksAboutToExpire", body: [ "indexes": indexes, "tracks": tracks ])
+    PlaylistService.shared?.sendEvent(withName: "onTracksAboutToExpire", body: ["tracks": tracks, "index": index ])
   }
   public func dispatchTrackChange(_ track: PlayerTrack?) {
     NotificationCenter.default.post(name: .onTrackChange, object: track)
