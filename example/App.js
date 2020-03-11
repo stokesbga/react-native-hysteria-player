@@ -65,7 +65,7 @@ export default class App extends Component<{}> {
 
     // Add Listener
     PlaylistEventEmitter.addListener(EventTypes.onTrackChange, track => {
-      // console.log("track", track)
+      console.log("track", track)
       this.setState({ trackTitle: track?.name })
     })
 

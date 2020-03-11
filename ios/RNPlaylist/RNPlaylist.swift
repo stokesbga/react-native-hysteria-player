@@ -89,9 +89,9 @@ extension RNPlaylist {
     SwiftPlayer.setPlaylist(queue).playAll()
   }
 
-  @objc(setupTrackURL:index:)
-  public func setupTrackURL(_ url: String, index: NSNumber) {
-    SwiftPlayer.setupTrack(url, index: (index as? Int)!)
+  @objc(refreshTrackURLs:)
+  public func refreshTrackURLs(_ urls: [String]) {
+    SwiftPlayer.setTrackURLs(urls)
   }
   
   @objc(getCurrentTrack:rejecter:)

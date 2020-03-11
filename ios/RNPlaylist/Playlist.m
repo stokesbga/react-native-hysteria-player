@@ -24,7 +24,7 @@
     RCT_EXTERN_METHOD(getCurrentTrack:(RCTPromiseResolveBlock)resolve
                       rejecter:(RCTPromiseRejectBlock)reject);
 
-    RCT_EXTERN_METHOD(setupTrackURL:(NSString)url index:(nonnull NSNumber *)index);
+    RCT_EXTERN_METHOD(refreshTrackURLs:(NSArray)urls);
 
     RCT_EXTERN_METHOD(play:(RCTPromiseResolveBlock)resolve
                      rejecter:(RCTPromiseRejectBlock)reject);

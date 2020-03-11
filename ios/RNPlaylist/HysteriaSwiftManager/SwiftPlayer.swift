@@ -55,8 +55,9 @@ open class SwiftPlayer {
     HysteriaManager.sharedInstance.playAllTracks()
   }
   
-  public static func setupTrack(_ url: String, index: Int) {
-    HysteriaManager.sharedInstance.setupPlayerItem(URL(string: url)!, index: index)
+  public static func setTrackURLs(_ urls: [String]) {
+    let nsUrls = urls.map({ URL(string:$0)! })
+    HysteriaManager.sharedInstance.setupPlayerItems(nsUrls)
   }
   
   public static func playToggle() {

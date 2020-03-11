@@ -421,8 +421,11 @@ extension HysteriaManager {
     return MPVolumeView(frame: view.bounds)
   }
   
-  func setupPlayerItem(_ url: URL, index: Int ) {
-    hysteriaPlayer?.setupPlayerItem(with: url, index: index)
+  func setupPlayerItems(_ urls: [URL] ) {
+    urls.enumerated().map({ (arg) -> Void in
+      let (idx, url) = arg
+      hysteriaPlayer?.setupPlayerItem(with: url, index: idx)
+    })
   }
 }
 
