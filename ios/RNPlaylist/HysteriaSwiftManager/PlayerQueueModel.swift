@@ -11,7 +11,6 @@ import Foundation
 struct PlayerQueue {
   var playlistService = PlaylistService.shared
   
-  var previous = [PlayerTrack]()
   var next = [PlayerTrack]()
   var main = [PlayerTrack]() {
     didSet {
@@ -22,10 +21,6 @@ struct PlayerQueue {
   ///////////////////////////////////////////////
   func totalTracks() -> Int {
     return main.count
-  }
-  
-  func totalPrevTracks() -> Int {
-    return previous.count
   }
   
   ///////////////////////////////////////////////
@@ -101,37 +96,6 @@ struct PlayerQueue {
     
     playlistService?.dispatchQueueUpdate(self)
     return indexOnQueue - totalFound
-  }
-  
-  ///////////////////////////////////////////////
-  mutating func reorderQueuePrevious(_ nowIndex: Int, reorderHysteria: (_ from: Int, _ to: Int) -> Void) {
-    // Shuffle off
-    if nowIndex <= 0 {
-      if (previous.count == 0) { return }
-      
-      guard let previousTrack = previous.popLast() else { return }
-      for i in (0...(main.count-1)).reversed() {
-        reorderHysteria(i, i+1)
-      }
-      main.insert(previousTrack, at: 0)
-    }
-  
-    // Shuffle On ( Desperately needs rewrite dear lord )
-    var totalNext = 0
-    for nTrack in main where nTrack.origin == TrackType.next {
-      totalNext += 1
-    }
-
-    while totalNext != 0 {
-      for (index, track) in main.reversed().enumerated() where track.origin == TrackType.next {
-        main.moveItem(fromIndex: ((main.count - 1) - index), toIndex: nowIndex + 1)
-        reorderHysteria(((main.count - 1) - index), nowIndex + 1)
-        totalNext -= 1
-        break
-      }
-    }
-    
-    playlistService?.dispatchQueueUpdate(self)
   }
   
   ///////////////////////////////////////////////

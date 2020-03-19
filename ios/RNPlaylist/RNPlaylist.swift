@@ -86,7 +86,7 @@ extension RNPlaylist {
       queue.append(playerTrack)
     }
     
-    SwiftPlayer.setPlaylist(queue).playAll()
+    SwiftPlayer.setPlaylist(queue)
   }
 
   @objc(refreshTrackURLs:)

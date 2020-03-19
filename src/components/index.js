@@ -5,6 +5,7 @@ import SkipPrevComponent from "./SkipPrev"
 import TrackDurationComponent from "./TrackDuration"
 import TrackProgressComponent from "./TrackProgress"
 import TrackAlbumArtComponent from "./TrackAlbumArt"
+import TrackAlbumArtSwiperComponent from "./TrackAlbumArtSwiper"
 import TrackArtistComponent from "./TrackArtist"
 import TrackTitleComponent from "./TrackTitle"
 
@@ -15,5 +16,6 @@ export const SkipPrev = SkipPrevComponent
 export const TrackDuration = TrackDurationComponent
 export const TrackProgress = TrackProgressComponent
 export const TrackAlbumArt = TrackAlbumArtComponent
+export const TrackAlbumArtSwiper = TrackAlbumArtSwiperComponent
 export const TrackArtist = TrackArtistComponent
 export const TrackTitle = TrackTitleComponent

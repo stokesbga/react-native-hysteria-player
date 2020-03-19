@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MediaPlayer
 
 @objc(RNTrackAlbumArt)
 class RNTrackAlbumArt : RCTViewManager {
@@ -33,7 +32,7 @@ class RNTrackAlbumArtView: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-		
+        
     addSubview(imageView)
     
     // Notification Subscriber

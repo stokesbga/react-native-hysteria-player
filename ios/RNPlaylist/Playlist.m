@@ -81,6 +81,9 @@
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistAlbumArt, RNTrackAlbumArt, RCTViewManager)
 @end
 
+@interface RCT_EXTERN_REMAP_MODULE(RNPlaylistAlbumArtSwiper, RNTrackAlbumArtSwiper, RCTViewManager)
+@end
+
 @interface RCT_EXTERN_REMAP_MODULE(RNPlaylistTimerDuration, RNTimerDuration, RCTViewManager)
     RCT_EXPORT_VIEW_PROPERTY(fontFamily, NSString);
     RCT_EXPORT_VIEW_PROPERTY(fontSize, NSNumber);

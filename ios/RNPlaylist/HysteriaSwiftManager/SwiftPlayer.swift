@@ -158,6 +158,11 @@ open class SwiftPlayer {
     return self
   }
   
+  /// Get playlist queue
+  public static func getPlaylist() -> [PlayerTrack] {
+    return HysteriaManager.sharedInstance.getPlayerQueue()
+  }
+  
   /// Add new track in next queue
   public static func addNextTrack(_ track: PlayerTrack) {
     HysteriaManager.sharedInstance.addPlayNext(track)
@@ -170,7 +175,8 @@ open class SwiftPlayer {
   
   /// Total tracks in previous playlist
   public static func totalPrevTracks() -> Int {
-    return HysteriaManager.sharedInstance.queue.totalPrevTracks()
+    let idx = HysteriaManager.sharedInstance.currentIndex()
+    return idx ?? 0
   }
   
   /// Tracks in main queue

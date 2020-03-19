@@ -25,6 +25,7 @@ import Playlist, {
 
 import Tracks from "./Tracks"
 
+const REFRESHED_URL_PLACEHOLDER = "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3"
 const { width: deviceWidth, height: deviceHeight } = Dimensions.get("window")
 
 const {
@@ -35,6 +36,7 @@ const {
   TrackProgress,
   TrackDuration,
   TrackAlbumArt,
+  TrackAlbumArtSwiper,
   TrackArtist,
   TrackTitle
 } = PlaylistComponent
@@ -49,7 +51,7 @@ export default class App extends Component<{}> {
 
   async componentDidMount() {
     Playlist.setup({
-      enableTrackUrlCallbacks: true,
+      enableTrackUrlCallbacks: false,
       emptyTrackTitle: "No track selected",
       emptyArtistTitle: "Press any card to start listening",
       enableCache: false,
@@ -70,10 +72,11 @@ export default class App extends Component<{}> {
     })
 
     // Uncomment to replace all audio
-    PlaylistEventEmitter.addListener(EventTypes.onTracksAboutToExpire, (tracks) => {
-      console.log('TRACKS ABOUT TO EXPIRE', tracks)
-      Playlist.setupTrackURL("https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_5MG.mp3", indexes[0])
-    })
+    // PlaylistEventEmitter.addListener(EventTypes.onTracksAboutToExpire, ({ tracks }) => {
+    //   console.log('TRACKS ABOUT TO EXPIRE', tracks)
+    //   const refreshedUrls = tracks.map(t => REFRESHED_URL_PLACEHOLDER)
+    //   Playlist.refreshTrackURLs(refreshedUrls)
+    // })
 
     PlaylistEventEmitter.addListener(EventTypes.onTrackLoadFailed, idx => {
       console.log("TRACK ERROR", idx)
@@ -97,10 +100,11 @@ export default class App extends Component<{}> {
     return (
       <View style={styles.container}>
         <View style={{ flex: 1, width: "100%" }}>
-          <View style={{ flex: 1, backgroundColor: "#e0e0e0" }}>
-            <TrackAlbumArt
-              style={{ width: deviceHeight / 2, height: deviceHeight / 2 }}
-            />
+          <View style={{ flex: 1, backgroundColor: "#333"}}>
+            <TrackAlbumArtSwiper
+              style={{ width: deviceWidth, height: deviceHeight / 2, marginTop: 20 }} /> 
+            {/* <TrackAlbumArt
+              style={{ width: deviceHeight / 2, height: deviceHeight / 2 }} /> */}
           </View>
           <View style={{ flex: 1 }}>
             <PlaybarSlider

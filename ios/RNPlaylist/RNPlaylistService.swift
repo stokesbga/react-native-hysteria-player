@@ -142,6 +142,7 @@ class PlaylistService: RCTEventEmitter {
       PlaylistService.isQueueReady = true
       NotificationCenter.default.post(name: .onQueueStateChange, object: true)
     }
+    NotificationCenter.default.post(name: .onQueueUpdate, object: queue)
     guard isBridgeReady("onQueueUpdate") else { return }
     PlaylistService.shared?.sendEvent(withName: "onQueueUpdate", body: queue)
   }
@@ -172,6 +173,7 @@ extension Notification.Name {
   static let onPlayerReachedEnd = Notification.Name("onPlayerReachedEnd")
   static let onPlayerReady = Notification.Name("onPlayerReady")
   static let onPlayerStall = Notification.Name("onPlayerStall")
+  static let onQueueUpdate = Notification.Name("onQueueUpdate")
   static let onQueueStateChange = Notification.Name("onQueueStateChange")
   static let onTrackLoadFailed = Notification.Name("onTrackLoadFailed")
   static let onPlayerFailed = Notification.Name("onPlayerFailed")
