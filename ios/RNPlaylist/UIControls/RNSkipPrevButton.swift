@@ -66,15 +66,8 @@ class RNSkipPrevButtonView: UIView {
       // UIView disappear
     } else {
       if (PlaylistService.isQueueReady) {
-        let idx = SwiftPlayer.currentTrackIndex()
-        let total = SwiftPlayer.totalPrevTracks()
-        if (total == 0 && idx == 0) {
-          self.button.isEnabled = false
-          self.button.alpha = self.disabledOpacity;
-        } else {
-          self.button.isEnabled = true
-          self.button.alpha = 1.0;
-        }
+        self.button.isEnabled = true
+        self.button.alpha = 1.0;
       } else {
         button.isEnabled = false
         button.alpha = self.disabledOpacity;
@@ -86,15 +79,8 @@ class RNSkipPrevButtonView: UIView {
   @objc private func onTrackChange(_ notification: Notification) {
     DispatchQueue.main.async {
       guard let track = notification.object as? PlayerTrack else { return }
-      let idx = SwiftPlayer.currentTrackIndex()
-      let total = SwiftPlayer.totalPrevTracks()
-      if (total == 0 && idx == 0) {
-        self.button.isEnabled = false
-        self.button.alpha = self.disabledOpacity;
-      } else {
-        self.button.isEnabled = true
-        self.button.alpha = 1.0;
-      }
+      self.button.isEnabled = true
+      self.button.alpha = 1.0;
     }
   }
   
@@ -109,7 +95,13 @@ class RNSkipPrevButtonView: UIView {
   
   // On Press
   @objc private func onPress(sender: UIButton!) {
-    SwiftPlayer.previous()
+    let pos = SwiftPlayer.getPosition()
+    let prevTracks = SwiftPlayer.totalPrevTracks()
+    if (pos <= 2 && prevTracks > 0) {
+      SwiftPlayer.previous()
+    } else {
+      SwiftPlayer.seekToS(0)
+    }
   }
 
   // Required
