@@ -13,11 +13,24 @@ import com.facebook.react.bridge.JavaScriptModule;
 public class PlaylistPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return Collections.emptyList();
+        return Arrays.<NativeModule>asList(
+            new PlaylistManager(reactContext)
+        );
     }
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        return Arrays.<ViewManager>asList(new PlaylistManager());
+        return Arrays.<ViewManager>asList(
+            new RNPlaybarSlider(),
+            new RNPlayPauseButton(),
+            new RNSkipNextButton(),
+            new RNSkipPrevButton(),
+            new RNTimerDuration(),
+            new RNTimerProgress(),
+            new RNTrackAlbumArt(),
+            new RNTrackAlbumArtSwiper(),
+            new RNTrackArtist(),
+            new RNTrackTitle()
+        );
     }
 }

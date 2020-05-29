@@ -1,26 +1,88 @@
 package com.quadiomedia.RNPlaylist;
 
-import android.view.View;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
 
-import androidx.appcompat.widget.AppCompatCheckBox;
+import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 
-import com.facebook.react.uimanager.SimpleViewManager;
-import com.facebook.react.uimanager.ThemedReactContext;
+public class PlaylistManager extends ReactContextBaseJavaModule {
+    
+    // Config static vars
+    public static String emptyTrackTitle = "None";
+    public static String emptyArtistTitle = "None";
 
-public class PlaylistManager extends SimpleViewManager<View> {
-
-    public static final String REACT_CLASS = "Playlist";
-
-    @Override
-    public String getName() {
-        return REACT_CLASS;
+    public PlaylistManager(ReactApplicationContext reactContext) {
+        super(reactContext);
     }
 
     @Override
-    public View createViewInstance(ThemedReactContext c) {
-        // TODO: Implement some actually useful functionality
-        AppCompatCheckBox cb = new AppCompatCheckBox(c);
-        cb.setChecked(true);
-        return cb;
+    public String getName() {
+        return "RNPlaylist";
+    }
+
+    /** 
+     * API Methods *
+     */ 
+    @ReactMethod
+    public void setup(ReadableMap config) {
+
+    }
+
+    @ReactMethod
+    public void teardown(Promise promise) {
+
+    }
+
+    @ReactMethod
+    public void addTracks(ReadableArray tracks) {
+
+    }
+
+    @ReactMethod
+    public void getCurrentTrack(Promise promise) {
+
+    }
+
+    @ReactMethod
+    public void refreshTrackURLs(ReadableArray urls) {
+
+    }
+
+    @ReactMethod
+    public void play(Promise promise) {
+
+    }
+
+    @ReactMethod
+    public void pause(Promise promise) {
+
+    }
+
+    @ReactMethod
+    public void togglePlay(Promise promise) {
+
+    }
+
+    @ReactMethod
+    public void skipToNext(Promise promise) {
+
+    }
+
+    @ReactMethod
+    public void skipToPrevious(Promise promise) {
+
+    }
+
+    @ReactMethod
+    public void seekTo(Double seconds ) {
+
+    }
+
+    @ReactMethod
+    public void toggleShuffle(Promise promise) {
+
     }
 }
