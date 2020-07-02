@@ -171,21 +171,24 @@ extension HysteriaManager {
     })
     
     // Classic Controls
+    commandCenter.playCommand.isEnabled = true
     commandCenter.playCommand.addTarget (handler: { [unowned self] _ in
       self.play()
       return MPRemoteCommandHandlerStatus.success
     })
 
+    commandCenter.pauseCommand.isEnabled = true
     commandCenter.pauseCommand.addTarget (handler: { [unowned self]  _ in
       self.pause()
       return MPRemoteCommandHandlerStatus.success
     })
-
+    commandCenter.nextTrackCommand.isEnabled = true
     commandCenter.nextTrackCommand.addTarget (handler: { [unowned self] _ in
       self.next()
       return MPRemoteCommandHandlerStatus.success
     })
 
+    commandCenter.previousTrackCommand.isEnabled = true
     commandCenter.previousTrackCommand.addTarget (handler: { [unowned self] _ in
       self.previous()
       return MPRemoteCommandHandlerStatus.success
