@@ -186,7 +186,7 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
   - React-jsinspector (0.61.5)
-  - react-native-playlist (1.1.0):
+  - react-native-playlist (1.1.4):
     - AlamofireImage (~> 4.0.0)
     - MarqueeLabel (~> 4.0.2)
     - React
@@ -338,7 +338,7 @@ SPEC CHECKSUMS:
   React-jsi: cb2cd74d7ccf4cffb071a46833613edc79cdf8f7
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
-  react-native-playlist: 9279f41c27062d9a67b2af8093ec0c6768a6a0ba
+  react-native-playlist: 63b39c87e1aba379e57976c1ab3a28a6388de089
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -353,4 +353,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 33f8bbe8a847f46c69cb8a55d4d9f25803b72f53
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3
